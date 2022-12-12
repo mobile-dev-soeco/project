@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Soeco</string>
     <string name="order_number">Order number here</string>
+    <string-array name="user_types">
+        <item>Delivery</item>
+        <item>Fabrication</item>
+        <item>Carpenter</item>
+        <item>Admin</item>
+    </string-array>
 </resources>
