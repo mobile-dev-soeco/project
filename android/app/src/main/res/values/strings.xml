@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Soeco</string>
+    <string name="order_number">Order number here</string>
 </resources>
