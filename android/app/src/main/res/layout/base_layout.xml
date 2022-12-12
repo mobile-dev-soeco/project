@@ -17,7 +17,10 @@
         android:layout_marginBottom="70dp"
         android:background="@color/Green"
 
-        app:srcCompat="@drawable/white_logo_big" />
+        android:scaleType="fitCenter"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        app:srcCompat="@drawable/soeco_white_no_background" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
