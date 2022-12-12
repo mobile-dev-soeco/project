@@ -9,6 +9,7 @@ import androidx.annotation.NonNull
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.MainActivity
+import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.R
 
 internal class DashBoardAdapter(private var rowsList: ArrayList<String>) :
@@ -39,4 +40,11 @@ internal class DashBoardAdapter(private var rowsList: ArrayList<String>) :
     override fun getItemCount(): Int {
         return rowsList.size
     }
+
+    /*fun updateOrder(newlist: List<Order_DB>) {
+        rowsList = newlist
+        notifyDataSetChanged()
+    }
+
+     */
 }

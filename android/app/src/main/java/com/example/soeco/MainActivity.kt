@@ -10,8 +10,8 @@ import com.example.soeco.dashboard.DashBoardFragment
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.base_small_title_layout)
-        //setContentView(R.layout.base_layout)
+        setContentView(R.layout.base_layout)
+        //  setContentView(R.layout.base_layout)
 
         val fragmentManager: FragmentManager = supportFragmentManager
         var fragment = fragmentManager.findFragmentByTag("fragment_dash")
