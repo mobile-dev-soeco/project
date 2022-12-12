@@ -20,7 +20,9 @@
         android:scaleType="fitCenter"
         android:scaleX="0.9"
         android:scaleY="0.9"
-        app:srcCompat="@drawable/white_logo" />
+        app:srcCompat="@drawable/white_logo"
+        tools:ignore="ImageContrastCheck"
+        android:contentDescription="TODO" />
 
 
     <androidx.cardview.widget.CardView
@@ -28,11 +30,9 @@
         android:layout_below="@id/title"
         app:cardCornerRadius="60dp"
         android:layout_marginBottom="-60dp"
+        android:padding="50dp"
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </androidx.cardview.widget.CardView>
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
