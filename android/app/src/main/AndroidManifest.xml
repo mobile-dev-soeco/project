@@ -26,6 +26,8 @@
                 android:value="" />
         </activity>
         <activity android:name=".auth.LoginActivity" />
-        <activity android:name=".admin.AdminActivity" />
+        <activity
+            android:name=".admin.AdminActivity"
+            android:exported="true"/>
     </application>
 </manifest>
