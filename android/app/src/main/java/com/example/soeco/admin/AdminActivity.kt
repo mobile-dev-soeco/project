@@ -66,33 +66,18 @@ class AdminActivity: AppCompatActivity() {
         // Disable the button to avoid user clicks while the function runs.
         createUserButton.isEnabled = false
 
-        val userData = Credentials.customFunction(
-            Document(
-                mapOf(
-                    "email" to email,
-                    "password" to password,
-                    "role" to userType
-                )
-            )
-        )
+        val userData = listOf(email, password, userType)
 
-        // The logic to decide to register new user or login existing user runs in
-        // the database function. loginAsync is used for both.
-        realmAppServices.loginAsync(userData) {
+        val functionsManager = realmAppServices.getFunctions(realmAppServices.currentUser())
+
+        functionsManager.callFunctionAsync("registerUser", userData, String::class.java) {
             if (it.isSuccess){
-                Log.v(TAG(), "User registration successful")
-
-                // Reset the input fields
-                emailInput.setText("")
-                passwordInput.setText("")
-                typeSelector.setSelection(0)
+                Log.v("Authtest", it.get())
             } else {
-                Toast.makeText(baseContext, it.error.message, Toast.LENGTH_LONG).show()
-                Log.e(TAG(), it.error.message.toString())
+                Log.v("Authtest", it.error.message.toString())
             }
-            // Re-enable the button when the function ends
-            createUserButton.isEnabled = true
         }
+        createUserButton.isEnabled = true
     }
 
     private fun onLogout() {
