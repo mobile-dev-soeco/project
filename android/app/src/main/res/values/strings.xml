@@ -1,6 +1,26 @@
 <resources>
     <string name="app_name">Soeco</string>
-    <string name="order_number">Order number here</string>
+
+    <string name="order_date_text">Date:</string>
+    <string name="order_date">01–01–2023</string>
+
+    <string name="order_hours_worked_text">Time:</string>
+    <string name="order_hours_worked">2h</string>
+
+    <string name="order_number_text">Order number:</string>
+    <string name="order_number">23-22-8888</string>
+    <string name="order_name_text">Name:</string>
+    <string name="order_name">Andreas</string>
+    <string name="order_products">Products</string>
+    <string name="order_materials">Materials</string>
+
+    <string name="order_report">Report deviation</string>
+    <string name="view_button">View</string>
+    <string name="modify_button">Modify</string>
+    <string name="report_button">Report</string>
+    <string name="order_overview">Order Overview</string>
+
+
     <string-array name="user_types">
         <item>Delivery</item>
         <item>Fabrication</item>
