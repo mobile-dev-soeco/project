@@ -70,11 +70,25 @@ class AdminActivity: AppCompatActivity() {
 
         val functionsManager = realmAppServices.getFunctions(realmAppServices.currentUser())
 
-        functionsManager.callFunctionAsync("registerUser", userData, String::class.java) {
-            if (it.isSuccess){
-                Log.v("Authtest", it.get())
+        functionsManager.callFunctionAsync("registerUser2", userData, String::class.java) { addUser ->
+            if (addUser.isSuccess){
+                Log.v("User registration", "User was added to database")
+                realmAppServices.emailPassword.registerUserAsync(email, password) { registerUser ->
+                    if (registerUser.isSuccess) {
+                        Log.v("User registration", "User was added to emailPassword auth service.")
+                    } else {
+                        Log.e("User registration", "emailPassword registration failed. Error: ${registerUser.error.message}")
+                        functionsManager.callFunctionAsync("DeleteUser", null, Void::class.java) { deleteUser ->
+                            if (deleteUser.isSuccess) {
+                                Log.v("User registration", "User was deleted from database")
+                            } else {
+                                Log.e("User registration", "User deletion failed. Error: ${deleteUser.error.message}")
+                            }
+                        }
+                    }
+                }
             } else {
-                Log.v("Authtest", it.error.message.toString())
+                Log.v("User registration", "Database registration failed. Error: ${deleteUser.error.message}")
             }
         }
         createUserButton.isEnabled = true
