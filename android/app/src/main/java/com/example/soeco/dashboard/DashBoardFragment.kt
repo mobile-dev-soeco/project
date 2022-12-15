@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+//import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
@@ -15,8 +15,6 @@ import com.example.soeco.Api.MainViewModel
 class DashBoardFragment : Fragment() {
 
    // private val viewmodel: MainViewModel by viewModels()
-
-
 
     private val rowsList = ArrayList<String>()
     private lateinit var customAdapter: DashBoardAdapter

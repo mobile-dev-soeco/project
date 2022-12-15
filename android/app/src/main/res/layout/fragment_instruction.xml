@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"
+        tools:context=".appinfo.InstructionFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/textView_instructionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/app_instruction_title"
+            android:textColor="@color/Green"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView_instructionFor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_instruction_for"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView_instructionAccess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_instruction_access"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView_imstructionUsers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_instruction_users"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView_instructionUsage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_instruction_usage"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView_instructionVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_instruction_version" />
+    </LinearLayout>
+
+</ScrollView>
