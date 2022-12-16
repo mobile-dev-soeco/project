@@ -5,34 +5,46 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.soeco.R
 import com.example.soeco.TAG
 import com.example.soeco.databinding.LoginActivityBinding
 import com.example.soeco.realmAppServices
 import io.realm.mongodb.Credentials
-import org.bson.Document
 
-class LoginActivity: AppCompatActivity() {
+class LoginActivity: AppCompatActivity(R.layout.login_activity) {
 
     private lateinit var binding: LoginActivityBinding
     private lateinit var loginButton: Button
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
+    private lateinit var forgotPassword: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = LoginActivityBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         loginButton = binding.btnLogin
         emailInput = binding.etUsername
         passwordInput = binding.etPassword
+        forgotPassword = binding.tvForgotPassword
 
         loginButton.setOnClickListener {
             onLoginClick()
         }
+
+        forgotPassword.setOnClickListener {
+            onForgotPasswordClick()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     private fun onLoginClick() {
@@ -42,15 +54,7 @@ class LoginActivity: AppCompatActivity() {
 
         loginButton.isEnabled = false
 
-        val userData = Credentials.customFunction(
-            Document(
-                mapOf(
-                    "email" to email,
-                    "password" to password,
-                    "role" to null
-                )
-            )
-        )
+        val userData = Credentials.emailPassword(email, password)
 
         realmAppServices.loginAsync(userData) {
             if (it.isSuccess) {
@@ -62,16 +66,20 @@ class LoginActivity: AppCompatActivity() {
                 startActivity(Intent(application, AuthActivity::class.java))
                 finish()
             } else {
-                val errorMessage = it.error.toString()
-                Log.e(TAG(), errorMessage)
-                onLoginFailed(errorMessage)
+                Log.e(TAG(), it.error.toString())
+                onLoginFailed("${it.error.message}")
                 loginButton.isEnabled = true
             }
         }
     }
 
-    private fun onLoginFailed(message: String) {
-        Toast.makeText(baseContext, message, Toast.LENGTH_LONG).show()
+    fun onForgotPasswordClick() {
+        Log.v(TAG(), "Clicked")
+        startActivity(Intent(application, ForgotPasswordActivity::class.java))
+    }
+
+    fun onLoginFailed(message: String) {
+        Toast.makeText(application, message, Toast.LENGTH_LONG).show()
     }
 
 }
