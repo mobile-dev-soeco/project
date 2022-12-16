@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Soeco</string>
+    <string name="app_copyright">Copyright ©2022 Soeco Kontorsmöbler AB - All rights reserved</string>
 
+    <!-- DashBoardFragment -->
     <string name="order_date_text">Date:</string>
     <string name="order_date">01–01–2023</string>
 
@@ -19,6 +21,25 @@
     <string name="modify_button">Modify</string>
     <string name="report_button">Report</string>
     <string name="order_overview">Order Overview</string>
+    <!-- end -->
+
+
+    <!-- InstructionFragment -->
+    <string name="app_instruction_title">App instructions</string>
+    <string name="app_instruction_for">The application is developed for a company called Soeco, that works with remaking furniture.</string>
+    <string name="app_instruction_users">The users for this application are the tradesmen and workers with administrative roles at Soeco.</string>
+    <string name="app_instruction_access">To get access to this application you need to be working at Soeco and contact a person with an administrative role to add you as a user.</string>
+    <string name="app_instruction_usage">Once successfully logged in, the current orders will show in a list. From that list an order can be chosen and worked with. From the duration of the worktime to what kinds of materials were used for this project can be edited. </string>
+    <string name="app_instruction_version">Developed for Android 12</string>
+    <!-- end -->
+
+    <!-- CompanyInfoFragment -->
+    <string name="companyInfo_title">Company Information</string>
+    <string name="companyInfo_name">Soeco Kontorsmöbler AB</string>
+    <string name="companyInfo_mobileNumber">+46 17 885 92 73</string>
+    <string name="companyInfo_email">soecofurniture@gmail.com</string>
+    <string name="companyInfo_address">Pumpvägen 1, 247 50 Dalby</string>
+    <!-- end -->
 
 
     <string-array name="user_types">
@@ -27,4 +48,6 @@
         <item>Carpenter</item>
         <item>Admin</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
