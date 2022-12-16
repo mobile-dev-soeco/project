@@ -48,8 +48,13 @@ realm {
 
 dependencies {
 
+    def fragment_version = "1.5.5"
+
     // Realm
     implementation 'io.realm:realm-gradle-plugin:10.10.1'
+
+    // Fragments
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

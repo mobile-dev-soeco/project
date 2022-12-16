@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Resend_confirmation_btn">Resend confirmation email</string>
+    <string name="resend_email">Resend email</string>
+    <string name="empty_email_warning">Please enter an email address</string>
+    <string name="email_confirm_success_msg">Confirmation successful. Please log in.</string>
+    <string name="login">Login</string>
+</resources>

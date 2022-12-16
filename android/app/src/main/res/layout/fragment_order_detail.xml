@@ -70,7 +70,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:text="@string/modify_button"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    card_view:cornerRadius="20dp" />
 
             </LinearLayout>
 
@@ -117,7 +118,8 @@
                     android:text="@string/order_hours_worked"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="RtlCompat" />
 
                 <Button
                     android:id="@+id/button_modifyHoursWorked"
@@ -125,7 +127,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:text="@string/modify_button"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    card_view:cornerRadius="20dp" />
 
             </LinearLayout>
 
@@ -177,7 +180,8 @@
                         android:text="@string/order_number"
                         android:textAlignment="viewEnd"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:ignore="RtlCompat" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -206,7 +210,8 @@
                         android:text="@string/order_name"
                         android:textAlignment="viewEnd"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:ignore="RtlCompat" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -231,7 +236,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="8"
                         android:text="@string/view_button"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        card_view:cornerRadius="20dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -256,8 +262,64 @@
                         android:layout_height="match_parent"
                         android:layout_weight="8"
                         android:text="@string/view_button"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        card_view:cornerRadius="20dp" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/customerContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_orderCustomerContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:gravity="center_vertical"
+                        android:padding="6dp"
+                        android:text="@string/order_customerContact"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/button_orderCustomerContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:text="@string/call_button"
+                        android:visibility="visible"
+                        card_view:cornerRadius="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/customerAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_orderCustomerAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:gravity="center_vertical"
+                        android:padding="6dp"
+                        android:text="@string/order_customerAddress"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/button_orderCustomerAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:text="@string/map_button"
+                        android:visibility="visible"
+                        card_view:cornerRadius="20dp" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -300,7 +362,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="8"
                     android:text="@string/report_button"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    card_view:cornerRadius="20dp" />
 
             </LinearLayout>
 

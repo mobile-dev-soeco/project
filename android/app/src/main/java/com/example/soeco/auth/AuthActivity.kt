@@ -3,6 +3,7 @@ package com.example.soeco.auth
 import android.app.Activity
 import android.os.Bundle
 import android.content.Intent
+import com.example.soeco.MainActivity
 import com.example.soeco.realmAppServices
 import com.example.soeco.admin.AdminActivity
 
@@ -22,6 +23,7 @@ class AuthActivity: Activity() {
             // Navigate user depending on their role
             when(userRole) {
                 "admin" -> startActivity(Intent(application, AdminActivity::class.java))
+                "delivery" -> startActivity(Intent(application, AdminActivity::class.java))
 
                 /* TODO -> Add your activity here depending on what role is met
                 *   The available roles at the moment are
@@ -40,3 +42,5 @@ class AuthActivity: Activity() {
         finish()
     }
 }
+
+// 63966ab3c6e24b6cf3ed35c1
