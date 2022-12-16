@@ -1,17 +1,17 @@
 package com.example.soeco.RoomDb
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.example.soeco.Models.API_Models.Product
 import com.example.soeco.Models.DB_Models.Material_DB
 import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.Models.DB_Models.Product_DB
+
 // entities = tables
 
 @Database(entities = [Material_DB::class, Order_DB::class, Product_DB::class ],
     version = 1, exportSchema = false)
-
+@TypeConverters(Converters::class)
 abstract class RoomDB : RoomDatabase() {
     // dao = class with db queries
     abstract fun dao(): DAO
@@ -29,5 +29,40 @@ abstract class RoomDB : RoomDatabase() {
             return INSTANCE
         }
     }
+}
+
+class Converters {
+
+    @TypeConverter
+    fun fromString(stringListString: String?): ArrayList<String> {
+        val result = ArrayList<String>()
+        val stringSplit = stringListString?.split(",")
+        if (stringSplit != null) {
+            for (string in stringSplit)
+                result.add(string)
+        }
+        return result
+    }
+
+    @TypeConverter
+    fun toString(stringList: ArrayList<String>?): String? {
+        return stringList?.joinToString(separator = ",")
+    }
+    @TypeConverter
+    fun fromStringProduct(stringListString: String): ArrayList<Product> {
+        val result = ArrayList<Product>()
+        val stringSplit = stringListString.split(",")
+        for (string in stringSplit){
+            val split= string.split(" ")
+            result.add(Product(split[0], split[1].toInt()))
+        }
+        return result
+    }
+
+    @TypeConverter
+    fun toStringProduct(productList: ArrayList<Product>): String {
+        return productList.joinToString(separator = ",")
+    }
+
 }
 

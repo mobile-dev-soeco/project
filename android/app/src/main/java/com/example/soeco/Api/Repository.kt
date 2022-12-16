@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import java.io.IOException
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
 class Repository (application: Application){
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
@@ -35,17 +35,22 @@ class Repository (application: Application){
     }
 
 
-    fun updateOrders() {
+    fun updateOrders(role:String) {
         coroutineScope.launch(Dispatchers.IO) {
             try {
                 val api = RetrofitClient.getInstance().api
-                val call: Call<ArrayList<Order_API>?>? = api.getOrder()
+                val call: Call<ArrayList<Order_API>> = api.getOrder(role)
                 val response = call?.execute()
                 if (response?.isSuccessful == true){
+                    Log.e("updateOrders",response.toString())
+
                     val orders = response.body()
+
                     dao?.clearOrders() // deletes all orders when orders are fetched should probably do it smarter
                     if (orders != null) {
                         for (item in orders){
+                            Log.e("updateOrders",item.Products.toString())
+
                             insertOrder(item)
                         }
                     }
@@ -62,8 +67,11 @@ class Repository (application: Application){
     }
 
     private fun insertOrder(fromApi: Order_API) {
-        val item = Order_DB(fromApi.title)
+        val item = Order_DB(fromApi.OrderNumber,fromApi.Products,
+            fromApi.expectHours,fromApi.address,fromApi.contact)
         dao?.insertOrder(item)
     }
+
+
 
 }
