@@ -7,13 +7,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "materialTable")
 
-class Material_DB (
-    @ColumnInfo(name = "title") var title: String,
-
-    ) {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Int = 0
-
-}
+class Material_DB(
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "id") var id: Int,
+    @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "unit") var unit: String)
 

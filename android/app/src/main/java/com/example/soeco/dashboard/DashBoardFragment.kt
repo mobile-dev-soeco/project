@@ -34,28 +34,28 @@ class DashBoardFragment : Fragment() {
         observerSetup()
         viewmodel.update()
     }
-    @SuppressLint("NotifyDataSetChanged")
-   /* private fun prepareItems() {
-        rowsList.add("Order1")
-        rowsList.add("Order2")
-        rowsList.add("Order3")
-        rowsList.add("Order4")
-        rowsList.add("Order1")
-        rowsList.add("Order2")
-        rowsList.add("Order3")
-        rowsList.add("Order4")
-        rowsList.add("Order1")
-        rowsList.add("Order2")
-        rowsList.add("Order3")
-        rowsList.add("Order4")
-        rowsList.add("Order1")
-        rowsList.add("Order2")
-        rowsList.add("Order3")
-        rowsList.add("Order4")
-        customAdapter.notifyDataSetChanged()
-    }
+    /*  @SuppressLint("NotifyDataSetChanged")
+      private fun prepareItems() {
+          rowsList.add("Order1")
+          rowsList.add("Order2")
+          rowsList.add("Order3")
+          rowsList.add("Order4")
+          rowsList.add("Order1")
+          rowsList.add("Order2")
+          rowsList.add("Order3")
+          rowsList.add("Order4")
+          rowsList.add("Order1")
+          rowsList.add("Order2")
+          rowsList.add("Order3")
+          rowsList.add("Order4")
+          rowsList.add("Order1")
+          rowsList.add("Order2")
+          rowsList.add("Order3")
+          rowsList.add("Order4")
+          customAdapter.notifyDataSetChanged()
+      }
 
-    */
+      */
 
 
 

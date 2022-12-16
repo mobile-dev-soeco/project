@@ -10,7 +10,7 @@ import com.example.soeco.Models.DB_Models.Product_DB
 // entities = tables
 
 @Database(entities = [Material_DB::class, Order_DB::class, Product_DB::class ],
-    version = 1, exportSchema = false)
+    version = 3, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class RoomDB : RoomDatabase() {
     // dao = class with db queries

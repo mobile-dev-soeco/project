@@ -32,11 +32,12 @@ internal class DashBoardAdapter() :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.startTextView.text = orderList?.get(position)?.orderNumber
         // onclick on the box
-        holder.orderCard.setOnClickListener(View.OnClickListener { view ->
-            val intent = Intent(view.context, MainActivity::class.java) // TODO Change to order_detail
+        holder.orderCard.setOnClickListener { view ->
+            val intent =
+                Intent(view.context, MainActivity::class.java) // TODO Change to order_detail
             intent.putExtra("order", orderList?.get(position)?.orderNumber)
             view.context.startActivity(intent)
-        })
+        }
     }
 
     override fun getItemCount(): Int {

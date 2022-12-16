@@ -11,8 +11,10 @@ import com.example.soeco.Models.DB_Models.Product_DB
 
 @Dao
 interface DAO {
+
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertContact(contact: Material_DB)
+    fun insertMaterial(material: Material_DB)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertOrder(order: Order_DB)
@@ -31,6 +33,8 @@ interface DAO {
 
     @Query("SELECT * FROM productTable")
     fun getProducts(): LiveData<List<Product_DB>>
+
+
 
 
 }
