@@ -18,14 +18,12 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
 
 
     fun update() {
-        //if (user!= null)
-        //repository.updateOrders(user.customData["role"].toString())
-             //repository.updateOrders("blacksmith")
-            // repository.updateOrders("carpenter")
-             repository.updateOrders("delivery")
+        var userRole=
+            if (user!= null)  user.customData["role"].toString()
+            else "carpenter"
 
-        //repository.updateMaterials()
-        //repository.updateProducts()
+        repository.updateOrders(userRole)
+        repository.updateMaterials(userRole)
 
     }
 
