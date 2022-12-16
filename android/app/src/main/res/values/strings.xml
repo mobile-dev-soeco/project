@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">Soeco</string>
     <string name="order_number">Order number here</string>
+    <string name="Resend_confirmation_btn">Resend confirmation email</string>
+    <string name="resend_email">Resend email</string>
+    <string name="empty_email_warning">Please enter an email address</string>
+    <string name="email_confirm_success_msg">Confirmation successful. Please log in.</string>
+    <string name="login">Login</string>
+    <string name="new_password_hint">New Password</string>
+    <string name="submit">Submit</string>
+    <string name="reset_password_heading">Reset your password</string>
+    <string name="email_hint">Email</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="password_hint">Password</string>
+    <string name="enter_new_password">Enter your new password</string>
+    <string name="confirm">Confirm</string>
     <string-array name="user_types">
         <item>Delivery</item>
         <item>Fabrication</item>

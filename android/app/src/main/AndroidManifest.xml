@@ -32,5 +32,37 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"/>
+        <activity
+            android:name=".auth.ForgotPasswordActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".auth.ConfirmUserActivity"
+            android:label="ConfirmUser"
+            android:exported="true">
+            <intent-filter android:label="Intent filter confirm user">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "https://www.soeco.se/confirm” -->
+                <data android:scheme="https"
+                    android:host="www.soeco.se"
+                    android:pathPrefix="/app/confirm" />
+                <!-- note that the leading "/" is required for pathPrefix-->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".auth.ResetPasswordActivity"
+            android:label="ResetPassword"
+            android:exported="true">
+            <intent-filter android:label="Intent filter reset password">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "https://www.soeco.se/app/reset” -->
+                <data android:scheme="https"
+                    android:host="www.soeco.se"
+                    android:pathPrefix="/app/reset" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
