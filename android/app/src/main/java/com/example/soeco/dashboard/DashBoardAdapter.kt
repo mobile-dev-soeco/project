@@ -7,18 +7,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.MainActivity
 import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.R
 
-internal class DashBoardAdapter(private var rowsList: ArrayList<String>) :
+internal class DashBoardAdapter() :
 
     RecyclerView.Adapter<DashBoardAdapter.MyViewHolder>() {
     internal inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var startTextView: TextView = view.findViewById(R.id.textView_ordernumber)
         var orderCard: CardView = view.findViewById(R.id.card_Order)
     }
+    private var orderList: List<Order_DB>? = null
 
     @NonNull
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -28,23 +30,25 @@ internal class DashBoardAdapter(private var rowsList: ArrayList<String>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.startTextView.text = rowsList[position]
+        holder.startTextView.text = orderList?.get(position)?.orderNumber
         // onclick on the box
         holder.orderCard.setOnClickListener(View.OnClickListener { view ->
             val intent = Intent(view.context, MainActivity::class.java) // TODO Change to order_detail
-            intent.putExtra("order", rowsList[position])
+            intent.putExtra("order", orderList?.get(position)?.orderNumber)
             view.context.startActivity(intent)
         })
     }
 
     override fun getItemCount(): Int {
-        return rowsList.size
+        if (orderList!=null)
+            return orderList!!.size
+        return 0
     }
 
-    /*fun updateOrder(newlist: List<Order_DB>) {
-        rowsList = newlist
+    fun updateOrder(newList: List<Order_DB>) {
+        orderList = newList
         notifyDataSetChanged()
     }
 
-     */
+
 }

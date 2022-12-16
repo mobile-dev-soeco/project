@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-//import androidx.fragment.app.viewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
@@ -14,9 +14,8 @@ import com.example.soeco.Api.MainViewModel
 
 class DashBoardFragment : Fragment() {
 
-   // private val viewmodel: MainViewModel by viewModels()
+    private val viewmodel: MainViewModel by viewModels()
 
-    private val rowsList = ArrayList<String>()
     private lateinit var customAdapter: DashBoardAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,14 +27,15 @@ class DashBoardFragment : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = itemView.findViewById(R.id.recyclerView_Orders)
-        customAdapter = DashBoardAdapter(rowsList)
+        customAdapter = DashBoardAdapter()
         val layoutManager = LinearLayoutManager(context) // applicationContext
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = customAdapter
-        prepareItems()
+        observerSetup()
+        viewmodel.update()
     }
     @SuppressLint("NotifyDataSetChanged")
-    private fun prepareItems() {
+   /* private fun prepareItems() {
         rowsList.add("Order1")
         rowsList.add("Order2")
         rowsList.add("Order3")
@@ -55,8 +55,10 @@ class DashBoardFragment : Fragment() {
         customAdapter.notifyDataSetChanged()
     }
 
+    */
 
-    /*
+
+
     private fun observerSetup() {
         viewmodel.orders.observe(viewLifecycleOwner) { order ->
             order?.let {
@@ -65,5 +67,5 @@ class DashBoardFragment : Fragment() {
             }
         }
     }
-     */
+
 }
