@@ -65,6 +65,11 @@
     <string name="password_hint">Password</string>
     <string name="enter_new_password">Enter your new password</string>
     <string name="confirm">Confirm</string>
+    <string name="send">Send</string>
+    <string name="confirm_user_title">Resend Confirmation Link</string>
+    <string name="account_already_confirmed">Account already confirmed</string>
+    <string name="reset_your_password">Reset your password</string>
+    <string name="reset_password">Reset Password</string>
     <string-array name="user_types">
         <item>Delivery</item>
         <item>Fabrication</item>
