@@ -3,8 +3,11 @@ package com.example.soeco.auth
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.soeco.databinding.ResetPasswordActivityBinding
@@ -15,6 +18,7 @@ class ResetPasswordActivity: AppCompatActivity() {
     private lateinit var binding: ResetPasswordActivityBinding
     private lateinit var passwordInput: EditText
     private lateinit var submitButton: Button
+    private lateinit var spinner: ProgressBar
 
     private var token: String? = null
     private var tokenId: String? = null
@@ -23,15 +27,15 @@ class ResetPasswordActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ResetPasswordActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         passwordInput = binding.etPassword
         submitButton = binding.btnSubmit
+        spinner = binding.pbSpinner
 
         submitButton.setOnClickListener {
             handleSubmitClick()
         }
-
-        setContentView(binding.root)
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -51,25 +55,32 @@ class ResetPasswordActivity: AppCompatActivity() {
     }
 
     private fun handleSubmitClick() {
-        submitButton.isEnabled = false
+        submitButton.visibility = View.GONE
+        spinner.visibility = View.VISIBLE
 
-        if (passwordInput.text.isNotEmpty()) {
-
-            val newPassword = passwordInput.text.toString()
-
-            realmAppServices.emailPassword.resetPasswordAsync(token, tokenId, newPassword) {
-
-                if (it.isSuccess) {
-                    Toast.makeText(application, "Password has been reset", Toast.LENGTH_LONG).show()
-                    startActivity(Intent(application, LoginActivity::class.java))
-                    submitButton.isEnabled = true
-                    finish()
-                } else {
-                    Toast.makeText(this, it.error.message.toString(), Toast.LENGTH_SHORT).show()
-                }
-            }
+        if (token.isNullOrEmpty() || tokenId.isNullOrEmpty()){
+            Toast.makeText(this, "Invalid reset token", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this, "Please enter a new password", Toast.LENGTH_SHORT).show()
+            val password = passwordInput.text.toString()
+
+            if (password.isNotEmpty()) {
+
+                realmAppServices.emailPassword.resetPasswordAsync(token, tokenId, password) {
+                    if (it.isSuccess) {
+                        Toast.makeText(application, "Password has been reset", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(application, LoginActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this, it.error.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                    submitButton.visibility = View.VISIBLE
+                    spinner.visibility = View.GONE
+                }
+            } else {
+                Toast.makeText(this, "Please enter a new password", Toast.LENGTH_SHORT).show()
+                submitButton.visibility = View.VISIBLE
+                spinner.visibility = View.GONE
+            }
         }
     }
 }

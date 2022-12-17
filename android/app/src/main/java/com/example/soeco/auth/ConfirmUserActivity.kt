@@ -12,45 +12,43 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.soeco.R
+import com.example.soeco.TAG
 import com.example.soeco.databinding.ConfirmUserActivityBinding
 import com.example.soeco.realmAppServices
-
-// TODO: Add an option to login under the resend email button.
 
 class ConfirmUserActivity: AppCompatActivity() {
 
     private lateinit var binding: ConfirmUserActivityBinding
-    private lateinit var spinner: ProgressBar
+    private lateinit var loadingSpinner: ProgressBar
+    private lateinit var buttonSpinner: ProgressBar
     private lateinit var actionButton: Button
     private lateinit var emailInput: EditText
-    private lateinit var actionForm: LinearLayout
+    private lateinit var actionForm: ConstraintLayout
     private lateinit var responseText: TextView
 
     private var token: String? = null
     private var tokenId: String? = null
-    private var userConfirmed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ConfirmUserActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        spinner = binding.pbSpinner
+        loadingSpinner = binding.pbSpinner
+        buttonSpinner = binding.pbButtonSpinner
         actionButton = binding.btnAction
         emailInput = binding.etEmail
-        actionForm = binding.llActionForm
+        actionForm = binding.clActionForm
         responseText = binding.tvResponseText
 
         actionButton.setOnClickListener {
             handleActionButtonClick()
         }
-        setContentView(binding.root)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        setUiAwaitingResponse()
     }
 
     override fun onResume() {
@@ -63,72 +61,61 @@ class ConfirmUserActivity: AppCompatActivity() {
         token = data?.getQueryParameter("token")
         tokenId = data?.getQueryParameter("tokenId")
 
-        if(token != null && tokenId != null){
-
-            if (!userConfirmed) {
-
-                realmAppServices.emailPassword.confirmUserAsync(token, tokenId) {
-                    if(it.isSuccess){
-                        Log.v("User Confirmation", "User confirmed")
-                        Toast.makeText(this, getString(R.string.email_confirm_success_msg), Toast.LENGTH_LONG).show()
-                        startActivity(Intent(application, AuthActivity::class.java))
-                        finish()
-                    }
-                    else {
-                        Log.e("User Confirmation", "Error: ${it.error.message}")
-                        setUiFailureResponse()
-                    }
+        if(token != null && tokenId != null) {
+            realmAppServices.emailPassword.confirmUserAsync(token, tokenId) {
+                if (it.isSuccess) {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.email_confirm_success_msg),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    startActivity(Intent(application, LoginActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(this, it.error.message.toString(), Toast.LENGTH_LONG).show()
+                    actionForm.visibility = View.VISIBLE
+                    loadingSpinner.visibility = View.GONE
                 }
             }
-            else {
-                setUiFailureResponse()
-            }
-        }
-        else {
-            setUiFailureResponse()
+        } else {
+            Toast.makeText(this, "Token is invalid", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         setIntent(intent)
-        userConfirmed = false
-    }
-
-    private fun setUiAwaitingResponse() {
-        userConfirmed = false
-        spinner.visibility = View.VISIBLE
-        actionForm.visibility = View.GONE
-        actionButton.visibility = View.GONE
-        emailInput.visibility = View.GONE
-    }
-
-    private fun setUiFailureResponse() {
-        userConfirmed = false
-        spinner.visibility = View.GONE
-        actionButton.visibility = View.VISIBLE
-        emailInput.visibility = View.VISIBLE
-        actionForm.visibility = View.VISIBLE
-        responseText.text = FAILURE_MSG
-        actionButton.text = getString(R.string.resend_email)
     }
 
     private fun handleActionButtonClick() {
-        if(userConfirmed){
-            startActivity(Intent(application, LoginActivity::class.java))
-            finish()
-        } else {
-            if (emailInput.text.isNotEmpty()) {
-                realmAppServices.emailPassword.resendConfirmationEmail(emailInput.text.toString())
-            } else {
-                Toast.makeText(this, getString(R.string.empty_email_warning), Toast.LENGTH_SHORT).show()
+
+        actionButton.visibility = View.GONE
+        buttonSpinner.visibility = View.VISIBLE
+
+        val email = emailInput.text.toString()
+
+        if (email.isNotEmpty()) {
+            // Attempt to send a new confirmation email
+            realmAppServices.emailPassword.resendConfirmationEmailAsync(email) {
+                if (it.isSuccess) {
+                    Toast.makeText(this, "Email sent to $email", Toast.LENGTH_SHORT).show()
+                } else {
+                    // User may already be confirmed and should be redirected to login
+                    if (it.error.errorCode.name == "USER_ALREADY_CONFIRMED"){
+                        Toast.makeText(application, getString(R.string.account_already_confirmed), Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(application, LoginActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this, it.error.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                actionButton.visibility = View.VISIBLE
+                buttonSpinner.visibility = View.GONE
             }
+        } else {
+            Toast.makeText(this, "Email is required", Toast.LENGTH_SHORT).show()
+            actionButton.visibility = View.VISIBLE
+            buttonSpinner.visibility = View.GONE
         }
     }
-
-    companion object {
-        const val SUCCESS_MSG = "User account confirmed, please login!"
-        const val FAILURE_MSG = "Email confirmation failed. This could mean you have already confirmed your email, or that the token has expired and you need a new one."
-    }
-
 }

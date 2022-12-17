@@ -3,8 +3,10 @@ package com.example.soeco.auth
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,7 @@ class LoginActivity: AppCompatActivity(R.layout.login_activity) {
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var forgotPassword: TextView
+    private lateinit var spinner: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,18 +36,15 @@ class LoginActivity: AppCompatActivity(R.layout.login_activity) {
         emailInput = binding.etUsername
         passwordInput = binding.etPassword
         forgotPassword = binding.tvForgotPassword
+        spinner = binding.pbSpinner
 
         loginButton.setOnClickListener {
             onLoginClick()
         }
 
         forgotPassword.setOnClickListener {
-            onForgotPasswordClick()
+            startActivity(Intent(application, ForgotPasswordActivity::class.java))
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     private fun onLoginClick() {
@@ -52,34 +52,38 @@ class LoginActivity: AppCompatActivity(R.layout.login_activity) {
         val email = emailInput.text.toString()
         val password = passwordInput.text.toString()
 
-        loginButton.isEnabled = false
+        loginButton.visibility = View.GONE
+        spinner.visibility = View.VISIBLE
 
-        val userData = Credentials.emailPassword(email, password)
+        if (email.isNotEmpty() && password.isNotEmpty()){
 
-        realmAppServices.loginAsync(userData) {
-            if (it.isSuccess) {
+            val userData = Credentials.emailPassword(email, password)
 
-                Log.v(TAG(), "User logged in successfully")
-
-                loginButton.isEnabled = true
-
-                startActivity(Intent(application, AuthActivity::class.java))
-                finish()
-            } else {
-                Log.e(TAG(), it.error.toString())
-                onLoginFailed("${it.error.message}")
-                loginButton.isEnabled = true
+            realmAppServices.loginAsync(userData) {
+                if (it.isSuccess) {
+                    // Log to console
+                    Log.v(TAG(), "User logged in successfully")
+                    // Message to user
+                    Toast.makeText(application, "Login successful", Toast.LENGTH_SHORT).show()
+                    // Navigate to Auth to authenticate user to correct activity
+                    startActivity(Intent(application, AuthActivity::class.java))
+                    // Destroy the activity to remove from the back stack
+                    finish()
+                } else {
+                    Log.e(TAG(), it.error.toString())
+                    onLoginFailed("${it.error.message}")
+                    loginButton.visibility = View.VISIBLE
+                    spinner.visibility = View.GONE
+                }
             }
+        } else {
+            onLoginFailed("Email and password required!")
+            loginButton.visibility = View.VISIBLE
+            spinner.visibility = View.GONE
         }
     }
 
-    fun onForgotPasswordClick() {
-        Log.v(TAG(), "Clicked")
-        startActivity(Intent(application, ForgotPasswordActivity::class.java))
-    }
-
     fun onLoginFailed(message: String) {
-        Toast.makeText(application, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
 }
