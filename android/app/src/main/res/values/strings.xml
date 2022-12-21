@@ -10,13 +10,13 @@
     <string name="order_hours_worked">2h</string>
 
     <string name="order_number_text">Order number:</string>
-    <string name="order_numberz">23-22-8888</string>
+    <string name="order_number_">23-22-8888</string>
     <string name="order_name_text">Name:</string>
     <string name="order_name">Andreas</string>
     <string name="order_products">Products</string>
     <string name="order_materials">Materials</string>
     <!--<string name="order_customerContact">Customer contact</string>-->
-    <string name="order_customerContact">1111111111</string>
+    <string name="order_customerContact">0273362255</string>
 
     <!--<string name="order_customerAddress">Customer address</string>-->
     <string name="order_customerAddress">Tivoligatan 1 Kristianstad</string>
@@ -65,6 +65,11 @@
     <string name="password_hint">Password</string>
     <string name="enter_new_password">Enter your new password</string>
     <string name="confirm">Confirm</string>
+    <string name="send">Send</string>
+    <string name="confirm_user_title">Resend Confirmation Link</string>
+    <string name="account_already_confirmed">Account already confirmed</string>
+    <string name="reset_your_password">Reset your password</string>
+    <string name="reset_password">Reset Password</string>
     <string-array name="user_types">
         <item>Delivery</item>
         <item>Fabrication</item>

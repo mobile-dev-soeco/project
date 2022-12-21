@@ -1,6 +1,5 @@
 package com.example.soeco.auth
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -37,8 +36,7 @@ class ForgotPasswordActivity: AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    fun onResetClick() {
+    private fun onResetClick() {
 
         resetButton.visibility = View.GONE
         spinner.visibility = View.VISIBLE
@@ -53,11 +51,9 @@ class ForgotPasswordActivity: AppCompatActivity() {
                 } else {
                     Toast.makeText(application, it.error.message.toString(), Toast.LENGTH_SHORT).show()
                 }
+                resetButton.visibility = View.VISIBLE
+                spinner.visibility = View.GONE
             }
-            resetButton.visibility = View.VISIBLE
-            spinner.visibility = View.GONE
         }
-
     }
-
 }

@@ -12,18 +12,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView_delivery_products_view_order_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="30dp"
             android:gravity="center_horizontal"
-            android:text="@string/order_overview"
+            android:text="@string/order_number_"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_date"
+            android:id="@+id/card_delivery_orderName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
@@ -43,99 +44,39 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView_date_text"
+                    android:id="@+id/textView_delivery_orderNameText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="5"
                     android:gravity="center_vertical"
                     android:padding="6dp"
-                    android:text="@string/order_date_text"
+                    android:text="@string/order_name_text"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/textView_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:gravity="center_vertical"
-                    android:padding="6dp"
-                    android:text="@string/order_date"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <Button
-                    android:id="@+id/button_modifyDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:text="@string/modify_button"
-                    android:visibility="visible"
-                    card_view:cornerRadius="20dp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_hoursWorked"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:clickable="true"
-            android:foreground="?selectableItemBackground"
-            card_view:cardBackgroundColor="@color/white"
-            card_view:cardCornerRadius="16dp"
-            card_view:cardElevation="8dp"
-            card_view:contentPadding="10dp"
-            tools:ignore="MissingConstraints,TouchTargetSizeCheck">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView_hoursWorkedText"
+                    android:id="@+id/textView_delivery_orderName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="5"
                     android:gravity="center_vertical"
                     android:padding="6dp"
-                    android:text="@string/order_hours_worked_text"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textView_hoursWorked"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:gravity="center_vertical"
-                    android:padding="6dp"
-                    android:text="@string/order_hours_worked"
-                    android:textAlignment="textStart"
+                    android:text="@string/order_name"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="RtlCompat" />
 
-                <Button
-                    android:id="@+id/button_modifyHoursWorked"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:text="@string/modify_button"
-                    android:visibility="visible"
-                    card_view:cornerRadius="20dp" />
+
+
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_orderInfo"
+            android:id="@+id/card_delivery_table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
@@ -160,67 +101,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView_orderNumberText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:padding="6dp"
-                        android:text="@string/order_number_text"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/textView_orderNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:padding="6dp"
-                        android:text="@string/order_number"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        tools:ignore="RtlCompat" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView_orderNameText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:padding="6dp"
-                        android:text="@string/order_name_text"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/textView_orderName"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:padding="6dp"
-                        android:text="@string/order_name"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        tools:ignore="RtlCompat" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView_orderProducts"
+                        android:id="@+id/textView_delivery_orderProducts"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="5"
@@ -231,35 +112,9 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/button_viewProducts"
+                        android:id="@+id/button_delivery_viewProducts"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="8"
-                        android:text="@string/view_button"
-                        android:visibility="visible"
-                        card_view:cornerRadius="20dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView_orderMaterials"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"
-                        android:gravity="center_vertical"
-                        android:padding="6dp"
-                        android:text="@string/order_materials"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/button_viewMaterials"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/view_button"
                         android:visibility="visible"
@@ -273,7 +128,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView_orderCustomerContact"
+                        android:id="@+id/textView_delivery_orderCustomerContact"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="5"
@@ -284,9 +139,9 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/button_orderCustomerContact"
+                        android:id="@+id/button_delivery_orderCustomerContact"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/call_button"
                         android:visibility="visible"
@@ -300,7 +155,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView_orderCustomerAddress"
+                        android:id="@+id/textView_delivery_orderCustomerAddress"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="5"
@@ -311,9 +166,9 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/button_orderCustomerAddress"
+                        android:id="@+id/button_delivery_orderCustomerAddress"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/map_button"
                         android:visibility="visible"
@@ -326,7 +181,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_reportDeviation"
+            android:id="@+id/card_delivery_reportDeviation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
@@ -346,7 +201,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView_orderReport"
+                    android:id="@+id/textView_delivery_orderReport"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="5"
@@ -357,9 +212,9 @@
                     android:textSize="16sp" />
 
                 <Button
-                    android:id="@+id/button_reportDeviation"
+                    android:id="@+id/button_delivery_reportDeviation"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_weight="8"
                     android:text="@string/report_button"
                     android:visibility="visible"
