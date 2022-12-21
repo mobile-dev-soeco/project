@@ -1,4 +1,4 @@
-package com.example.soeco.auth
+package com.example.soeco.auth.forgot
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.soeco.auth.AuthActivity
 import com.example.soeco.databinding.ForgotPasswordActivityBinding
 import com.example.soeco.realmAppServices
 

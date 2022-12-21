@@ -26,7 +26,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".auth.LoginActivity" />
+        <activity android:name=".auth.login.LoginActivity" />
         <activity
             android:name=".admin.AdminActivity"
             android:exported="true"/>
@@ -36,10 +36,10 @@
             android:exported="true"/>
 
         <activity
-            android:name=".auth.ForgotPasswordActivity"
+            android:name=".auth.forgot.ForgotPasswordActivity"
             android:exported="true"/>
         <activity
-            android:name=".auth.ConfirmUserActivity"
+            android:name=".auth.confirm.ConfirmUserActivity"
             android:label="ConfirmUser"
             android:exported="true">
             <intent-filter android:label="Intent filter confirm user">
@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".auth.ResetPasswordActivity"
+            android:name=".auth.reset.ResetPasswordActivity"
             android:label="ResetPassword"
             android:exported="true">
             <intent-filter android:label="Intent filter reset password">

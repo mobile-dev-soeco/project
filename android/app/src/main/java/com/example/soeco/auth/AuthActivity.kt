@@ -1,46 +1,40 @@
 package com.example.soeco.auth
 
-import android.app.Activity
 import android.os.Bundle
 import android.content.Intent
-import com.example.soeco.MainActivity
-import com.example.soeco.realmAppServices
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.example.soeco.R
 import com.example.soeco.admin.AdminActivity
+import com.example.soeco.auth.login.LoginActivity
+import com.example.soeco.utils.viewModelFactory
 
-class AuthActivity: Activity() {
+class AuthActivity: AppCompatActivity(R.layout.activity_auth) {
+
+    private val authViewModel by viewModels<AuthViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        authViewModel.validateUser()
+    }
 
-        val user = realmAppServices.currentUser()
+    override fun onStart() {
+        super.onStart()
+        authViewModel.authLiveData.observe(this, Observer(::handleAuthState))
+    }
 
-        if (user == null) {
-            startActivity(Intent(application, LoginActivity::class.java))
-        }
-        else {
-            // Get users role
-            val userRole = user.customData["role"].toString()
-            // Navigate user depending on their role
-            when(userRole) {
-                "admin" -> startActivity(Intent(application, AdminActivity::class.java))
-                "delivery" -> startActivity(Intent(application, AdminActivity::class.java))
-
-                /* TODO -> Add your activity here depending on what role is met
-                *   The available roles at the moment are
-                *   - admin
-                *   - delivery
-                *   - carpenter
-                *   - fabricator
-                *   fabricator == blacksmith
-                *   It will be in the same form as above as shown below
-                *   "delivery" -> startActivity(Intent(application, DeliveryActivity::class.java))
-                * */
-
-                else -> startActivity(Intent(application, LoginActivity::class.java))
+    private fun handleAuthState(state: AuthViewModel.AuthState) {
+        val intent = when (state) {
+            AuthViewModel.AuthState.AuthSuccess -> {
+                when (authViewModel.getUserRole()){
+                    "admin" -> Intent(this, AdminActivity::class.java)
+                    else -> Intent(this, LoginActivity::class.java)
+                }
+            } else -> {
+                Intent(this, LoginActivity::class.java)
             }
         }
-        finish()
+        startActivity(intent)
     }
 }
-
-// 63966ab3c6e24b6cf3ed35c1
