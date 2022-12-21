@@ -26,7 +26,8 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
     fun update() {
         var userRole=
             if (user!= null)  user.customData["role"].toString()
-            else "delivery"
+            else "carpenter"
+        // or "delivery"
 
         repository.updateOrders(userRole)
         repository.updateMaterials(userRole)

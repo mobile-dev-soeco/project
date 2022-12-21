@@ -9,7 +9,6 @@ import com.example.soeco.appinfo.InstructionFragment
 import com.example.soeco.carpentry.CarpentryDashBoardFragment
 import com.example.soeco.carpentry.CarpentryOrderDetailFragment
 import com.example.soeco.dashboard.DashBoardFragment
-import com.example.soeco.dashboard.OrderDetailFragment
 import com.example.soeco.delivery.DeliveryOrderDetailFragment
 
 
@@ -34,8 +33,8 @@ class MainActivity : AppCompatActivity() {
             //fragment = InstructionFragment()
             //fragment = DashBoardFragment()
             //fragment = OrderDetailFragment()
-            //fragment = DeliveryOrderDetailFragment()
-            fragment = CarpentryOrderDetailFragment()
+            fragment = DeliveryOrderDetailFragment()
+            //fragment = CarpentryOrderDetailFragment()
 
             //ft.add(R.id.card, fragment, "fragment_delivery_order_detail")
             ft.add(R.id.card, fragment, "fragment_carpentry_order_detail")
