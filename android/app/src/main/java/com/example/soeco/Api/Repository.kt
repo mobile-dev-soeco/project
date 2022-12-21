@@ -17,6 +17,7 @@ class Repository (application: Application) {
     var materials: RealmResults<Material_DB>
     var orders: RealmResults<Order_DB>
     var products: RealmResults<Product_DB>
+
     private var realm : Realm
 
     init {
@@ -39,7 +40,10 @@ class Repository (application: Application) {
 
     }
 
+    fun getOrder(id:String): Order_DB? {
+        return realm.where(Order_DB::class.java).containsKey("OrderNumber", id).findFirst()
 
+    }
 
     fun updateOrders(role: String) {
         realm.executeTransactionAsync {
@@ -74,8 +78,10 @@ class Repository (application: Application) {
             product_List.add(product.toString())
 
         val contact_List = RealmList<String>()
-        for (string in contact_List)
+        for (string in fromApi.contact)
             contact_List.add(string)
+
+        Log.e("tag", contact_List.toString())
 
         val item = Order_DB(
             fromApi.OrderNumber, product_List,

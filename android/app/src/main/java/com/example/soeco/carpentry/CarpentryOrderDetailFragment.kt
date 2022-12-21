@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.soeco.Api.MainViewModel
 import com.example.soeco.MainActivity
 import com.example.soeco.R
 import java.util.*
@@ -22,11 +24,20 @@ class CarpentryOrderDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_carpentry_order_detail, container, false)
+        val viewmodel: MainViewModel by viewModels()
+        viewmodel.update()
 
         val orderNumberTextView : TextView = view.findViewById(R.id.textView_carpentry_products_view_order_number)
         val viewProductsButton : Button = view.findViewById(R.id.button_carpentry_viewProducts)
         val viewMaterialsButton : Button = view.findViewById(R.id.button_carpentry_viewMaterials)
         val reportDeviationButton: Button = view.findViewById(R.id.button_carpentry_reportDeviation)
+        val order_id = "carpenter 2022-22-21-11"
+
+        val order = viewmodel.getOrder(order_id)
+        if (order != null) {
+            orderNumberTextView.text= order.OrderNumber
+        }
+
 
         viewProductsButton.setOnClickListener{view->
             val intent =
