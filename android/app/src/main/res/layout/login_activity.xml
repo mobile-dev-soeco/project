@@ -12,7 +12,6 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         style="@style/CustomCard"
-        android:layout_below="@id/soecoHeader"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
