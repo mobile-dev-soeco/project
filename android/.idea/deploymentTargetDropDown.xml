@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="$USER_HOME$/.android/avd/Oneplus6.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="QV721TM050" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-12-16T13:49:50.882859Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-12-21T14:13:03.531904Z" />
   </component>
 </project>
