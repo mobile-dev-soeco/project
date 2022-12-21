@@ -1,54 +1,51 @@
 package com.example.soeco.delivery
 
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.soeco.MainActivity
+
 import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.R
+import io.realm.OrderedRealmCollection
+import io.realm.RealmRecyclerViewAdapter
 
-internal class DeliveryDashBoardAdapter() :
+internal class DeliveryDashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?) :
+    RealmRecyclerViewAdapter<Order_DB?,
+            DeliveryDashBoardAdapter.DashBoardViewHolder?>(data, true) {
 
-    RecyclerView.Adapter<DeliveryDashBoardAdapter.MyViewHolder>() {
-    internal inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var startTextView: TextView = view.findViewById(R.id.textView_ordernumber)
-        var orderCard: CardView = view.findViewById(R.id.card_Order)
-    }
-    private var orderList: List<Order_DB>? = null
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashBoardViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.order_dash_item, parent, false)
 
-    @NonNull
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.order_dash_item, parent, false)
-        return MyViewHolder(itemView)
+        return DashBoardViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.startTextView.text = orderList?.get(position)?.orderNumber
-        // onclick on the box
-        holder.orderCard.setOnClickListener { view ->
-            val intent =
-                Intent(view.context, MainActivity::class.java) // TODO Change to order_detail
-            intent.putExtra("order", orderList?.get(position)?.orderNumber)
-            view.context.startActivity(intent)
+    override fun onBindViewHolder(holder: DeliveryDashBoardAdapter.DashBoardViewHolder, position: Int) {
+        val obj = getItem(position)
+        val textView : TextView = holder.view.findViewById(R.id.textView_ordernumber)
+        val orderNumber= obj!!.OrderNumber
+        textView.text =orderNumber
+        holder.data = obj
+        val cardView :CardView = holder.view.findViewById(R.id.card_Order)
+        cardView.setOnClickListener {
+            Log.i("Dashboard-Adapter", orderNumber)
+
         }
     }
-
-    override fun getItemCount(): Int {
-        if (orderList!=null)
-            return orderList!!.size
-        return 0
+    override fun getItemId(index: Int): Long {
+        return getItem(index)!!.OrderNumber.toLong()
+    }
+    internal inner class DashBoardViewHolder(var view: View) :
+        RecyclerView.ViewHolder(view) {
+        var data: Order_DB? = null
     }
 
-    fun updateOrder(newList: List<Order_DB>) {
-        orderList = newList
-        notifyDataSetChanged()
-    }
 
 
 }
+

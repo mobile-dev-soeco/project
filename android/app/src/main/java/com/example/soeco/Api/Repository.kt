@@ -2,56 +2,63 @@ package com.example.soeco.Api
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.soeco.Models.API_Models.Material_API
 import com.example.soeco.Models.API_Models.Order_API
 import com.example.soeco.Models.API_Models.Product_API
 import com.example.soeco.Models.DB_Models.Material_DB
 import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.Models.DB_Models.Product_DB
-import com.example.soeco.RoomDb.DAO
-import com.example.soeco.RoomDb.RoomDB
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import io.realm.*
 import retrofit2.Call
 import java.io.IOException
-import kotlin.collections.ArrayList
+
 
 class Repository (application: Application) {
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
-    var materials: LiveData<List<Material_DB>>
-    var orders: LiveData<List<Order_DB>>
-    var products: LiveData<List<Product_DB>>
+    var materials: RealmResults<Material_DB>
+    var orders: RealmResults<Order_DB>
+    var products: RealmResults<Product_DB>
 
-    private var dao: DAO?
+    private var realm : Realm
 
     init {
 
-        val db: RoomDB? =
-            RoomDB.getDatabase(application)
-        dao = db?.dao()
-        materials = dao?.getMaterials()!!
-        orders = dao?.getOrders()!!
-        products = dao?.getProducts()!!
+        val config = RealmConfiguration.Builder()
+            .name("local-realm")
+            .allowQueriesOnUiThread(true)
+            .allowWritesOnUiThread(true)
+            .compactOnLaunch()
+            .build()
+
+        realm = Realm.getInstance(config)
+
+        val productQuery =realm.where(Product_DB::class.java)
+        val orderQuery =realm.where(Order_DB::class.java)
+        val materialQuery =realm.where(Material_DB::class.java)
+        materials = materialQuery.findAllAsync()
+        products = productQuery.findAllAsync()
+        orders = orderQuery.findAllAsync()
 
     }
 
+    fun getOrder(id:String): Order_DB? {
+        return realm.where(Order_DB::class.java).containsKey("OrderNumber", id).findFirst()
+
+    }
 
     fun updateOrders(role: String) {
-        coroutineScope.launch(Dispatchers.IO) {
+        realm.executeTransactionAsync {
             try {
                 val api = RetrofitClient.getInstance().api
                 val call: Call<ArrayList<Order_API>> = api.getOrder(role)
                 val response = call.execute()
                 if (response.isSuccessful) {
                     val orders = response.body()
-                    dao?.clearOrders() // deletes all orders when orders are fetched should probably do it smarter
                     if (orders != null) {
                         for (order in orders) {
                             for (product in order.Products)
-                                getProduct(product.id)
-                            insertOrder(order)
+                                it.copyToRealmOrUpdate(getProduct(product.id))
+
+                            it.copyToRealmOrUpdate(convertOrder(order))
                         }
                     }
                 } else {
@@ -65,16 +72,28 @@ class Repository (application: Application) {
     }
 
 
-    private fun insertOrder(fromApi: Order_API) {
-        val item = Order_DB(
-            fromApi.OrderNumber, fromApi.Products,
-            fromApi.expectHours, fromApi.address, fromApi.contact
-        )
-        dao?.insertOrder(item)
-    }
+    private fun convertOrder(fromApi: Order_API): Order_DB {
+        val product_List = RealmList<String>()
+        for (product in fromApi.Products)
+            product_List.add(product.toString())
 
-    fun getProduct(id: String) {
-        coroutineScope.launch(Dispatchers.IO) {
+        val contact_List = RealmList<String>()
+        if(fromApi.contact!=null) {
+            for (string in fromApi.contact)
+                contact_List.add(string)
+        }
+
+        val item = Order_DB(
+            fromApi.OrderNumber, product_List,
+            fromApi.expectHours, fromApi.address, contact_List
+        )
+        return item
+    }
+    private fun  convertProduct (fromApi: Product_API): Product_DB {
+        val item = Product_DB(fromApi.id, fromApi.name, fromApi.expectHours)
+        return(item)
+    }
+    private fun getProduct(id: Int): Product_DB {
             try {
                 val api = RetrofitClient.getInstance().api
                 val call: Call<Product_API> = api.getProduct(id)
@@ -82,24 +101,23 @@ class Repository (application: Application) {
                 if (response.isSuccessful) {
                     val product = response.body()
                     if (product != null) {
-                        insertProducts(product)
+                        return(convertProduct(product))
                     }
                 } else {
                     Log.e("Repository:  getProduct:   if", "Network Error")
                 }
             } catch (error: IOException) {
                 Log.e("Repository:  getProduct:  Catch", "Network Error")
-            }
+
         }
+        return Product_DB(0,"error")
     }
 
-    private fun insertProducts(fromApi: Product_API) {
-        val item = Product_DB(fromApi.id, fromApi.name, fromApi.expectHours)
-        dao?.insertProduct(item)
-    }
 
-    fun updateMaterials(role: String) {
-        coroutineScope.launch(Dispatchers.IO) {
+
+
+   fun updateMaterials(role: String) {
+       realm.executeTransactionAsync {
             try {
                 val api = RetrofitClient.getInstance().api
                 val call: Call<ArrayList<Material_API>> = api.getMaterial(role)
@@ -108,7 +126,7 @@ class Repository (application: Application) {
                     val materials = response.body()
                     if (materials != null) {
                         for (material in materials) {
-                            insertMaterial(material)
+                            it.copyToRealmOrUpdate(convertMaterial(material))
                         }
                     }
                 }
@@ -118,9 +136,12 @@ class Repository (application: Application) {
         }
     }
 
-    private fun insertMaterial(fromApi: Material_API) {
-        val item = Material_DB(fromApi.id, fromApi.name, fromApi.unit)
-        dao?.insertMaterial(item)
+
+
+    private fun convertMaterial(fromApi: Material_API): Material_DB {
+            val item = Material_DB(fromApi.id, fromApi.name, fromApi.unit)
+            return(item)
+
     }
 
 

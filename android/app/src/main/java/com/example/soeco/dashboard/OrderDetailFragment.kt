@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.soeco.R
 import java.util.*
-
+/*
 class OrderDetailFragment : Fragment() {
     @SuppressLint("MissingInflatedId") // TODO: Remove this line
 
@@ -82,3 +82,5 @@ class OrderDetailFragment : Fragment() {
     }
 
 }
+
+ */

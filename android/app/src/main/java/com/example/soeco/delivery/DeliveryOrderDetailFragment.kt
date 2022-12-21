@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.soeco.Api.MainViewModel
 import com.example.soeco.R
 import java.util.*
 
@@ -22,14 +24,36 @@ class DeliveryOrderDetailFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_delivery_order_detail, container, false)
 
+
+
+        // viewmodel
+        val viewmodel: MainViewModel by viewModels()
+        viewmodel.update() // get new orders from api
+
+        val orderNumberTextView : TextView= view.findViewById(R.id.textView_delivery_products_view_order_number)
+
         // call (dial screen with number displayed)
         val callButton : Button = view.findViewById(R.id.button_delivery_orderCustomerContact)
         val phoneText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerContact)
-        setCallButtonListener(callButton, phoneText)
 
         // map
         val mapButton : Button = view.findViewById(R.id.button_delivery_orderCustomerAddress)
         val addressText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerAddress)
+
+        val order_id = "delivery 2022-22-21-11"
+        val order = viewmodel.getOrder(order_id)
+        if (order != null) {
+            phoneText.text= order.contact?.get(0).toString()
+            // for phone number:  order.contact?.get(1).toString()
+
+            orderNumberTextView.text= order.OrderNumber
+            addressText.text = order.address
+
+        }
+
+
+
+        setCallButtonListener(callButton, phoneText)
         setMapButtonListener(mapButton,addressText)
 
         return view

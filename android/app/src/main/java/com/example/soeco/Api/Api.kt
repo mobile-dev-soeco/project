@@ -22,5 +22,5 @@ interface Api {
 
 
     @GET("product")
-    fun getProduct(@Query("id") id :String) : Call<Product_API>
+    fun getProduct(@Query("id") id :Int) : Call<Product_API>
 }
