@@ -51,5 +51,23 @@ class CarpentryOrderDetailFragment : Fragment() {
 
         return view
     }
+    /*
+    * private fun setDateButtonListener(dateButton: Button, dateText: TextView) {
+   val calendar = Calendar.getInstance()
+   val year = calendar.get(Calendar.YEAR)
+   val month = calendar.get(Calendar.MONTH)
+   val day = calendar.get(Calendar.DAY_OF_MONTH)
+   dateText.text = String.format("%d/%d/%d", day, month+1, year)
+   dateButton.setOnClickListener {
+       val datePickerDialog = activity?.let { it1 ->
+           DatePickerDialog(it1, { view, year, month, dayOfMonth ->
+               dateText.text = String.format("%d/%d/%d", dayOfMonth, month+1, year)
+           }, year, month, day)
+       }
+       datePickerDialog?.show()
+   }
+}
+
+    * */
 
 }
