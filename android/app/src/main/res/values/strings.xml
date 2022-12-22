@@ -3,47 +3,44 @@
     <string name="app_copyright">Copyright ©2022 Soeco Kontorsmöbler AB - All rights reserved</string>
 
     <!-- DashBoardFragment -->
-    <string name="order_date_text">Date:</string>
+    <string name="order_date_text">Datum:</string>
     <string name="order_date">01–01–2023</string>
 
-    <string name="order_hours_worked_text">Time:</string>
+    <string name="order_hours_worked_text">Tid:</string>
     <string name="order_hours_worked">2h</string>
 
-    <string name="order_number_text">Order number:</string>
+    <string name="order_number_text">Ordernummer:</string>
     <string name="order_number_">23-22-8888</string>
-    <string name="order_name_text">Name:</string>
+    <string name="order_name_text">Namn:</string>
     <string name="order_name">Andreas</string>
-    <string name="order_products">Products</string>
-    <string name="order_materials">Materials</string>
+    <string name="order_products">Artiklar</string>
+    <string name="order_materials">Material</string>
     <!--<string name="order_customerContact">Customer contact</string>-->
     <string name="order_customerContact">0273362255</string>
 
     <!--<string name="order_customerAddress">Customer address</string>-->
     <string name="order_customerAddress">Tivoligatan 1 Kristianstad</string>
-
-    <string name="order_overview">Order Overview</string>
-    <string name="order_report">Report deviation</string>
-    <string name="view_button">View</string>
-    <string name="modify_button">Modify</string>
-    <string name="report_button">Report</string>
-    <string name="call_button">Call</string>
-    <string name="map_button">Map</string>
-
-
+    <string name="order_overview">Orderöversikt</string>
+    <string name="order_report">Rapportera avvikelse</string>
+    <string name="view_button">Visa</string>
+    <string name="modify_button">Ändra</string>
+    <string name="report_button">Rapportera</string>
+    <string name="call_button">Ring</string>
+    <string name="map_button">Karta</string>
     <!-- end -->
 
 
     <!-- InstructionFragment -->
-    <string name="app_instruction_title">App instructions</string>
-    <string name="app_instruction_for">The application is developed for a company called Soeco, that works with remaking furniture.</string>
-    <string name="app_instruction_users">The users for this application are the tradesmen and workers with administrative roles at Soeco.</string>
-    <string name="app_instruction_access">To get access to this application you need to be working at Soeco and contact a person with an administrative role to add you as a user.</string>
-    <string name="app_instruction_usage">Once successfully logged in, the current orders will show in a list. From that list an order can be chosen and worked with. From the duration of the worktime to what kinds of materials were used for this project can be edited. </string>
-    <string name="app_instruction_version">Developed for Android 12</string>
+    <string name="app_instruction_title">App instruktioner</string>
+    <string name="app_instruction_for">Appen är utvecklad åt företaget Soeco AB som jobbar med återbrukade kontorsmöbler.</string>
+    <string name="app_instruction_users">Användare för denna app är bruksmän och arbetare med administrativa roller på Soeco.</string>
+    <string name="app_instruction_access">För att få tillgång till denna app måste du vara anställd på Soeco och kontakta administrativ personal.</string>
+    <string name="app_instruction_usage">När du har loggat in, visas de nuvarande ordrar i en lista. Man kan välja en order från listan och ändra allt från arbetstid till materialet som använts i projektet. </string>
+    <string name="app_instruction_version">Utvecklad för Android version 12</string>
     <!-- end -->
 
     <!-- CompanyInfoFragment -->
-    <string name="companyInfo_title">Company Information</string>
+    <string name="companyInfo_title">Företagsinformation</string>
     <string name="companyInfo_name">Soeco Kontorsmöbler AB</string>
     <string name="companyInfo_mobileNumber">+46 17 885 92 73</string>
     <string name="companyInfo_email">soecofurniture@gmail.com</string>
@@ -51,31 +48,30 @@
     <!-- end -->
 
 
-    <string name="order_number">Order number here</string>
-    <string name="Resend_confirmation_btn">Resend confirmation email</string>
-    <string name="resend_email">Resend email</string>
-    <string name="empty_email_warning">Please enter an email address</string>
-    <string name="email_confirm_success_msg">Confirmation successful. Please log in.</string>
-    <string name="login">Login</string>
-    <string name="new_password_hint">New Password</string>
-    <string name="submit">Submit</string>
-    <string name="reset_password_heading">Reset your password</string>
-    <string name="email_hint">Email</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="password_hint">Password</string>
-    <string name="enter_new_password">Enter your new password</string>
-    <string name="confirm">Confirm</string>
-    <string name="send">Send</string>
-    <string name="confirm_user_title">Resend Confirmation Link</string>
-    <string name="account_already_confirmed">Account already confirmed</string>
-    <string name="reset_your_password">Reset your password</string>
-    <string name="reset_password">Reset Password</string>
+    <string name="order_number">Ordernummer</string>
+    <string name="Resend_confirmation_btn">Skicka bekräftelsemejlet igen</string>
+    <string name="resend_email">Skicka mejlet igen</string>
+    <string name="empty_email_warning">Vänligen ange en emailadress</string>
+    <string name="email_confirm_success_msg">Verifikation lyckades. Vänligen logga in.</string>
+    <string name="login">Logga in</string>
+    <string name="log_out">Logga ut</string>
+    <string name="new_password_hint">Nytt Lösenord</string>
+    <string name="submit">Skicka in</string>
+    <string name="reset_password_heading">Återställ lösenordet</string>
+    <string name="email_hint">Mejl</string>
+    <string name="forgot_password">Glömt lösenord</string>
+    <string name="password_hint">Lösenord</string>
+    <string name="enter_new_password">Ange ditt nya lösenord</string>
+    <string name="confirm">Bekräfta</string>
+    <string name="send">Skicka</string>
+    <string name="confirm_user_title">Skicka bekräftelselänken igen</string>
+    <string name="account_already_confirmed">Ditt konto är redan verifierat</string>
+    <string name="reset_your_password">Återställ lösenordet</string>
+    <string name="reset_password">Återställ lösenordet</string>
     <string-array name="user_types">
-        <item>Delivery</item>
-        <item>Fabrication</item>
-        <item>Carpenter</item>
-        <item>Admin</item>
+        <item>Budbärare</item>
+        <item>Tapetserare</item>
+        <item>Snickare</item>
+        <item>Administratör</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
