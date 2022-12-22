@@ -4,11 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.example.soeco.appinfo.CompanyInfoFragment
-import com.example.soeco.appinfo.InstructionFragment
-import com.example.soeco.dashboard.DashBoardFragment
-import com.example.soeco.dashboard.OrderDetailFragment
-
+import com.example.soeco.ui.dashboard.DashBoardFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +32,6 @@ class MainActivity : AppCompatActivity() {
             //ft.add(R.id.card, fragment, "fragment_company_info")
             ft.commit()
         }
-
     }
 }
+

@@ -6,8 +6,13 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.soeco.RealmApplication
-import com.example.soeco.auth.login.LoginViewModel
-import com.example.soeco.auth.AuthViewModel
+import com.example.soeco.ui.admin.AdminHomeViewModel
+import com.example.soeco.ui.auth.login.LoginViewModel
+import com.example.soeco.ui.auth.AuthViewModel
+import com.example.soeco.ui.auth.confirm.ConfirmUserViewModel
+import com.example.soeco.ui.auth.forgot.ForgotPasswordViewModel
+import com.example.soeco.ui.auth.reset.ResetPaswordViewModel
+import com.example.soeco.ui.dashboard.DashBoardViewModel
 
 val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
@@ -26,6 +31,16 @@ val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Fact
                     LoginViewModel(repository, savedStateHandle)
                 isAssignableFrom(AuthViewModel::class.java) ->
                     AuthViewModel(repository, savedStateHandle)
+                isAssignableFrom(ConfirmUserViewModel::class.java) ->
+                    ConfirmUserViewModel(repository, savedStateHandle)
+                isAssignableFrom(ResetPaswordViewModel::class.java) ->
+                    ResetPaswordViewModel(repository, savedStateHandle)
+                isAssignableFrom(ForgotPasswordViewModel::class.java) ->
+                    ForgotPasswordViewModel(repository, savedStateHandle)
+                isAssignableFrom(AdminHomeViewModel::class.java) ->
+                    AdminHomeViewModel(repository, savedStateHandle)
+                isAssignableFrom(DashBoardViewModel::class.java) ->
+                    DashBoardViewModel(repository, savedStateHandle)
                 else ->
                     throw IllegalArgumentException("Unknown viewModel class: ${modelClass.name}")
             }

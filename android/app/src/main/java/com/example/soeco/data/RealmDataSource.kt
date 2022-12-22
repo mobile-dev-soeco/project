@@ -2,13 +2,26 @@ package com.example.soeco.data
 
 import android.content.Context
 import android.util.Log
+import com.example.soeco.Api.RetrofitClient
+import com.example.soeco.Models.API_Models.Material_API
+import com.example.soeco.Models.API_Models.Order_API
+import com.example.soeco.Models.API_Models.Product_API
+import com.example.soeco.Models.DB_Models.Material_DB
+import com.example.soeco.Models.DB_Models.Order_DB
+import com.example.soeco.Models.DB_Models.Product_DB
+import com.example.soeco.TAG
 import io.realm.Realm
+import io.realm.RealmConfiguration
+import io.realm.RealmList
+import io.realm.RealmResults
 import io.realm.mongodb.App
 import io.realm.mongodb.AppConfiguration
 import io.realm.mongodb.AppException
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
 import io.realm.mongodb.sync.SyncConfiguration
+import retrofit2.Call
+import java.io.IOException
 
 class RealmDataSource(context: Context) {
 
@@ -16,12 +29,43 @@ class RealmDataSource(context: Context) {
     private val APP_ID = "soecoapp-ciaaa"
 
     private lateinit var realm: Realm
-    private lateinit var currentRealmUser: io.realm.mongodb.User
+    private lateinit var currentRealmUser: User
+    private lateinit var userRole: String
+    lateinit var materials: RealmResults<Material_DB>
+    lateinit var orders: RealmResults<Order_DB>
+    lateinit var products: RealmResults<Product_DB>
 
     init {
         Log.v("Realm Data", "Created a new instance of Realm data source")
         Realm.init(context)
         realmApp = App(AppConfiguration.Builder(APP_ID).build())
+    }
+
+    // Called when user logs in or is restored
+    private fun instantiateRealm(user: User) {
+        currentRealmUser = user
+        userRole = currentRealmUser.customData["role"].toString()
+
+        val userData = user.customData
+        val userRole = userData["role"]
+
+        val config = RealmConfiguration.Builder()
+            .name("local-realm")
+            .allowQueriesOnUiThread(true)
+            .allowWritesOnUiThread(true)
+            .schemaVersion(2)
+            .deleteRealmIfMigrationNeeded()
+            .build()
+
+        realm = Realm.getInstance(config)
+
+        val productQuery = realm.where(Product_DB::class.java)
+        val orderQuery = realm.where(Order_DB::class.java)
+        val materialQuery = realm.where(Material_DB::class.java)
+
+        materials = materialQuery.findAllAsync()
+        products = productQuery.findAllAsync()
+        orders = orderQuery.findAllAsync()
     }
 
     fun login(
@@ -56,27 +100,110 @@ class RealmDataSource(context: Context) {
     }
 
     fun getUserRole(): String {
-        return currentRealmUser.customData["role"].toString()
-    }
-
-    private fun instantiateRealm(user: User) {
-        currentRealmUser = user
-
-        val userData = user.customData
-        val userRole = userData["role"]
-
-        // Can pass in a partition to the Builder method if needed.
-        val configuration = SyncConfiguration
-            .Builder(user)
-            .build()
-
-        realm = Realm.getInstance(configuration)
+        return userRole
     }
 
     fun restoreLoggedInUser(): io.realm.mongodb.User? {
         return realmApp.currentUser()?.also {
             instantiateRealm(it)
         }
+    }
+
+    fun getOrder(id: String): Order_DB? {
+        return realm.where(Order_DB::class.java).containsKey("OrderNumber", id).findFirst()
+    }
+
+    fun updateOrders() {
+        realm.executeTransactionAsync {
+            try {
+                val api = RetrofitClient.getInstance().api
+                val call: Call<ArrayList<Order_API>> = api.getOrder(userRole)
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    val orders = response.body()
+                    if (orders != null) {
+                        for (order in orders) {
+                            for (product in order.Products)
+                                it.copyToRealmOrUpdate(getProduct(product.id))
+
+                            it.copyToRealmOrUpdate(convertOrder(order))
+                        }
+                    }
+                } else {
+                    Log.e("Repository:  Update:   if", "Network Error")
+                }
+            } catch (error: IOException) {
+                Log.e("Repository:  Update:  Catch", "Network Error")
+            }
+        }
+    }
+
+    private fun getProduct(id: String): Product_DB {
+        try {
+            val api = RetrofitClient.getInstance().api
+            val call: Call<Product_API> = api.getProduct(id)
+            val response = call.execute()
+            if (response.isSuccessful) {
+                val product = response.body()
+                if (product != null) {
+                    return(convertProduct(product))
+                }
+            } else {
+                Log.e("Repository:  getProduct:   if", "Network Error")
+            }
+        } catch (error: IOException) {
+            Log.e("Repository:  getProduct:  Catch", "Network Error")
+
+        }
+        return Product_DB(0,"error")
+    }
+
+    private fun convertOrder(fromApi: Order_API): Order_DB {
+        val product_List = RealmList<String>()
+        for (product in fromApi.Products)
+            product_List.add(product.toString())
+
+        val contact_List = RealmList<String>()
+        if(fromApi.contact != null) {
+            for (string in fromApi.contact)
+                contact_List.add(string)
+        }
+
+        val item = Order_DB(
+            fromApi.OrderNumber, product_List,
+            fromApi.expectHours, fromApi.address, contact_List
+        )
+        return item
+    }
+
+    private fun  convertProduct (fromApi: Product_API): Product_DB {
+        val item = Product_DB(fromApi.id, fromApi.name, fromApi.expectHours)
+        return(item)
+    }
+
+    fun updateMaterials() {
+        realm.executeTransactionAsync {
+            try {
+                val api = RetrofitClient.getInstance().api
+                val call: Call<ArrayList<Material_API>> = api.getMaterial(userRole)
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    val materials = response.body()
+                    if (materials != null) {
+                        for (material in materials) {
+                            it.copyToRealmOrUpdate(convertMaterial(material))
+                        }
+                    }
+                }
+            } catch (error: IOException) {
+                Log.e("Repository:  getProduct:  Catch", "Network Error")
+            }
+        }
+    }
+
+    private fun convertMaterial(fromApi: Material_API): Material_DB {
+        val item = Material_DB(fromApi.id, fromApi.name, fromApi.unit)
+        return(item)
     }
 
 }

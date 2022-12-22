@@ -1,15 +1,14 @@
 package com.example.soeco.Models.DB_Models
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.Required
 
-
-@Entity(tableName = "materialTable")
-
-class Material_DB(
-    @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "id") var id: Int,
-    @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "unit") var unit: String)
+open class Material_DB(
+    @PrimaryKey
+    var id: Int = 0,
+    @Required
+    var name: String = "",
+    var unit: String = ""
+): RealmObject()
 

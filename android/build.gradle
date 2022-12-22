@@ -5,7 +5,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        def nav_version = "2.5.3"
         classpath "io.realm:realm-gradle-plugin:10.11.1"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }
 
