@@ -26,24 +26,21 @@ class MainActivity : AppCompatActivity() {
         //var fragment = fragmentManager.findFragmentByTag("fragment_order_detail")
         //var fragment = fragmentManager.findFragmentByTag("fragment_company_info")
         //var fragment = fragmentManager.findFragmentByTag("fragment_delivery_order_detail")
-        var fragment = fragmentManager.findFragmentByTag("fragment_carpentry_order_detail")
-        if (fragment == null) {
-            val ft: FragmentTransaction = fragmentManager.beginTransaction()
+        val ft: FragmentTransaction = fragmentManager.beginTransaction()
             //fragment = CompanyInfoFragment()
             //fragment = InstructionFragment()
-            //fragment = DashBoardFragment()
+        var fragment = DashBoardFragment()
             //fragment = OrderDetailFragment()
-            fragment = DeliveryOrderDetailFragment()
+            //var fragment = DeliveryOrderDetailFragment()
             //fragment = CarpentryOrderDetailFragment()
 
             //ft.add(R.id.card, fragment, "fragment_delivery_order_detail")
-            ft.add(R.id.card, fragment, "fragment_carpentry_order_detail")
+        ft.add(R.id.card, fragment)
             //ft.add(R.id.card, fragment, "fragment_dash")
             //ft.add(R.id.card, fragment, "fragment_instruction")
             //ft.add(R.id.card, fragment, "fragment_order_detail")
             //ft.add(R.id.card, fragment, "fragment_company_info")
-            ft.commit()
+        ft.commit()
         }
 
     }
-}

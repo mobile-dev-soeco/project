@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.Api.MainViewModel
-import com.example.soeco.dashboard.DashBoardAdapter
 
 class DeliveryDashBoardFragment : Fragment() {
 
@@ -20,6 +19,7 @@ class DeliveryDashBoardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         viewmodel.update()
         return inflater.inflate(R.layout.fragment_delivery_order_detail, container, false)
     }

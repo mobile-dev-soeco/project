@@ -13,7 +13,7 @@ import retrofit2.Call
 import java.io.IOException
 
 
-class Repository (application: Application) {
+class Repository () {
     var materials: RealmResults<Material_DB>
     var orders: RealmResults<Order_DB>
     var products: RealmResults<Product_DB>
@@ -54,6 +54,7 @@ class Repository (application: Application) {
                 if (response.isSuccessful) {
                     val orders = response.body()
                     if (orders != null) {
+                        it.deleteAll()
                         for (order in orders) {
                             for (product in order.Products)
                                 it.copyToRealmOrUpdate(getProduct(product.id))
