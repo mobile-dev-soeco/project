@@ -5,11 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.soeco.carpentry.CarpentryOrderDetailFragment
-<<<<<<< HEAD
 import com.example.soeco.dashboard.DashBoardFragment
 import com.example.soeco.delivery.DeliveryOrderDetailFragment
-=======
->>>>>>> dev_sandra
 
 
 class MainActivity : AppCompatActivity() {
