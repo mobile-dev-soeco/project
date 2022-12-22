@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.soeco.Api.MainViewModel
 import com.example.soeco.R
@@ -27,7 +28,7 @@ class DeliveryOrderDetailFragment : Fragment() {
 
 
         // viewmodel
-        val viewmodel: MainViewModel by viewModels()
+        val viewmodel: MainViewModel by activityViewModels()
         viewmodel.update() // get new orders from api
 
         val orderNumberTextView : TextView= view.findViewById(R.id.textView_delivery_products_view_order_number)
@@ -40,8 +41,11 @@ class DeliveryOrderDetailFragment : Fragment() {
         val mapButton : Button = view.findViewById(R.id.button_delivery_orderCustomerAddress)
         val addressText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerAddress)
 
-        val order_id = "delivery 2022-22-21-11"
-        val order = viewmodel.getOrder(order_id)
+        val order_id = this.arguments?.getString("order")
+        if (order_id != null) {
+            viewmodel.setActiveOrder(order_id)
+        }
+        val order = viewmodel.getOrder()
         if (order != null) {
             phoneText.text= order.contact?.get(0).toString()
             // for phone number:  order.contact?.get(1).toString()

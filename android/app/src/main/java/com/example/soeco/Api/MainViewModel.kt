@@ -10,27 +10,29 @@ import com.example.soeco.realmAppServices
 import io.realm.RealmQuery
 import io.realm.RealmResults
 
-class MainViewModel (application: Application) : AndroidViewModel(application) {
+class MainViewModel () : ViewModel() {
     private val user = realmAppServices.currentUser()
 
-    private val repository: Repository = Repository(application)
+    private val repository: Repository = Repository()
     val orders: RealmResults<Order_DB> = repository.orders
     val materials: RealmResults<Material_DB> = repository.materials
     val products: RealmResults<Product_DB> = repository.products
+    var userRole :String? = user?.customData?.get("role").toString()
+    private var activeOrder :String? = null
 
-
-    fun getOrder(id : String): Order_DB? {
-        return repository.getOrder(id)
+    fun getOrder(): Order_DB? {
+        return activeOrder?.let { repository.getOrder(it) }
     }
 
-    fun update() {
-        var userRole=
-            if (user!= null)  user.customData["role"].toString()
-            else "carpenter"
-        // or "delivery"
+    fun setActiveOrder(order :String){
+        activeOrder = order
+    }
 
-        repository.updateOrders(userRole)
-        repository.updateMaterials(userRole)
+
+    fun update() {
+
+        userRole?.let { repository.updateOrders(it) }
+        userRole?.let { repository.updateMaterials(it) }
 
 
     }
