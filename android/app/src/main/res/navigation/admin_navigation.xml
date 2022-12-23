@@ -12,8 +12,8 @@
         tools:layout="@layout/fragment_admin_home" >
         <action
             android:id="@+id/action_adminHomeFragment_to_nav_graph"
-            app:destination="@id/nav_graph"
-            app:popUpTo="@id/nav_graph"
+            app:destination="@id/auth_nav_graph"
+            app:popUpTo="@id/auth_nav_graph"
             app:popUpToInclusive="true"
             app:launchSingleTop="true" />
     </fragment>

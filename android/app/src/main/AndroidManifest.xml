@@ -19,6 +19,7 @@
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="true" >
+            <nav-graph android:value="@navigation/auth_navigation" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
