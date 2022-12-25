@@ -41,8 +41,16 @@ class AdminHomeFragment : Fragment() {
         }
 
         binding.btnCreateUser.setOnClickListener {
-            onCreateUser()
+            onCreateUserClick()
         }
+    }
+
+    private fun onCreateUserClick() {
+        val email = binding.etUsername.text.toString()
+        val password = binding.etPassword.text.toString()
+        val userType = binding.spUserType.selectedItem.toString().lowercase()
+
+        adminHomeViewModel.registerUser(email, password, userType)
     }
 
     private fun handleLogout(state: AdminHomeViewModel.LogoutResult) {
@@ -67,14 +75,6 @@ class AdminHomeFragment : Fragment() {
                 Toast.makeText(requireActivity().applicationContext, adminHomeViewModel.registerLiveData.value.toString(), Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun onCreateUser() {
-        val email = binding.etUsername.text.toString()
-        val password = binding.etPassword.text.toString()
-        val userType = binding.spUserType.selectedItem.toString().lowercase()
-
-        adminHomeViewModel.registerUser(email, password, userType)
     }
 
 }

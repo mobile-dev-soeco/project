@@ -81,19 +81,20 @@ class RealmDataSource(context: Context) {
         val userData = listOf(email, password, userType)
         val functionsManager = realmApp.getFunctions(currentRealmUser)
 
+        // Create user in database
         functionsManager.callFunctionAsync("registerUser2", userData, String::class.java) { addUser ->
             if (addUser.isSuccess){
-                // Register the user to realm authentication
                 Log.v("User registration", "User was added to database")
+                // Register the user to realm email/password authentication
                 realmApp.emailPassword.registerUserAsync(email, password) { registerUser ->
                     if (registerUser.isSuccess) {
                         Log.v("User registration", "User was added to emailPassword auth service.")
                         registerSuccess.invoke()
                     } else {
-                        // User could not be added to realm authentication. Remove the user from the database.
                         Log.e("User registration", "emailPassword registration failed. Error: ${registerUser.error.message}")
                         registerError.invoke(registerUser.error)
-                        functionsManager.callFunctionAsync("DeleteUser", null, Void::class.java) { deleteUser ->
+                        // User could not be added to realm authentication. Remove the user from the database.
+                        functionsManager.callFunctionAsync("DeleteUser", null, Unit::class.java) { deleteUser ->
                             if (deleteUser.isSuccess) {
                                 Log.v("User registration", "User was deleted from database")
                             } else {
