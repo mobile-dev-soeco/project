@@ -11,6 +11,7 @@ import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.Models.DB_Models.Product_DB
 import com.example.soeco.TAG
 import io.realm.Realm
+import io.realm.RealmAsyncTask
 import io.realm.RealmConfiguration
 import io.realm.RealmList
 import io.realm.RealmResults
@@ -19,6 +20,7 @@ import io.realm.mongodb.AppConfiguration
 import io.realm.mongodb.AppException
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
+import io.realm.mongodb.functions.Functions
 import io.realm.mongodb.sync.SyncConfiguration
 import retrofit2.Call
 import java.io.IOException
@@ -66,6 +68,46 @@ class RealmDataSource(context: Context) {
         materials = materialQuery.findAllAsync()
         products = productQuery.findAllAsync()
         orders = orderQuery.findAllAsync()
+    }
+
+    fun registerUser(
+        email: String,
+        password: String,
+        userType: String,
+        registerSuccess: () -> Unit,
+        registerError: (Exception) -> Unit
+    ) {
+
+        val userData = listOf(email, password, userType)
+        val functionsManager = realmApp.getFunctions(currentRealmUser)
+
+        functionsManager.callFunctionAsync("registerUser2", userData, String::class.java) { addUser ->
+            if (addUser.isSuccess){
+                // Register the user to realm authentication
+                Log.v("User registration", "User was added to database")
+                realmApp.emailPassword.registerUserAsync(email, password) { registerUser ->
+                    if (registerUser.isSuccess) {
+                        Log.v("User registration", "User was added to emailPassword auth service.")
+                        registerSuccess.invoke()
+                    } else {
+                        // User could not be added to realm authentication. Remove the user from the database.
+                        Log.e("User registration", "emailPassword registration failed. Error: ${registerUser.error.message}")
+                        registerError.invoke(registerUser.error)
+                        functionsManager.callFunctionAsync("DeleteUser", null, Void::class.java) { deleteUser ->
+                            if (deleteUser.isSuccess) {
+                                Log.v("User registration", "User was deleted from database")
+                            } else {
+                                Log.e("User registration", "User deletion failed. Error: ${deleteUser.error.message}")
+                            }
+                        }
+                    }
+                }
+            } else {
+                // User could not be added to database.
+                Log.v("User registration", "Database registration failed. Error: ${addUser.error.message}")
+                registerError.invoke(addUser.error)
+            }
+        }
     }
 
     fun login(
@@ -206,4 +248,7 @@ class RealmDataSource(context: Context) {
         return(item)
     }
 
+    fun getAtlasFunctionsManager(): Functions {
+        return realmApp.getFunctions(currentRealmUser)
+    }
 }

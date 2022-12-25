@@ -14,12 +14,23 @@ import io.realm.RealmList
 import io.realm.RealmResults
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
+import io.realm.mongodb.functions.Functions
 import retrofit2.Call
 import java.io.IOException
 
 class RepositoryImpl(
     private val realmDataSource: RealmDataSource
 ): Repository {
+
+    override fun registerUser(
+        email: String,
+        password: String,
+        userType: String,
+        registerSuccess: () -> Unit,
+        registerError: (Exception?) -> Unit
+    ) {
+        realmDataSource.registerUser(email, password, userType, registerSuccess, registerError)
+    }
 
     override fun login(
         email: String,

@@ -1,6 +1,7 @@
 package com.example.soeco.ui.admin
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,9 +34,14 @@ class AdminHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adminHomeViewModel.logoutLiveData.observe(viewLifecycleOwner, Observer(::handleLogout))
+        adminHomeViewModel.registerLiveData.observe(viewLifecycleOwner, Observer(::handleRegister))
 
         binding.btnLogout.setOnClickListener {
             adminHomeViewModel.logout()
+        }
+
+        binding.btnCreateUser.setOnClickListener {
+            onCreateUser()
         }
     }
 
@@ -47,70 +53,28 @@ class AdminHomeFragment : Fragment() {
                 navigation.navigate(action)
             }
             is AdminHomeViewModel.LogoutResult.LogoutError -> {
-                Toast.makeText(requireActivity().applicationContext, "Logout Failed", Toast.LENGTH_SHORT).show()
-                // TODO: Handle message using LogoutError object
+                Toast.makeText(requireActivity().applicationContext, adminHomeViewModel.registerLiveData.value.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    private fun handleRegister(state: AdminHomeViewModel.RegisterResult) {
+        when(state){
+            is AdminHomeViewModel.RegisterResult.RegisterSuccess -> {
+                Toast.makeText(requireActivity().applicationContext, "User registration successful", Toast.LENGTH_SHORT).show()
+            }
+            is AdminHomeViewModel.RegisterResult.RegisterError -> {
+                Toast.makeText(requireActivity().applicationContext, adminHomeViewModel.registerLiveData.value.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun onCreateUser() {
+        val email = binding.etUsername.text.toString()
+        val password = binding.etPassword.text.toString()
+        val userType = binding.spUserType.selectedItem.toString().lowercase()
+
+        adminHomeViewModel.registerUser(email, password, userType)
+    }
+
 }
-
-// TODO: Old logic below to be applied to the new layouts when ready
-
-//    private fun onCreateUser() {
-//
-//        val email = emailInput.text.toString()
-//        val password = passwordInput.text.toString()
-//        val userType = typeSelector.selectedItem.toString().lowercase()
-//
-//        // Disable the button to avoid user clicks while the function runs.
-//        createUserButton.isEnabled = false
-//
-//        val userData = listOf(email, password, userType)
-//
-//        val functionsManager = realmAppServices.getFunctions(realmAppServices.currentUser())
-//
-//        // Add a user to the database
-//        functionsManager.callFunctionAsync("registerUser2", userData, String::class.java) { addUser ->
-//            if (addUser.isSuccess){
-//                // Register the user to realm authentication
-//                Log.v("User registration", "User was added to database")
-//                realmAppServices.emailPassword.registerUserAsync(email, password) { registerUser ->
-//                    if (registerUser.isSuccess) {
-//                        Log.v("User registration", "User was added to emailPassword auth service.")
-//                    } else {
-//                        // User could not be added to realm authentication. Remove the user from the database.
-//                        Log.e("User registration", "emailPassword registration failed. Error: ${registerUser.error.message}")
-//                        functionsManager.callFunctionAsync("DeleteUser", null, Void::class.java) { deleteUser ->
-//                            if (deleteUser.isSuccess) {
-//                                Log.v("User registration", "User was deleted from database")
-//                            } else {
-//                                Log.e("User registration", "User deletion failed. Error: ${deleteUser.error.message}")
-//                            }
-//                        }
-//                    }
-//                }
-//            } else {
-//                // User could not be added to database.
-//                Log.v("User registration", "Database registration failed. Error: ${addUser.error.message}")
-//            }
-//        }
-//        createUserButton.isEnabled = true
-//    }
-//
-//    private fun onLogout() {
-//
-//        logoutButton.isEnabled = false
-//
-//        realmAppServices.currentUser()?.logOutAsync {
-//            if(it.isSuccess) {
-//                Log.v(TAG(), "User logged out")
-//                logoutButton.isEnabled = true
-//                startActivity(Intent(application, AuthActivity::class.java))
-//                finish() // Destroy activity to remove it from back stack
-//            } else {
-//                logoutButton.isEnabled = true
-//                Log.e(TAG(), it.error.toString())
-//            }
-//        }
-//    }

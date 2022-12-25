@@ -17,7 +17,11 @@ class AdminHomeViewModel(
     val logoutLiveData: LiveData<LogoutResult>
         get() = _logoutLiveData
 
-    fun logout(){
+    private val _registerLiveData = MutableLiveData<RegisterResult>()
+    val registerLiveData: LiveData<RegisterResult>
+        get() = _registerLiveData
+
+    fun logout() {
         repository.logout(
             logoutSuccess = {
                 Log.v(TAG(), "Logout successful")
@@ -30,9 +34,28 @@ class AdminHomeViewModel(
         )
     }
 
+    fun registerUser(email: String, password: String, userType: String) {
+        repository.registerUser(
+            email,
+            password,
+            userType,
+            registerSuccess = {
+                _registerLiveData.value = RegisterResult.RegisterSuccess
+            },
+            registerError = {
+                _registerLiveData.value = RegisterResult.RegisterError(it?.message)
+            }
+        )
+    }
+
     sealed class LogoutResult {
         object LogoutSuccess: LogoutResult()
         class LogoutError(val errorMsg: String?): LogoutResult()
+    }
+
+    sealed class RegisterResult {
+        object RegisterSuccess: RegisterResult()
+        class RegisterError(val errorMsg: String?): RegisterResult()
     }
 
 }

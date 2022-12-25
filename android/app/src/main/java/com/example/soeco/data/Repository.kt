@@ -5,8 +5,17 @@ import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.Models.DB_Models.Product_DB
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
+import io.realm.mongodb.functions.Functions
 
 interface Repository {
+
+    fun registerUser(
+        email: String,
+        password: String,
+        userType: String,
+        registerSuccess: () -> Unit,
+        registerError: (Exception?) -> Unit
+    )
 
     fun login(
         email: String,
