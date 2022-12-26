@@ -32,6 +32,41 @@ class RepositoryImpl(
         realmDataSource.registerUser(email, password, userType, registerSuccess, registerError)
     }
 
+    override fun confirmUser(
+        token: String,
+        tokenId: String,
+        confirmSuccess: () -> Unit,
+        confirmError: (Exception) -> Unit
+    ) {
+        realmDataSource.confirmUser(token, tokenId, confirmSuccess, confirmError)
+    }
+
+    override fun resendConfirmationEmail(
+        email: String,
+        sendSuccess: () -> Unit,
+        sendError: (Exception) -> Unit
+    ) {
+        realmDataSource.resendConfirmationEmail(email, sendSuccess, sendError)
+    }
+
+    override fun resetPassword(
+        token: String,
+        tokenId: String,
+        newPassword: String,
+        resetSuccess: () -> Unit,
+        resetError: (Throwable?) -> Unit
+    ) {
+        realmDataSource.resetPassword(token, tokenId, newPassword, resetSuccess, resetError)
+    }
+
+    override fun sendPasswordResetEmail(
+        email: String,
+        sendSuccess: () -> Unit,
+        sendError: (AppException?) -> Unit
+    ) {
+        realmDataSource.sendPasswordResetEmail(email, sendSuccess, sendError)
+    }
+
     override fun login(
         email: String,
         password: String,

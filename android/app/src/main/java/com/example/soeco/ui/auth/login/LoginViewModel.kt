@@ -20,23 +20,17 @@ class LoginViewModel(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    private val _loginResultMessage = MutableLiveData<String>("")
-    val loginResultMessage: LiveData<String>
-        get() = _loginResultMessage
-
     fun login(email: String, password: String) {
         repository.login(
             email,
             password,
             loginSuccess = {
                 Log.v("Authentication", "Logged in as $it")
-                _loginResultMessage.value = "Login successful"
                 _loginLiveData.value = LoginResult.LoginSuccess
                 _isLoading.value = false
             },
             loginError = {
                 Log.e("Authentication", "Login failed: ${it?.errorMessage}")
-                _loginResultMessage.value = it?.errorMessage
                 _loginLiveData.value = LoginResult.LoginError("Login Failed")
                 _isLoading.value = false
             }

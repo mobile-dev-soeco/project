@@ -75,6 +75,18 @@
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
+    <ProgressBar
+        android:id="@+id/pbSpinner"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.Soeco.SpinnerGreen"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCreateUser"
+        app:layout_constraintEnd_toEndOf="@+id/btnCreateUser"
+        app:layout_constraintStart_toStartOf="@+id/btnCreateUser"
+        app:layout_constraintTop_toTopOf="@+id/btnCreateUser" />
+
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"

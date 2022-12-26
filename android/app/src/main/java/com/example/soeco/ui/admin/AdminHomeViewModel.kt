@@ -21,6 +21,10 @@ class AdminHomeViewModel(
     val registerLiveData: LiveData<RegisterResult>
         get() = _registerLiveData
 
+    private val _isLoading = MutableLiveData<Boolean>(false)
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     fun logout() {
         repository.logout(
             logoutSuccess = {
@@ -41,11 +45,14 @@ class AdminHomeViewModel(
             userType,
             registerSuccess = {
                 _registerLiveData.value = RegisterResult.RegisterSuccess
+                _isLoading.value = false
             },
             registerError = {
                 _registerLiveData.value = RegisterResult.RegisterError(it?.message)
+                _isLoading.value = false
             }
         )
+        _isLoading.value = true
     }
 
     sealed class LogoutResult {

@@ -40,19 +40,14 @@ class LoginFragment : Fragment() {
         // Observer to update visibility of button and progress spinner when logging in
         val loadingObserver = Observer<Boolean> { isLoading ->
             val isSpinnerVisible = if (isLoading) View.VISIBLE else View.GONE
-            val isButtonVisible = if (isLoading) View.GONE else View.VISIBLE
+            val isButtonVisible = if (isLoading) View.INVISIBLE else View.VISIBLE
             binding.pbSpinner.visibility = isSpinnerVisible
             binding.btnLogin.visibility = isButtonVisible
-        }
-
-        val loginMessageObserver = Observer<String> { message ->
-            Toast.makeText(requireActivity().applicationContext, message, Toast.LENGTH_SHORT).show()
         }
 
         // Set up observers
         loginViewModel.loginLiveData.observe(viewLifecycleOwner, Observer(::handleLoginResult))
         loginViewModel.isLoading.observe(viewLifecycleOwner, loadingObserver)
-        loginViewModel.loginResultMessage.observe(viewLifecycleOwner, loginMessageObserver)
 
         // Login button can not be clicked until user input is valid
         binding.btnLogin.isEnabled = isUserInputValid()
@@ -103,13 +98,12 @@ class LoginFragment : Fragment() {
         when(loginResult){
             is LoginViewModel.LoginResult.LoginSuccess -> {
                 Log.v("Login", "Login success")
-                Toast.makeText(requireActivity().applicationContext, loginViewModel.loginResultMessage.value, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity().applicationContext, "Logged in successfully", Toast.LENGTH_SHORT).show()
                 navigation.navigate(R.id.authFragment)
                 requireActivity().finish()
             }
             is LoginViewModel.LoginResult.LoginError -> {
-                Log.v("Login", "Login failed: ${loginViewModel.loginResultMessage.value}")
-//                Toast.makeText(requireActivity().applicationContext, loginViewModel.loginResultMessage.value, Toast.LENGTH_SHORT).show()
+                Log.v("Login", "Login failed")
             }
         }
     }

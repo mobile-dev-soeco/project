@@ -1,32 +1,83 @@
 package com.example.soeco.ui.auth.confirm
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.example.soeco.R
+import com.example.soeco.databinding.FragmentConfirmUserBinding
+import com.example.soeco.utils.viewModelFactory
+import java.util.*
+import kotlin.concurrent.timerTask
 
 class ConfirmUserFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ConfirmUserFragment()
-    }
+    private val confirmUserViewModel by viewModels<ConfirmUserViewModel> { viewModelFactory }
+    private val navigation: NavController by lazy { findNavController() }
 
-    private lateinit var viewModel: ConfirmUserViewModel
+    private lateinit var binding: FragmentConfirmUserBinding
+    private var token: String? = null
+    private var tokenId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_confirm_user, container, false)
+        return FragmentConfirmUserBinding.inflate(inflater, container, false)
+            .also { this.binding = it }
+            .root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ConfirmUserViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Observers
+        val navObserver = Observer<String> { destination ->
+            when(destination){
+                "login" -> {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        navigation.navigate(R.id.action_confirmUserFragment_to_loginFragment)
+                    }, 2000)
+                }
+                "resend" -> {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        navigation.navigate(R.id.action_confirmUserFragment_to_resendConfirmation)
+                    }, 2000)
+                }
+            }
+        }
+
+        val messageObserver = Observer<String> { message ->
+            binding.tvResultText.text = message
+        }
+
+        confirmUserViewModel.shouldNavigateTo.observe(viewLifecycleOwner, navObserver)
+        confirmUserViewModel.resultTextLiveData.observe(viewLifecycleOwner, messageObserver)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // Get data from intent deep link
+        val intentData = requireActivity().intent.data
+        token = intentData?.getQueryParameter("token")
+        tokenId = intentData?.getQueryParameter("tokenId")
+        Log.v("Intent data", "token: $token, tokenId: $tokenId")
+
+        if (token.isNullOrEmpty() || tokenId.isNullOrEmpty()) {
+            confirmUserViewModel.isInvalidToken()
+        } else {
+            confirmUserViewModel.confirmUser(token.toString(), tokenId.toString())
+        }
     }
 
 }

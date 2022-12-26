@@ -111,6 +111,65 @@ class RealmDataSource(context: Context) {
         }
     }
 
+    fun confirmUser(
+        token: String,
+        tokenId: String,
+        confirmSuccess: () -> Unit,
+        confirmError: (Exception) -> Unit
+    ) {
+        realmApp.emailPassword.confirmUserAsync(token, tokenId) {
+            if (it.error != null){
+                confirmError.invoke(it.error)
+            } else {
+                confirmSuccess.invoke()
+            }
+        }
+    }
+
+    fun resendConfirmationEmail(
+        email: String,
+        sendSuccess: () -> Unit,
+        sendError: (Exception) -> Unit
+    ) {
+        realmApp.emailPassword.resendConfirmationEmailAsync(email) {
+            if(it.error != null) {
+                sendError.invoke(it.error)
+            } else {
+                sendSuccess.invoke()
+            }
+        }
+    }
+
+    fun resetPassword(
+        token: String,
+        tokenId: String,
+        newPassword: String,
+        resetSuccess: () -> Unit,
+        resetError: (Exception) -> Unit
+    ) {
+        realmApp.emailPassword.resetPasswordAsync(token, tokenId, newPassword){
+            if (it.error != null){
+                resetError.invoke(it.error)
+            } else {
+                resetSuccess.invoke()
+            }
+        }
+    }
+
+    fun sendPasswordResetEmail(
+        email: String,
+        sendSuccess: () -> Unit,
+        sendError: (AppException?) -> Unit
+    ) {
+        realmApp.emailPassword.sendResetPasswordEmailAsync(email){
+            if (it.error != null) {
+                sendError.invoke(it.error)
+            } else {
+                sendSuccess.invoke()
+            }
+        }
+    }
+
     fun login(
         email: String,
         password: String,
@@ -247,9 +306,5 @@ class RealmDataSource(context: Context) {
     private fun convertMaterial(fromApi: Material_API): Material_DB {
         val item = Material_DB(fromApi.id, fromApi.name, fromApi.unit)
         return(item)
-    }
-
-    fun getAtlasFunctionsManager(): Functions {
-        return realmApp.getFunctions(currentRealmUser)
     }
 }

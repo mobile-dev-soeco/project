@@ -11,6 +11,7 @@ import com.example.soeco.ui.auth.login.LoginViewModel
 import com.example.soeco.ui.auth.AuthViewModel
 import com.example.soeco.ui.auth.confirm.ConfirmUserViewModel
 import com.example.soeco.ui.auth.forgot.ForgotPasswordViewModel
+import com.example.soeco.ui.auth.resend.ResendConfirmationViewModel
 import com.example.soeco.ui.auth.reset.ResetPaswordViewModel
 import com.example.soeco.ui.dashboard.DashBoardViewModel
 
@@ -41,6 +42,8 @@ val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Fact
                     AdminHomeViewModel(repository, savedStateHandle)
                 isAssignableFrom(DashBoardViewModel::class.java) ->
                     DashBoardViewModel(repository, savedStateHandle)
+                isAssignableFrom(ResendConfirmationViewModel::class.java) ->
+                    ResendConfirmationViewModel(repository, savedStateHandle)
                 else ->
                     throw IllegalArgumentException("Unknown viewModel class: ${modelClass.name}")
             }
