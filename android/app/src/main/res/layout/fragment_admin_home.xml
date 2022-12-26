@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="25dp"
+    tools:context=".ui.admin.AdminHomeFragment">
+
 
     <EditText
         android:id="@+id/etUsername"
@@ -71,6 +75,18 @@
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
+    <ProgressBar
+        android:id="@+id/pbSpinner"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.Soeco.SpinnerGreen"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCreateUser"
+        app:layout_constraintEnd_toEndOf="@+id/btnCreateUser"
+        app:layout_constraintStart_toStartOf="@+id/btnCreateUser"
+        app:layout_constraintTop_toTopOf="@+id/btnCreateUser" />
+
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
@@ -94,6 +110,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

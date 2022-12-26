@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".RealmApplication"
@@ -12,59 +14,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Soeco"
-        tools:targetApi="31">
+        tools:targetApi="31" >
 
         <activity
-            android:name=".auth.AuthActivity"
-            android:exported="true"
-            android:theme="@android:style/Theme.NoDisplay">
+            android:name=".ui.auth.AuthActivity"
+            android:exported="true" >
+            <nav-graph android:value="@navigation/auth_navigation" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".auth.LoginActivity" />
-        <activity
-            android:name=".admin.AdminActivity"
-            android:exported="true"/>
 
+        <activity
+            android:name=".ui.admin.AdminActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"/>
-
-        <activity
-            android:name=".auth.ForgotPasswordActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".auth.ConfirmUserActivity"
-            android:label="ConfirmUser"
-            android:exported="true">
-            <intent-filter android:label="Intent filter confirm user">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "https://www.soeco.se/app/confirm” -->
-                <data android:scheme="https"
-                    android:host="www.soeco.se"
-                    android:pathPrefix="/app/confirm" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".auth.ResetPasswordActivity"
-            android:label="ResetPassword"
-            android:exported="true">
-            <intent-filter android:label="Intent filter reset password">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "https://www.soeco.se/app/reset” -->
-                <data android:scheme="https"
-                    android:host="www.soeco.se"
-                    android:pathPrefix="/app/reset" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
     </application>
+
 </manifest>

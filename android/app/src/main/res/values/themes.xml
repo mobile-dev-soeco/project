@@ -17,4 +17,10 @@
     <style name="Theme.Soeco.SpinnerGreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorAccent">@color/Green</item>
     </style>
+    <style name="Theme.Soeco.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Soeco.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Soeco.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
