@@ -74,4 +74,7 @@
         <item>Snickare</item>
         <item>Administratör</item>
     </string-array>
+    <string name="title_activity_test">test</string>
+    <string name="title_activity_nav_draw">NavDrawActivity</string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>
