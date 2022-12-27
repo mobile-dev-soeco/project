@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.soeco.RealmApplication
+import com.example.soeco.carpentry.CarpentryDashBoardViewModel
+import com.example.soeco.dashboard.DashBoardViewModel
+import com.example.soeco.delivery.DeliveryViewModel
 import com.example.soeco.ui.admin.AdminHomeViewModel
 import com.example.soeco.ui.auth.login.LoginViewModel
 import com.example.soeco.ui.auth.AuthViewModel
@@ -13,7 +16,6 @@ import com.example.soeco.ui.auth.confirm.ConfirmUserViewModel
 import com.example.soeco.ui.auth.forgot.ForgotPasswordViewModel
 import com.example.soeco.ui.auth.resend.ResendConfirmationViewModel
 import com.example.soeco.ui.auth.reset.ResetPaswordViewModel
-import com.example.soeco.ui.dashboard.DashBoardViewModel
 
 val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
@@ -40,10 +42,14 @@ val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Fact
                     ForgotPasswordViewModel(repository, savedStateHandle)
                 isAssignableFrom(AdminHomeViewModel::class.java) ->
                     AdminHomeViewModel(repository, savedStateHandle)
-                isAssignableFrom(DashBoardViewModel::class.java) ->
-                    DashBoardViewModel(repository, savedStateHandle)
+                isAssignableFrom(CarpentryDashBoardViewModel::class.java) ->
+                    CarpentryDashBoardViewModel(repository, savedStateHandle)
                 isAssignableFrom(ResendConfirmationViewModel::class.java) ->
                     ResendConfirmationViewModel(repository, savedStateHandle)
+                isAssignableFrom(DashBoardViewModel::class.java) ->
+                    DashBoardViewModel(repository, savedStateHandle)
+                isAssignableFrom(DeliveryViewModel::class.java) ->
+                    DeliveryViewModel(repository, savedStateHandle)
                 else ->
                     throw IllegalArgumentException("Unknown viewModel class: ${modelClass.name}")
             }

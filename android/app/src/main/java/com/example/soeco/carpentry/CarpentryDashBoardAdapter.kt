@@ -26,24 +26,23 @@ internal class CarpentryDashBoardAdapter(data: OrderedRealmCollection<Order_DB?>
 
     override fun onBindViewHolder(holder: CarpentryDashBoardAdapter.DashBoardViewHolder, position: Int) {
         val obj = getItem(position)
-        val textView : TextView = holder.view.findViewById(R.id.textView_ordernumber)
-        val orderNumber= obj!!.OrderNumber
-        textView.text =orderNumber
+        val textView: TextView = holder.view.findViewById(R.id.textView_ordernumber)
+        val orderNumber = obj!!.OrderNumber
+        textView.text = orderNumber
         holder.data = obj
-        val cardView :CardView = holder.view.findViewById(R.id.card_Order)
+        val cardView: CardView = holder.view.findViewById(R.id.card_Order)
         cardView.setOnClickListener {
             Log.i("Dashboard-Adapter", orderNumber)
-
         }
     }
+
     override fun getItemId(index: Int): Long {
         return getItem(index)!!.OrderNumber.toLong()
     }
+
     internal inner class DashBoardViewHolder(var view: View) :
         RecyclerView.ViewHolder(view) {
         var data: Order_DB? = null
     }
-
-
 
 }

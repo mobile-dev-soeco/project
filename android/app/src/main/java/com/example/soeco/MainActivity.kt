@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.example.soeco.carpentry.CarpentryOrderDetailFragment
 import com.example.soeco.dashboard.DashBoardFragment
-import com.example.soeco.delivery.DeliveryOrderDetailFragment
 
 
 class MainActivity : AppCompatActivity() {

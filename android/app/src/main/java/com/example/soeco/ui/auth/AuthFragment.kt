@@ -39,11 +39,12 @@ class AuthFragment: Fragment() {
             is AuthViewModel.AuthState.AuthSuccess -> {
                 when(authViewModel.getUserRole()){
                     "admin" -> navigation.navigate(R.id.adminActivity)
-                    else -> navigation.navigate(R.id.loginFragment)
+                    "snickare" -> navigation.navigate(R.id.action_authFragment_to_carpentryActivity)
+                    else -> navigation.navigate(R.id.action_authFragment_to_loginFragment)
                 }
                 requireActivity().finish()
             }
-            is AuthViewModel.AuthState.AuthDenied -> navigation.navigate(R.id.loginFragment)
+            is AuthViewModel.AuthState.AuthDenied -> navigation.navigate(R.id.action_authFragment_to_loginFragment)
         }
     }
 }

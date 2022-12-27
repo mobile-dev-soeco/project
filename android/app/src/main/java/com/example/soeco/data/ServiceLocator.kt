@@ -3,7 +3,6 @@ package com.example.soeco.data
 import android.content.Context
 
 object ServiceLocator {
-
     @Volatile
     private var repository: Repository? = null
 

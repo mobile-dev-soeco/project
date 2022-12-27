@@ -10,23 +10,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.Api.MainViewModel
+import com.example.soeco.delivery.DeliveryDashBoardAdapter
+import com.example.soeco.utils.viewModelFactory
 
 class DeliveryDashBoardFragment : Fragment() {
 
-    private val viewmodel: MainViewModel by viewModels()
+    private val deliveryViewModel by viewModels<DeliveryViewModel> { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        viewmodel.update()
         return inflater.inflate(R.layout.fragment_delivery_order_detail, container, false)
     }
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         val recyclerView :RecyclerView = itemView.findViewById(R.id.recyclerView_Orders)
-        val adapter = DeliveryDashBoardAdapter(viewmodel.orders)
+        val adapter = DeliveryDashBoardAdapter(deliveryViewModel.orders)
         recyclerView.layoutManager =LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = adapter
     }

@@ -3,6 +3,7 @@ package com.example.soeco.data
 import com.example.soeco.Models.DB_Models.Material_DB
 import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.Models.DB_Models.Product_DB
+import io.realm.RealmResults
 import io.realm.mongodb.App
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
@@ -60,7 +61,7 @@ interface Repository {
 
     fun getOrder(id: String): Order_DB?
 
-    fun getOrders(): List<Order_DB>
+    fun getOrders(): RealmResults<Order_DB>
 
     fun updateOrders(): Unit
 

@@ -25,7 +25,7 @@ internal class DeliveryDashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?
         return DashBoardViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: DeliveryDashBoardAdapter.DashBoardViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DashBoardViewHolder, position: Int) {
         val obj = getItem(position)
         val textView : TextView = holder.view.findViewById(R.id.textView_ordernumber)
         val orderNumber= obj!!.OrderNumber

@@ -11,5 +11,4 @@ class RealmApplication: Application(){
     val repository: Repository
         get() = ServiceLocator.provideRepository(this)
 
-
 }

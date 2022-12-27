@@ -99,7 +99,7 @@ class LoginFragment : Fragment() {
             is LoginViewModel.LoginResult.LoginSuccess -> {
                 Log.v("Login", "Login success")
                 Toast.makeText(requireActivity().applicationContext, "Logged in successfully", Toast.LENGTH_SHORT).show()
-                navigation.navigate(R.id.authFragment)
+                navigation.navigate(R.id.action_loginFragment_to_authFragment)
                 requireActivity().finish()
             }
             is LoginViewModel.LoginResult.LoginError -> {
