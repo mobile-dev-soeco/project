@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentDashBinding
+import com.example.soeco.ui.viewmodels.DashBoardViewModel
 import com.example.soeco.utils.viewModelFactory
 
 class DashBoardFragment : Fragment() {

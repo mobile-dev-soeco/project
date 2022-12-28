@@ -6,9 +6,6 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.soeco.RealmApplication
-import com.example.soeco.ui.carpentry.CarpentryDashBoardViewModel
-import com.example.soeco.ui.dashboard.DashBoardViewModel
-import com.example.soeco.ui.delivery.DeliveryViewModel
 import com.example.soeco.ui.admin.AdminHomeViewModel
 import com.example.soeco.ui.auth.login.LoginViewModel
 import com.example.soeco.ui.auth.AuthViewModel
@@ -17,6 +14,10 @@ import com.example.soeco.ui.auth.forgot.ForgotPasswordViewModel
 import com.example.soeco.ui.auth.resend.ResendConfirmationViewModel
 import com.example.soeco.ui.auth.reset.ResetPaswordViewModel
 import com.example.soeco.ui.base.RoleActivityViewModel
+import com.example.soeco.ui.viewmodels.DashBoardViewModel
+import com.example.soeco.ui.viewmodels.MaterialsViewModel
+import com.example.soeco.ui.viewmodels.OrderDetailsViewModel
+import com.example.soeco.ui.viewmodels.ProductsViewModel
 
 val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
@@ -43,14 +44,16 @@ val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Fact
                     ForgotPasswordViewModel(repository, savedStateHandle)
                 isAssignableFrom(AdminHomeViewModel::class.java) ->
                     AdminHomeViewModel(repository, savedStateHandle)
-                isAssignableFrom(CarpentryDashBoardViewModel::class.java) ->
-                    CarpentryDashBoardViewModel(repository, savedStateHandle)
                 isAssignableFrom(ResendConfirmationViewModel::class.java) ->
                     ResendConfirmationViewModel(repository, savedStateHandle)
                 isAssignableFrom(DashBoardViewModel::class.java) ->
                     DashBoardViewModel(repository, savedStateHandle)
-                isAssignableFrom(DeliveryViewModel::class.java) ->
-                    DeliveryViewModel(repository, savedStateHandle)
+                isAssignableFrom(OrderDetailsViewModel::class.java) ->
+                    OrderDetailsViewModel(repository, savedStateHandle)
+                isAssignableFrom(MaterialsViewModel::class.java) ->
+                    MaterialsViewModel(repository, savedStateHandle)
+                isAssignableFrom(ProductsViewModel::class.java) ->
+                    ProductsViewModel(repository, savedStateHandle)
                 isAssignableFrom(RoleActivityViewModel::class.java) ->
                     RoleActivityViewModel(repository, savedStateHandle)
                 else ->

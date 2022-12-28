@@ -1,6 +1,7 @@
 package com.example.soeco.data
 
 import com.example.soeco.data.Models.DB_Models.Order_DB
+import com.example.soeco.data.Models.DB_Models.Product_DB
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
 
@@ -89,5 +90,12 @@ class RepositoryImpl(
     override fun getMaterials() = realmDataSource.materials
 
     override fun getProducts() = realmDataSource.products
+
+    override fun getProduct(id:String) : Product_DB?{
+        return realmDataSource.getProductRealm(id)
+
+
+    }
+
 
 }
