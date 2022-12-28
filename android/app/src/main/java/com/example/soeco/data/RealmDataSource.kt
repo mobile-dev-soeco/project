@@ -219,7 +219,7 @@ class RealmDataSource(context: Context) {
         realm.executeTransactionAsync {
             try {
                 val api = RetrofitClient.getInstance().api
-                val call: Call<ArrayList<Order_API>> = api.getOrder("carpenter") //TODO: Change back to userRole
+                val call: Call<ArrayList<Order_API>> = api.getOrder(userRole)
                 val response = call.execute()
                 if (response.isSuccessful) {
                     val orders = response.body()
