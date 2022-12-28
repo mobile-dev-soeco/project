@@ -1,4 +1,4 @@
-package com.example.soeco.delivery
+package com.example.soeco.ui.delivery
 
 import android.content.Intent
 import android.net.Uri

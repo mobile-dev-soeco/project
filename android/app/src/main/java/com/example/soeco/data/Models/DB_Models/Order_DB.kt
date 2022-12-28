@@ -1,6 +1,6 @@
-package com.example.soeco.Models.DB_Models
+package com.example.soeco.data.Models.DB_Models
 
-import com.example.soeco.Models.API_Models.Product
+import com.example.soeco.data.Models.API_Models.Product
 import com.google.gson.Gson
 
 import com.google.gson.reflect.TypeToken

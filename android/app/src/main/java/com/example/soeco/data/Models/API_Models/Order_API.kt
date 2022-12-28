@@ -1,4 +1,4 @@
-package com.example.soeco.Models.API_Models
+package com.example.soeco.data.Models.API_Models
 
 class Order_API (var OrderNumber: String,
                  var Products:ArrayList<Product>,

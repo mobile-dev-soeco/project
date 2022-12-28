@@ -1,17 +1,10 @@
-package com.example.soeco.carpentry
+package com.example.soeco.ui.carpentry
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import com.example.soeco.Api.MainViewModel
-import com.example.soeco.MainActivity
 import com.example.soeco.R
 
 class CarpentryOrderDetailFragment : Fragment() {

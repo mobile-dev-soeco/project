@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.soeco.RealmApplication
-import com.example.soeco.carpentry.CarpentryDashBoardViewModel
-import com.example.soeco.dashboard.DashBoardViewModel
-import com.example.soeco.delivery.DeliveryViewModel
+import com.example.soeco.ui.carpentry.CarpentryDashBoardViewModel
+import com.example.soeco.ui.dashboard.DashBoardViewModel
+import com.example.soeco.ui.delivery.DeliveryViewModel
 import com.example.soeco.ui.admin.AdminHomeViewModel
 import com.example.soeco.ui.auth.login.LoginViewModel
 import com.example.soeco.ui.auth.AuthViewModel

@@ -124,7 +124,7 @@
         tools:layout="@layout/fragment_resend_confirmation" />
     <activity
         android:id="@+id/carpentryActivity"
-        android:name="com.example.soeco.carpentry.CarpentryActivity"
+        android:name="com.example.soeco.ui.carpentry.CarpentryActivity"
         android:label="activity_carpentry"
         tools:layout="@layout/activity_carpentry" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.soeco.Models.API_Models
+package com.example.soeco.data.Models.API_Models
 
 class Product_API( var id: Int,
                    var name:String,
