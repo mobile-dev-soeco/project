@@ -32,6 +32,15 @@
             app:popUpTo="@id/authFragment"
             app:popUpToInclusive="true"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_authFragment_to_startFragment"
+            app:destination="@id/startFragment"
+            app:popUpTo="@id/startFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_authFragment_to_deliveryActivity"
+            app:destination="@id/deliveryActivity"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -111,7 +120,8 @@
     <activity
         android:id="@+id/adminActivity"
         android:name="com.example.soeco.ui.admin.AdminActivity"
-        android:label="AdminActivity" />
+        android:label="AdminActivity"
+        tools:layout="@layout/activity_admin" />
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.soeco.MainActivity"
@@ -127,4 +137,19 @@
         android:name="com.example.soeco.ui.carpentry.CarpentryActivity"
         android:label="activity_carpentry"
         tools:layout="@layout/activity_carpentry" />
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.soeco.ui.auth.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="true" />
+    </fragment>
+    <activity
+        android:id="@+id/deliveryActivity"
+        android:name="com.example.soeco.ui.delivery.DeliveryActivity"
+        android:label="activity_delivery"
+        tools:layout="@layout/activity_delivery" />
 </navigation>
