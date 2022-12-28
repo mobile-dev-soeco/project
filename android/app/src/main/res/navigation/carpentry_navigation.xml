@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/carpentry_navigation"
-    app:startDestination="@id/dashBoardFragment">
+    app:startDestination="@id/carpentryOrderDetailFragment">
     <fragment
         android:id="@+id/dashBoardFragment"
         android:name="com.example.soeco.ui.dashboard.DashBoardFragment"
@@ -15,9 +15,8 @@
     </fragment>
     <fragment
         android:id="@+id/carpentryOrderDetailFragment"
-        android:name="com.example.soeco.ui.carpentry.CarpentryOrderDetailFragment"
-        android:label="fragment_carpentry_order_detail"
-        tools:layout="@layout/fragment_carpentry_order_detail" >
+        android:name="com.example.soeco.ui.carpentry.CarpentryDashBoardFragment"
+        android:label="fragment_carpentry_order_detail">
         <action
             android:id="@+id/action_carpentryOrderDetailFragment_to_productsList"
             app:destination="@id/productsList" />
