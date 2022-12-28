@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/log_out"
+        android:title="Logout"/>
+    <item
+        android:id="@+id/create_user"
+        android:title="Create users"/>
+
+    <item
+        android:id="@+id/delete_user"
+        android:title="Delete users"/>
+
+    <item
+        android:id="@+id/update_user"
+        android:title="Update users"/>
+
+    <item
+        android:id="@+id/read_user"
+        android:title="All users"/>
+
+    <item
+        android:id="@+id/statistics"
+        android:title="Statistics"/>
+
+    <item
+        android:id="@+id/company_info"
+        android:title="Company Info"/>
+
+    <item
+        android:id="@+id/app_info"
+        android:title="App info"/>
+
+
+</menu>
