@@ -11,10 +11,6 @@ class AuthActivity: AppCompatActivity(R.layout.activity_auth) {
 
     private val navigation: NavController by lazy { findNavController(R.id.auth_host_fragment) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         navigation.handleDeepLink(intent)

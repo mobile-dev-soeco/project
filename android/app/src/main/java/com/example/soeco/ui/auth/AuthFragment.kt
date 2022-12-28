@@ -1,6 +1,8 @@
 package com.example.soeco.ui.auth
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentAuthBinding
 import com.example.soeco.utils.viewModelFactory
+import com.example.soeco.ui.auth.AuthViewModel.AuthState.AuthSuccess
 
 class AuthFragment: Fragment() {
 
@@ -35,16 +38,19 @@ class AuthFragment: Fragment() {
 
     // Handle the auth state change
     private fun handleAuthState(state: AuthViewModel.AuthState) {
-        when (state) {
-            is AuthViewModel.AuthState.AuthSuccess -> {
-                when(authViewModel.getUserRole()){
-                    "admin" -> navigation.navigate(R.id.action_authFragment_to_adminActivity)
-                    "snickare" -> navigation.navigate(R.id.action_authFragment_to_carpentryActivity)
-                    else -> navigation.navigate(R.id.action_authFragment_to_loginFragment)
-                }
-                requireActivity().finish()
+        var destination: Int = R.id.action_authFragment_to_startFragment
+        if (state == AuthSuccess) {
+            when(authViewModel.getUserRole()){
+                "admin" -> destination = R.id.action_authFragment_to_adminActivity
+                "carpenter" -> destination = R.id.action_authFragment_to_carpentryActivity
+                "delivery" -> destination = R.id.action_authFragment_to_deliveryActivity
             }
-            is AuthViewModel.AuthState.AuthDenied -> navigation.navigate(R.id.action_authFragment_to_loginFragment)
+            Handler(Looper.getMainLooper()).postDelayed({
+                navigation.navigate(destination)
+                requireActivity().finish()
+            }, 1000)
+        } else {
+            navigation.navigate(R.id.action_authFragment_to_startFragment)
         }
     }
 }
