@@ -19,4 +19,5 @@ class AuthActivity: AppCompatActivity(R.layout.activity_auth) {
         super.onNewIntent(intent)
         navigation.handleDeepLink(intent)
     }
+
 }

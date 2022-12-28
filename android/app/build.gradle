@@ -49,6 +49,7 @@ realm {
 
 dependencies {
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def fragment_version = "1.5.5"
 
     // Realm
@@ -77,5 +78,8 @@ dependencies {
     // API
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // NavDrawer
+    'androidx.drawerlayout:drawerlayout:1.1.1'
 
 }

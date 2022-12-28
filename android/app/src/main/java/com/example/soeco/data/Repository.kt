@@ -53,6 +53,8 @@ interface Repository {
         loginError: (AppException?) -> Unit
     )
 
+    fun isUserLoggedIn(): Boolean
+
     fun logout(logoutSuccess: () -> Unit, logoutError: (Throwable?) -> Unit)
 
     fun getUserRole(): String

@@ -9,9 +9,7 @@ import com.example.soeco.Models.API_Models.Product_API
 import com.example.soeco.Models.DB_Models.Material_DB
 import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.Models.DB_Models.Product_DB
-import com.example.soeco.TAG
 import io.realm.Realm
-import io.realm.RealmAsyncTask
 import io.realm.RealmConfiguration
 import io.realm.RealmList
 import io.realm.RealmResults
@@ -20,8 +18,6 @@ import io.realm.mongodb.AppConfiguration
 import io.realm.mongodb.AppException
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
-import io.realm.mongodb.functions.Functions
-import io.realm.mongodb.sync.SyncConfiguration
 import retrofit2.Call
 import java.io.IOException
 
@@ -209,6 +205,10 @@ class RealmDataSource(context: Context) {
         return realmApp.currentUser()?.also {
             instantiateRealm(it)
         }
+    }
+
+    fun isUserLoggedIn(): Boolean {
+        return realmApp.currentUser()?.isLoggedIn ?: false
     }
 
     fun getOrder(id: String): Order_DB? {

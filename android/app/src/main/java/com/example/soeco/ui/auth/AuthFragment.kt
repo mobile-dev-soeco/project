@@ -38,7 +38,7 @@ class AuthFragment: Fragment() {
         when (state) {
             is AuthViewModel.AuthState.AuthSuccess -> {
                 when(authViewModel.getUserRole()){
-                    "admin" -> navigation.navigate(R.id.adminActivity)
+                    "admin" -> navigation.navigate(R.id.action_authFragment_to_adminActivity)
                     "snickare" -> navigation.navigate(R.id.action_authFragment_to_carpentryActivity)
                     else -> navigation.navigate(R.id.action_authFragment_to_loginFragment)
                 }
