@@ -12,11 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentDeliveryOrderDetailBinding
+import com.example.soeco.ui.viewmodels.OrderDetailsViewModel
 import com.example.soeco.utils.viewModelFactory
 
 class DeliveryOrderDetailFragment : Fragment() {
 
-    val deliveryViewModel by viewModels<DeliveryViewModel> { viewModelFactory }
+    val viewmodel by viewModels<OrderDetailsViewModel> { viewModelFactory }
 
     private lateinit var binding: FragmentDeliveryOrderDetailBinding
 
@@ -37,11 +38,9 @@ class DeliveryOrderDetailFragment : Fragment() {
         val addressText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerAddress)
 
         val order_id = this.arguments?.getString("order")
-        if (order_id != null) {
-            deliveryViewModel.setActiveOrder(order_id)
-        }
 
-        val order = deliveryViewModel.getOrder()
+
+        val order = order_id?.let { viewmodel.getOrder(it) }
         if (order != null) {
             phoneText.text= order.contact?.get(0).toString()
             // for phone number:  order.contact?.get(1).toString()
@@ -49,9 +48,6 @@ class DeliveryOrderDetailFragment : Fragment() {
             addressText.text = order.address
 
         }
-
-
-
         setCallButtonListener(callButton, phoneText)
         setMapButtonListener(mapButton,addressText)
 

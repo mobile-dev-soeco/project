@@ -69,8 +69,10 @@ interface Repository {
 
     fun updateMaterials(): Unit
 
-    fun getMaterials(): List<Material_DB>
+    fun getMaterials(): RealmResults<Material_DB>
 
-    fun getProducts(): List<Product_DB>
+    fun getProducts(): RealmResults<Product_DB>
+
+    fun getProduct(id:String): Product_DB?
 
 }

@@ -1,4 +1,4 @@
-package com.example.soeco.ui.dashboard
+package com.example.soeco.ui.viewmodels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -16,6 +16,7 @@ class DashBoardViewModel(
 
     init {
         repository.updateOrders()
+        repository.updateMaterials()
     }
 
 }

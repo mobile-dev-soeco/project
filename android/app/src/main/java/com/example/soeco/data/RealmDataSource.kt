@@ -307,4 +307,9 @@ class RealmDataSource(context: Context) {
         val item = Material_DB(fromApi.id, fromApi.name, fromApi.unit)
         return(item)
     }
+
+    fun getProductRealm(id: String): Product_DB? {
+        return realm.where(Product_DB::class.java).containsKey("id", id).findFirst()
+
+    }
 }
