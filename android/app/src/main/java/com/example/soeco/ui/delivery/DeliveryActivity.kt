@@ -1,4 +1,4 @@
-package com.example.soeco.delivery
+package com.example.soeco.ui.delivery
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

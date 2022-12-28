@@ -1,8 +1,8 @@
 package com.example.soeco.data
 
-import com.example.soeco.Models.DB_Models.Material_DB
-import com.example.soeco.Models.DB_Models.Order_DB
-import com.example.soeco.Models.DB_Models.Product_DB
+import com.example.soeco.data.Models.DB_Models.Material_DB
+import com.example.soeco.data.Models.DB_Models.Order_DB
+import com.example.soeco.data.Models.DB_Models.Product_DB
 import io.realm.RealmResults
 import io.realm.mongodb.App
 import io.realm.mongodb.AppException

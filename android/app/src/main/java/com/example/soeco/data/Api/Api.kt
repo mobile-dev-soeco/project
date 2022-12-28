@@ -1,8 +1,8 @@
-package com.example.soeco.Api
+package com.example.soeco.data.Api
 
-import com.example.soeco.Models.API_Models.Material_API
-import com.example.soeco.Models.API_Models.Order_API
-import com.example.soeco.Models.API_Models.Product_API
+import com.example.soeco.data.Models.API_Models.Material_API
+import com.example.soeco.data.Models.API_Models.Order_API
+import com.example.soeco.data.Models.API_Models.Product_API
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

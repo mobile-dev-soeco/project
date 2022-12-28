@@ -40,9 +40,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-        <activity android:name=".carpentry.CarpentryActivity" />
+        <activity android:name=".ui.carpentry.CarpentryActivity" />
         <activity
-            android:name="com.example.soeco.delivery.DeliveryActivity"
+            android:name="com.example.soeco.ui.delivery.DeliveryActivity"
             android:exported="false" />
     </application>
 </manifest>

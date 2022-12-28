@@ -1,4 +1,4 @@
-package com.example.soeco.Api;
+package com.example.soeco.data.Api;
 
 import java.util.concurrent.TimeUnit;
 

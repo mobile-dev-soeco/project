@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/carpentryDashBoardFragment"
-        android:name="com.example.soeco.carpentry.CarpentryDashBoardFragment"
+        android:name="com.example.soeco.ui.carpentry.CarpentryDashBoardFragment"
         android:label="CarpentryDashBoardFragment"
         tools:layout="@layout/fragment_dash"/>
 </navigation>

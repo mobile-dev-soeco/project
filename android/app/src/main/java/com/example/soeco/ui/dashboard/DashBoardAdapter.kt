@@ -1,4 +1,4 @@
-package com.example.soeco.dashboard
+package com.example.soeco.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.MainActivity
-import com.example.soeco.Models.DB_Models.Order_DB
+import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.R
-import com.example.soeco.carpentry.CarpentryOrderDetailFragment
-import com.example.soeco.delivery.DeliveryOrderDetailFragment
+import com.example.soeco.ui.carpentry.CarpentryOrderDetailFragment
+import com.example.soeco.ui.delivery.DeliveryOrderDetailFragment
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
 
@@ -28,7 +28,7 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
         return DashBoardViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: DashBoardAdapter.DashBoardViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DashBoardViewHolder, position: Int) {
         val obj = getItem(position)
         val textView : TextView = holder.view.findViewById(R.id.textView_ordernumber)
         val orderNumber= obj!!.OrderNumber

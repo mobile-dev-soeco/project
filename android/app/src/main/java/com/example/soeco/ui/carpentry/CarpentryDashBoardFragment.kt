@@ -1,4 +1,4 @@
-package com.example.soeco.carpentry
+package com.example.soeco.ui.carpentry
 
 import android.os.Bundle
 import android.view.LayoutInflater

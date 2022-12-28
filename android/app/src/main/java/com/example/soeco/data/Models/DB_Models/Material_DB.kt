@@ -1,4 +1,4 @@
-package com.example.soeco.Models.DB_Models
+package com.example.soeco.data.Models.DB_Models
 
 
 import io.realm.RealmObject
