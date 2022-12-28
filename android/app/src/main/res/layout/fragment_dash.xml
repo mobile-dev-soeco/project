@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
+    tools:context=".ui.dashboard.DashBoardFragment"
     android:paddingTop="8dp">
 
     <androidx.recyclerview.widget.RecyclerView
