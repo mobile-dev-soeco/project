@@ -9,9 +9,7 @@ import com.example.soeco.Models.API_Models.Product_API
 import com.example.soeco.Models.DB_Models.Material_DB
 import com.example.soeco.Models.DB_Models.Order_DB
 import com.example.soeco.Models.DB_Models.Product_DB
-import com.example.soeco.TAG
 import io.realm.Realm
-import io.realm.RealmAsyncTask
 import io.realm.RealmConfiguration
 import io.realm.RealmList
 import io.realm.RealmResults
@@ -20,8 +18,6 @@ import io.realm.mongodb.AppConfiguration
 import io.realm.mongodb.AppException
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
-import io.realm.mongodb.functions.Functions
-import io.realm.mongodb.sync.SyncConfiguration
 import retrofit2.Call
 import java.io.IOException
 
@@ -211,6 +207,10 @@ class RealmDataSource(context: Context) {
         }
     }
 
+    fun isUserLoggedIn(): Boolean {
+        return realmApp.currentUser()?.isLoggedIn ?: false
+    }
+
     fun getOrder(id: String): Order_DB? {
         return realm.where(Order_DB::class.java).containsKey("OrderNumber", id).findFirst()
     }
@@ -219,7 +219,7 @@ class RealmDataSource(context: Context) {
         realm.executeTransactionAsync {
             try {
                 val api = RetrofitClient.getInstance().api
-                val call: Call<ArrayList<Order_API>> = api.getOrder("carpenter") //TODO: Change back to userRole
+                val call: Call<ArrayList<Order_API>> = api.getOrder(userRole)
                 val response = call.execute()
                 if (response.isSuccessful) {
                     val orders = response.body()

@@ -80,6 +80,8 @@ class RepositoryImpl(
         realmDataSource.logOut(logoutSuccess, logoutError)
     }
 
+    override fun isUserLoggedIn(): Boolean = realmDataSource.isUserLoggedIn()
+
     override fun getUserRole() = realmDataSource.getUserRole()
 
     override fun restoreLoggedInUser() = realmDataSource.restoreLoggedInUser()

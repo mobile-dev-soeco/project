@@ -1,5 +1,6 @@
 package com.example.soeco.ui.admin
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentAdminHomeBinding
+import com.example.soeco.ui.auth.AuthActivity
 import com.example.soeco.utils.viewModelFactory
 
 class AdminHomeFragment : Fragment() {
@@ -85,8 +87,8 @@ class AdminHomeFragment : Fragment() {
         when(state){
             is AdminHomeViewModel.LogoutResult.LogoutSuccess -> {
                 Toast.makeText(requireActivity().applicationContext, "Logged out successfully", Toast.LENGTH_SHORT).show()
-                val action = AdminHomeFragmentDirections.actionAdminHomeFragmentToNavGraph()
-                navigation.navigate(action)
+                startActivity(Intent(this.requireActivity(), AuthActivity::class.java))
+                requireActivity().finish()
             }
             is AdminHomeViewModel.LogoutResult.LogoutError -> {
                 Toast.makeText(requireActivity().applicationContext, adminHomeViewModel.registerLiveData.value.toString(), Toast.LENGTH_SHORT).show()
