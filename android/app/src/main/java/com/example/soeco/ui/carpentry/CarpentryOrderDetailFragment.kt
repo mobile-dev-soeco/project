@@ -49,6 +49,13 @@ class CarpentryOrderDetailFragment : Fragment() {
             navigation.navigate(R.id.action_carpentryOrderDetailFragment_to_productsList)
 
         }
+
+        viewMaterialsButton.setOnClickListener {
+            navigation.navigate(R.id.action_carpentryOrderDetailFragment_to_carpentryMaterials)
+
+        }
+
+
         return view
     }
 

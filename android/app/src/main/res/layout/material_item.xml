@@ -27,31 +27,15 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/product_id"
+                android:id="@+id/material_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="6dp"
-                android:text="id"
-                android:textColor="@color/Green" />
-            <TextView
-                android:id="@+id/product_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="6dp"
-                android:text="name"
+                android:text="material"
                 android:textColor="@color/Green" />
             <EditText
-                android:id="@+id/product_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="6dp"
-                android:hint="0"
-                android:textColor="@color/Green" />
-            <EditText
-                android:id="@+id/actual_hours"
+                android:id="@+id/material_unit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -59,7 +43,7 @@
                 android:hint="0"
                 android:textColor="@color/Green" />
             <Button
-                android:id="@+id/calender"
+                android:id="@+id/calender1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -70,7 +54,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/confirm_product"
+            android:id="@+id/confirm_material"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="6dp"
