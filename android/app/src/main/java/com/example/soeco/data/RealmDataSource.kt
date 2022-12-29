@@ -18,6 +18,7 @@ import io.realm.mongodb.AppConfiguration
 import io.realm.mongodb.AppException
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
+import org.bson.types.ObjectId
 import retrofit2.Call
 import java.io.IOException
 
@@ -224,9 +225,11 @@ class RealmDataSource(context: Context) {
                 if (response.isSuccessful) {
                     val orders = response.body()
                     if (orders != null) {
+                        it.deleteAll()
+
                         for (order in orders) {
                             for (product in order.Products)
-                                it.copyToRealmOrUpdate(getProduct(product.id))
+                                it.copyToRealmOrUpdate(getProduct(product.id,order.OrderNumber,product.count))
 
                             it.copyToRealmOrUpdate(convertOrder(order))
                         }
@@ -240,7 +243,7 @@ class RealmDataSource(context: Context) {
         }
     }
 
-    private fun getProduct(id: Int): Product_DB {
+    private fun getProduct(id: Int, ordernumber: String,count: Int): Product_DB {
         try {
             val api = RetrofitClient.getInstance().api
             val call: Call<Product_API> = api.getProduct(id)
@@ -248,7 +251,7 @@ class RealmDataSource(context: Context) {
             if (response.isSuccessful) {
                 val product = response.body()
                 if (product != null) {
-                    return(convertProduct(product))
+                    return(convertProduct(product,ordernumber,count))
                 }
             } else {
                 Log.e("Repository:  getProduct:   if", "Network Error")
@@ -257,13 +260,10 @@ class RealmDataSource(context: Context) {
             Log.e("Repository:  getProduct:  Catch", "Network Error")
 
         }
-        return Product_DB(0,"error")
+        return Product_DB("0","error","error")
     }
 
     private fun convertOrder(fromApi: Order_API): Order_DB {
-        val product_List = RealmList<String>()
-        for (product in fromApi.Products)
-            product_List.add(product.toString())
 
         val contact_List = RealmList<String>()
         if(fromApi.contact != null) {
@@ -271,15 +271,12 @@ class RealmDataSource(context: Context) {
                 contact_List.add(string)
         }
 
-        val item = Order_DB(
-            fromApi.OrderNumber, product_List,
-            fromApi.expectHours, fromApi.address, contact_List
-        )
+        val item = Order_DB(fromApi.OrderNumber, fromApi.expectHours, fromApi.address, contact_List)
         return item
     }
 
-    private fun  convertProduct (fromApi: Product_API): Product_DB {
-        val item = Product_DB(fromApi.id, fromApi.name, fromApi.expectHours)
+    private fun  convertProduct (fromApi: Product_API, ordernumber :String,count :Int): Product_DB {
+        val item = Product_DB(fromApi.id.toString(), fromApi.name, ordernumber,count)
         return(item)
     }
 
@@ -310,6 +307,12 @@ class RealmDataSource(context: Context) {
 
     fun getProductRealm(id: String): Product_DB? {
         return realm.where(Product_DB::class.java).containsKey("id", id).findFirst()
+
+    }
+
+    fun getProductsDb(orderNumber: String): RealmResults<Product_DB> {
+        return realm.where(Product_DB::class.java).containsKey("orderNumber",
+            orderNumber).findAll()
 
     }
 }

@@ -2,6 +2,8 @@ package com.example.soeco.data
 
 import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
+import io.realm.RealmList
+import io.realm.RealmResults
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
 
@@ -93,9 +95,13 @@ class RepositoryImpl(
 
     override fun getProduct(id:String) : Product_DB?{
         return realmDataSource.getProductRealm(id)
+    }
 
+    override fun getProductsDb(orderNumber: String): RealmResults<Product_DB>{
+        return realmDataSource.getProductsDb(orderNumber)
 
     }
+
 
 
 }

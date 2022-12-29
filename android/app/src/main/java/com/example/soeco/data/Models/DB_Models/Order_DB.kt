@@ -16,7 +16,6 @@ open class Order_DB
     (
     @PrimaryKey
     var OrderNumber: String ="",
-    var Products: RealmList<String>? =null,
     var expectHours: Int? = 0,
     var address: String? = "",
     var contact: RealmList<String>? = null,
