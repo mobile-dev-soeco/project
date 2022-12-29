@@ -223,6 +223,7 @@ class RealmDataSource(context: Context) {
                 if (response.isSuccessful) {
                     val orders = response.body()
                     if (orders != null) {
+                        it.deleteAll()
                         for (order in orders) {
                             for (product in order.Products)
                                 it.copyToRealmOrUpdate(getProduct(product.id))
