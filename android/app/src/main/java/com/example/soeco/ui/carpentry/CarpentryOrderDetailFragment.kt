@@ -8,19 +8,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.soeco.R
-
+import com.example.soeco.ui.viewmodels.DashBoardViewModel
+import com.example.soeco.ui.viewmodels.OrderDetailsViewModel
+import com.example.soeco.utils.viewModelFactory
 import java.util.*
 
 class CarpentryOrderDetailFragment : Fragment() {
 
     val args: CarpentryOrderDetailFragmentArgs by navArgs()
-
     private val navigation: NavController by lazy { findNavController() }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,19 +35,14 @@ class CarpentryOrderDetailFragment : Fragment() {
         val reportDeviationButton: Button = view.findViewById(R.id.button_carpentry_reportDeviation)
 
         val order_id = args.orderNumber
-        orderNumberTextView.text= order_id
+        orderNumberTextView.text = order_id
 
         viewProductsButton.setOnClickListener {
             navigation.navigate(R.id.action_carpentryOrderDetailFragment_to_productsList)
-
         }
-
         viewMaterialsButton.setOnClickListener {
             navigation.navigate(R.id.action_carpentryOrderDetailFragment_to_carpentryMaterials)
-
         }
-
-
         return view
     }
 

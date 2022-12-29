@@ -10,14 +10,17 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentDeliveryOrderDetailBinding
+import com.example.soeco.ui.carpentry.CarpentryOrderDetailFragmentArgs
 import com.example.soeco.ui.viewmodels.OrderDetailsViewModel
 import com.example.soeco.utils.viewModelFactory
 
 class DeliveryOrderDetailFragment : Fragment() {
 
-    val viewmodel by viewModels<OrderDetailsViewModel> { viewModelFactory }
+
+    val args: DeliveryOrderDetailFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentDeliveryOrderDetailBinding
 
@@ -27,27 +30,21 @@ class DeliveryOrderDetailFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_delivery_order_detail, container, false)
 
-        val orderNumberTextView : TextView= view.findViewById(R.id.textView_delivery_products_view_order_number)
+        val orderNumberTextView : TextView = view.findViewById(R.id.textView_delivery_products_view_order_number)
+        val customerName : TextView = view.findViewById(R.id.textView_delivery_orderName)
 
         // call (dial screen with number displayed)
         val callButton : Button = view.findViewById(R.id.button_delivery_orderCustomerContact)
         val phoneText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerContact)
-
         // map
         val mapButton : Button = view.findViewById(R.id.button_delivery_orderCustomerAddress)
         val addressText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerAddress)
 
-        val order_id = this.arguments?.getString("order")
+        orderNumberTextView.text = args.orderNumber
+        customerName.text = args.name
+        phoneText.text = args.phone
+        addressText.text = args.address
 
-
-        val order = order_id?.let { viewmodel.getOrder(it) }
-        if (order != null) {
-            phoneText.text= order.contact?.get(0).toString()
-            // for phone number:  order.contact?.get(1).toString()
-            orderNumberTextView.text= order.OrderNumber
-            addressText.text = order.address
-
-        }
         setCallButtonListener(callButton, phoneText)
         setMapButtonListener(mapButton,addressText)
 
