@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_carpentryOrderDetailFragment_to_questionnaireCarpentry"
             app:destination="@id/questionnaireCarpentry" />
+        <argument
+            android:name="orderNumber"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/carpentryMaterials"
@@ -51,11 +54,15 @@
         android:id="@+id/deliveryOrderDetailFragment"
         android:name="com.example.soeco.ui.delivery.DeliveryOrderDetailFragment"
         android:label="DeliveryOrderDetailFragment" >
+        <argument
+            android:name="orderNumber"
+            app:argType="string" />
         <action
             android:id="@+id/action_deliveryOrderDetailFragment_to_productsList"
             app:destination="@id/productsList" />
         <action
             android:id="@+id/action_deliveryOrderDetailFragment_to_questionnaireCarpentry"
             app:destination="@id/questionnaireCarpentry" />
+
     </fragment>
 </navigation>
