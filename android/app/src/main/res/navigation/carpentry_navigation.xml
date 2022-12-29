@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/productsList"
         android:name="com.example.soeco.ui.carpentry.ProductsList"
-        android:label="fragment_products_list"
+        android:label="fragment_products_carpentry_list"
         tools:layout="@layout/fragment_products_list" />
     <fragment
         android:id="@+id/carpentryMaterials"

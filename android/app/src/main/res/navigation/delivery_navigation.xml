@@ -3,11 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/delivery_navigation"
-    app:startDestination="@id/deliveryDashBoardFragment">
-
+    app:startDestination="@id/dashBoardFragment">
     <fragment
-        android:id="@+id/deliveryDashBoardFragment"
-        android:name="com.example.soeco.ui.delivery.DeliveryDashBoardFragment"
-        android:label="DeliveryDashBoardFragment"
-        tools:layout="@layout/fragment_delivery_order_detail" />
+        android:id="@+id/dashBoardFragment"
+        android:name="com.example.soeco.ui.dashboard.DashBoardFragment"
+        android:label="fragment_dash"
+        tools:layout="@layout/fragment_dash" >
+        <action
+            android:id="@+id/action_dashBoardFragment_to_deliveryOrderDetailFragment"
+            app:destination="@id/deliveryOrderDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productsList2"
+        android:name="com.example.soeco.ui.carpentry.ProductsList"
+        android:label="fragment_products_list"
+        tools:layout="@layout/fragment_products_list" />
+    <fragment
+        android:id="@+id/deliveryOrderDetailFragment"
+        android:name="com.example.soeco.ui.delivery.DeliveryOrderDetailFragment"
+        android:label="DeliveryOrderDetailFragment"
+        tools:layout="@layout/fragment_delivery_order_detail">
+        <action
+            android:id="@+id/action_deliveryOrderDetailFragment_to_productsList"
+            app:destination="@id/productsList2" />
+        <action
+            android:id="@+id/action_deliveryOrderDetailFragment_to_questionnaireDelivery"
+            app:destination="@id/questionnaireDelivery" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionnaireDelivery"
+        android:name="com.example.soeco.ui.delivery.QuestionnaireDelivery"
+        android:label="fragment_questionnaire_delivery"
+        tools:layout="@layout/fragment_questionnaire_delivery" />
 </navigation>

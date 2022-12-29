@@ -8,9 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
-import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
-import com.example.soeco.ui.dashboard.DashBoardAdapter
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
 
