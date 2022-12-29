@@ -43,11 +43,11 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
     private fun navigateOrderdetail(navigation: NavController, userRole: String?, ordernumber: String) {
         when(userRole){
             "carpenter" -> {
-                val action = DashBoardFragmentDirections.actionDashBoardFragmentToCarpentryOrderDetailFragment()
+                val action = DashBoardFragmentDirections.actionDashBoardFragmentToCarpentryOrderDetailFragment(ordernumber)
                 navigation.navigate(action)
             }
             "delivery" -> {
-                val action = DashBoardFragmentDirections.actionDashBoardFragmentToDeliveryOrderDetailFragment()
+                val action = DashBoardFragmentDirections.actionDashBoardFragmentToDeliveryOrderDetailFragment(ordernumber) // TODO show the order detail based on the order selected
                 navigation.navigate(action)
             }
 
