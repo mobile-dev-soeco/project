@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_weight="1"
         android:layout_marginTop="50dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
@@ -30,7 +30,7 @@
         app:layout_constraintHorizontal_weight="1"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="password"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="Select User Type"
+            android:text="@string/select_user_type"
             android:layout_marginEnd="10dp"/>
 
         <Spinner
@@ -68,8 +68,9 @@
         android:id="@+id/btnCreateUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Create User"
         android:layout_marginTop="25dp"
+        android:text="@string/create_user"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
@@ -91,11 +92,12 @@
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
+        android:layout_marginBottom="50dp"
+        android:text="@string/logout"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        android:layout_marginBottom="50dp"/>
+        app:layout_constraintStart_toStartOf="@+id/glLeft" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glLeft"
