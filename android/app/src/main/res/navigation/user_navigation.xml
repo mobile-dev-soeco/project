@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_navigation"
+    app:startDestination="@id/dashBoardFragment">
+
+    <fragment
+        android:id="@+id/dashBoardFragment"
+        android:name="com.example.soeco.ui.dashboard.DashBoardFragment"
+        android:label="fragment_dash"
+        tools:layout="@layout/fragment_dash" >
+        <action
+            android:id="@+id/action_dashBoardFragment_to_carpentryOrderDetailFragment"
+            app:destination="@id/carpentryOrderDetailFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_deliveryOrderDetailFragment"
+            app:destination="@id/deliveryOrderDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/carpentryOrderDetailFragment"
+        android:name="com.example.soeco.ui.carpentry.CarpentryOrderDetailFragment"
+        android:label="fragment_carpentry_order_detail"
+        tools:layout="@layout/fragment_carpentry_order_detail" >
+        <action
+            android:id="@+id/action_carpentryOrderDetailFragment_to_carpentryMaterials"
+            app:destination="@id/carpentryMaterials" />
+        <action
+            android:id="@+id/action_carpentryOrderDetailFragment_to_productsList"
+            app:destination="@id/productsList" />
+        <action
+            android:id="@+id/action_carpentryOrderDetailFragment_to_questionnaireCarpentry"
+            app:destination="@id/questionnaireCarpentry" />
+    </fragment>
+    <fragment
+        android:id="@+id/carpentryMaterials"
+        android:name="com.example.soeco.ui.carpentry.CarpentryMaterials"
+        android:label="fragment_carpentry_materials"
+        tools:layout="@layout/fragment_carpentry_materials" />
+    <fragment
+        android:id="@+id/productsList"
+        android:name="com.example.soeco.ui.carpentry.ProductsList"
+        android:label="fragment_products_list"
+        tools:layout="@layout/fragment_products_list" />
+    <fragment
+        android:id="@+id/questionnaireCarpentry"
+        android:name="com.example.soeco.ui.carpentry.QuestionnaireCarpentry"
+        android:label="fragment_questionnaire"
+        tools:layout="@layout/fragment_questionnaire" />
+    <fragment
+        android:id="@+id/deliveryOrderDetailFragment"
+        android:name="com.example.soeco.ui.delivery.DeliveryOrderDetailFragment"
+        android:label="DeliveryOrderDetailFragment" >
+        <action
+            android:id="@+id/action_deliveryOrderDetailFragment_to_productsList"
+            app:destination="@id/productsList" />
+        <action
+            android:id="@+id/action_deliveryOrderDetailFragment_to_questionnaireCarpentry"
+            app:destination="@id/questionnaireCarpentry" />
+    </fragment>
+</navigation>
