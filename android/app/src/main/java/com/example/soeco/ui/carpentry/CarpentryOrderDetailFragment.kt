@@ -20,42 +20,29 @@ import java.util.*
 
 class CarpentryOrderDetailFragment : Fragment() {
 
-    //val args: CarpentryOrderDetailFragmentArgs by navArgs()
-
-    private val dashBoardViewModel by viewModels<DashBoardViewModel> { viewModelFactory }
+    val args: CarpentryOrderDetailFragmentArgs by navArgs()
     private val navigation: NavController by lazy { findNavController() }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_carpentry_order_detail, container, false)
-        val viewmodel by viewModels<OrderDetailsViewModel> { viewModelFactory }
 
         val orderNumberTextView : TextView = view.findViewById(R.id.textView_carpentry_products_view_order_number)
         val viewProductsButton : Button = view.findViewById(R.id.button_carpentry_viewProducts)
         val viewMaterialsButton : Button = view.findViewById(R.id.button_carpentry_viewMaterials)
         val reportDeviationButton: Button = view.findViewById(R.id.button_carpentry_reportDeviation)
-        val order_id = this.arguments?.getString("order")
-        //val order_id = args.orderNumber
-        orderNumberTextView.text= order_id.toString()
-//        val order = order_id.let { viewmodel.getOrder(it) }
-//        if (order != null) {
-//            orderNumberTextView.text= order.OrderNumber
-//        }
+
+        val order_id = args.orderNumber
+        orderNumberTextView.text = order_id
 
         viewProductsButton.setOnClickListener {
             navigation.navigate(R.id.action_carpentryOrderDetailFragment_to_productsList)
-
         }
-
         viewMaterialsButton.setOnClickListener {
             navigation.navigate(R.id.action_carpentryOrderDetailFragment_to_carpentryMaterials)
-
         }
-
-
         return view
     }
 
