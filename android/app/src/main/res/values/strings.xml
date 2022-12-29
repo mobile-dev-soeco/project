@@ -21,10 +21,10 @@
     <!--<string name="order_customerAddress">Customer address</string>-->
     <string name="order_customerAddress">Tivoligatan 1 Kristianstad</string>
     <string name="order_overview">Orderöversikt</string>
-    <string name="order_report">Rapportera avvikelse</string>
+    <string name="order_report">Avvikelserapport</string>
     <string name="view_button">Visa</string>
     <string name="modify_button">Ändra</string>
-    <string name="report_button">Rapportera</string>
+    <string name="report_button">Sänd</string>
     <string name="call_button">Ring</string>
     <string name="map_button">Karta</string>
     <!-- end -->

@@ -38,6 +38,8 @@ class DeliveryOrderDetailFragment : Fragment() {
         val orderNumberTextView : TextView = view.findViewById(R.id.textView_delivery_products_view_order_number)
         val customerName : TextView = view.findViewById(R.id.textView_delivery_orderName)
 
+        val showProductsButton : Button = view.findViewById(R.id.button_delivery_viewProducts)
+
         // call (dial screen with number displayed)
         val callButton : Button = view.findViewById(R.id.button_delivery_orderCustomerContact)
         val phoneText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerContact)
@@ -54,6 +56,11 @@ class DeliveryOrderDetailFragment : Fragment() {
 
         setCallButtonListener(callButton, phoneText)
         setMapButtonListener(mapButton,addressText)
+
+        showProductsButton.setOnClickListener {
+            val action = DeliveryOrderDetailFragmentDirections.actionDeliveryOrderDetailFragmentToProductsList(args.orderNumber)
+            navigation.navigate(action)
+        }
 
         reportButton.setOnClickListener {
             val action = DeliveryOrderDetailFragmentDirections.actionDeliveryOrderDetailFragmentToQuestionnaireCarpentry(args.orderNumber)

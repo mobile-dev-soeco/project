@@ -38,6 +38,9 @@
         <argument
             android:name="orderNumber"
             app:argType="string" />
+        <action
+            android:id="@+id/action_questionnaireCarpentry_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
     </fragment>
     <fragment
         android:id="@+id/carpentryOrderDetailFragment"
