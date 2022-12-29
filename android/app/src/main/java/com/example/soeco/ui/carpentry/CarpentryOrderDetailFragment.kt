@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.soeco.R
+import com.example.soeco.ui.delivery.DeliveryOrderDetailFragmentDirections
 import com.example.soeco.ui.viewmodels.DashBoardViewModel
 import com.example.soeco.ui.viewmodels.OrderDetailsViewModel
 import com.example.soeco.utils.viewModelFactory
@@ -42,6 +43,11 @@ class CarpentryOrderDetailFragment : Fragment() {
         }
         viewMaterialsButton.setOnClickListener {
             navigation.navigate(R.id.action_carpentryOrderDetailFragment_to_carpentryMaterials)
+        }
+
+        reportDeviationButton.setOnClickListener {
+            val action = CarpentryOrderDetailFragmentDirections.actionCarpentryOrderDetailFragmentToQuestionnaireCarpentry(args.orderNumber)
+            navigation.navigate(action)
         }
         return view
     }
