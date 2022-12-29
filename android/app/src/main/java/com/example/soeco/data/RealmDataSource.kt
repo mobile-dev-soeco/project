@@ -46,7 +46,6 @@ class RealmDataSource(context: Context) {
         userRole = currentRealmUser.customData["role"].toString()
 
         val userData = user.customData
-        val userRole = userData["role"]
 
         val config = RealmConfiguration.Builder()
             .name("local-realm")
@@ -79,7 +78,7 @@ class RealmDataSource(context: Context) {
         val functionsManager = realmApp.getFunctions(currentRealmUser)
 
         // Create user in database
-        functionsManager.callFunctionAsync("registerUser2", userData, String::class.java) { addUser ->
+        functionsManager.callFunctionAsync("registerUser", userData, String::class.java) { addUser ->
             if (addUser.isSuccess){
                 Log.v("User registration", "User was added to database")
                 // Register the user to realm email/password authentication
@@ -226,7 +225,6 @@ class RealmDataSource(context: Context) {
                     val orders = response.body()
                     if (orders != null) {
                         it.deleteAll()
-
                         for (order in orders) {
                             for (product in order.Products)
                                 it.copyToRealmOrUpdate(getProduct(product.id,order.OrderNumber,product.count))

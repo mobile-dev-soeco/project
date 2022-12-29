@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/carpentry_navigation" />
+        app:navGraph="@navigation/user_navigation" />
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <com.google.android.material.navigation.NavigationView
@@ -28,6 +28,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu="@menu/carpentry_menu" />
+        app:menu="@menu/user_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

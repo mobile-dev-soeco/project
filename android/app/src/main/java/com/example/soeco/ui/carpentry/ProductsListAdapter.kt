@@ -12,11 +12,9 @@ import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
 import com.example.soeco.ui.dashboard.DashBoardAdapter
 import io.realm.OrderedRealmCollection
-import io.realm.RealmList
 import io.realm.RealmRecyclerViewAdapter
-import io.realm.RealmResults
 
-internal class ProductsListAdapter(data: RealmResults<Product_DB>) : RealmRecyclerViewAdapter<Product_DB?,
+internal class ProductsListAdapter(data: OrderedRealmCollection<Product_DB?>?) : RealmRecyclerViewAdapter<Product_DB?,
         ProductsListAdapter.ProductsViewHolder?>(data, true) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
@@ -31,9 +29,9 @@ internal class ProductsListAdapter(data: RealmResults<Product_DB>) : RealmRecycl
         val obj = getItem(position)
         val textProductId : TextView = holder.view.findViewById(R.id.product_id)
         val textProductName : TextView = holder.view.findViewById(R.id.product_name)
-        val productId = obj!!.product_id
+        val productId = obj!!.id
         val productName = obj!!.name
-        textProductId.text = productId
+        textProductId.text = productId.toString()
         textProductName.text = productName
         holder.data = obj
         val cardView: CardView = holder.view.findViewById(R.id.card_product)
