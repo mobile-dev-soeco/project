@@ -10,10 +10,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentDeliveryOrderDetailBinding
 import com.example.soeco.ui.carpentry.CarpentryOrderDetailFragmentArgs
+import com.example.soeco.ui.dashboard.DashBoardFragmentDirections
 import com.example.soeco.ui.viewmodels.OrderDetailsViewModel
 import com.example.soeco.utils.viewModelFactory
 
@@ -21,6 +25,7 @@ class DeliveryOrderDetailFragment : Fragment() {
 
 
     val args: DeliveryOrderDetailFragmentArgs by navArgs()
+    private val navigation: NavController by lazy { findNavController() }
 
     private lateinit var binding: FragmentDeliveryOrderDetailBinding
 
@@ -40,6 +45,8 @@ class DeliveryOrderDetailFragment : Fragment() {
         val mapButton : Button = view.findViewById(R.id.button_delivery_orderCustomerAddress)
         val addressText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerAddress)
 
+        val reportButton : Button = view.findViewById(R.id.button_delivery_reportDeviation)
+
         orderNumberTextView.text = args.orderNumber
         customerName.text = args.name
         phoneText.text = args.phone
@@ -47,6 +54,11 @@ class DeliveryOrderDetailFragment : Fragment() {
 
         setCallButtonListener(callButton, phoneText)
         setMapButtonListener(mapButton,addressText)
+
+        reportButton.setOnClickListener {
+            val action = DeliveryOrderDetailFragmentDirections.actionDeliveryOrderDetailFragmentToQuestionnaireCarpentry(args.orderNumber)
+            navigation.navigate(action)
+        }
 
         return view
     }
