@@ -8,13 +8,27 @@ import org.bson.types.ObjectId
 
 
 
-open class Product_DB(
+open class Product_DB : RealmObject {
     @PrimaryKey
-    var id: Int = 0,
+    var _id: ObjectId = ObjectId()
     @Required
-    var name: String ="",
-    var expectHours: Int=0,
-): RealmObject()
+    var product_id: String = ""
+    var name: String =""
+    var orderNumber: String = ""
+    var count: Int = 0
 
+    constructor(
+        product_id: String = "",
+        name: String ="",
+        orderNumber: String = "",
+        count : Int = 0
 
+    ) {
+        this.product_id = product_id
+        this.name = name
+        this.orderNumber = orderNumber
+        this.count = count
 
+    }
+    constructor() {} // RealmObject subclasses must provide an empty constructor
+}
