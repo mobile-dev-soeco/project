@@ -30,9 +30,6 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
         val obj = getItem(position)
         val textView : TextView = holder.view.findViewById(R.id.textView_ordernumber)
         val orderNumber = obj!!.OrderNumber
-        val name = obj!!.contact!![0]
-        val phone = obj!!.contact!![1]
-        val address = obj!!.address
         textView.text = orderNumber
         holder.data = obj
         val cardView :CardView = holder.view.findViewById(R.id.card_Order)
@@ -43,6 +40,9 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
                     navigateCarpenterOrderDetail(navigation, orderNumber)
                 }
                 "delivery" -> {
+                    val name = obj!!.contact!![0]
+                    val phone = obj!!.contact!![1]
+                    val address = obj!!.address
                     if (name != null && phone != null && address != null) {
                         navigateDeliveryOrderDetail(navigation, orderNumber, address, name, phone)
                     }
