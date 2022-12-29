@@ -10,33 +10,24 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentDeliveryOrderDetailBinding
-import com.example.soeco.ui.carpentry.CarpentryOrderDetailFragmentArgs
-import com.example.soeco.ui.viewmodels.DashBoardViewModel
 import com.example.soeco.ui.viewmodels.OrderDetailsViewModel
 import com.example.soeco.utils.viewModelFactory
 
 class DeliveryOrderDetailFragment : Fragment() {
 
-    val args: CarpentryOrderDetailFragmentArgs by navArgs()
+    val viewmodel by viewModels<OrderDetailsViewModel> { viewModelFactory }
 
-    private val dashBoardViewModel by viewModels<DashBoardViewModel> { viewModelFactory }
-    private val navigation: NavController by lazy { findNavController() }
+    private lateinit var binding: FragmentDeliveryOrderDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_delivery_order_detail, container, false)
-        val viewmodel by viewModels<OrderDetailsViewModel> { viewModelFactory }
 
         val orderNumberTextView : TextView= view.findViewById(R.id.textView_delivery_products_view_order_number)
-
-        val viewProductsButton : Button = view.findViewById(R.id.button_delivery_viewProducts)
 
         // call (dial screen with number displayed)
         val callButton : Button = view.findViewById(R.id.button_delivery_orderCustomerContact)
@@ -56,9 +47,6 @@ class DeliveryOrderDetailFragment : Fragment() {
             orderNumberTextView.text= order.OrderNumber
             addressText.text = order.address
 
-        }
-        viewProductsButton.setOnClickListener {
-            navigation.navigate(R.id.action_deliveryOrderDetailFragment_to_productsList)
         }
         setCallButtonListener(callButton, phoneText)
         setMapButtonListener(mapButton,addressText)

@@ -37,29 +37,17 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
         cardView.setOnClickListener {
             // depending on the user role, navigate to different fragments
             navigateOrderdetail(navigation, userRole, holder.data!!.OrderNumber)
-
-//            val mainActivity = it.context as MainActivity
-//            val bundle = Bundle()
-//            bundle.putString("order", holder.data!!.OrderNumber)
-//            val fragmentManager = mainActivity.supportFragmentManager
-//            val ft: FragmentTransaction = fragmentManager.beginTransaction()
-//            var fragment = if (userRole == "delivery") {
-//                DeliveryOrderDetailFragment()
-//            } else {
-//                CarpentryOrderDetailFragment()
-//            }
-//
-//            fragment.arguments = bundle
-//            ft.replace(R.id.card, fragment)
-//            ft.commit()
-
         }
     }
 
     private fun navigateOrderdetail(navigation: NavController, userRole: String?, ordernumber: String) {
         when(userRole){
             "carpenter" -> {
-                val action = DashBoardFragmentDirections.actionDashBoardFragmentToCarpentryOrderDetailFragment(ordernumber)
+                val action = DashBoardFragmentDirections.actionDashBoardFragmentToCarpentryOrderDetailFragment()
+                navigation.navigate(action)
+            }
+            "delivery" -> {
+                val action = DashBoardFragmentDirections.actionDashBoardFragmentToDeliveryOrderDetailFragment()
                 navigation.navigate(action)
             }
 
