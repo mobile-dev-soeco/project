@@ -14,12 +14,8 @@ class ProductsViewModel(
     val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
-    val products: RealmResults<Product_DB> = repository.getProducts()
-
-
     fun getProducts(orderNumber: String): RealmResults<Product_DB> {
         return  repository.getProductsDb(orderNumber)
-
 
     }
 
