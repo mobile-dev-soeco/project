@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,8 @@ import com.example.soeco.utils.viewModelFactory
 class DashBoardFragment : Fragment() {
 
     private val dashBoardViewModel by viewModels<DashBoardViewModel> { viewModelFactory }
+    private val navigation: NavController by lazy { findNavController() }
+
 
     private lateinit var binding: FragmentDashBinding
 
@@ -31,7 +35,7 @@ class DashBoardFragment : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         val recyclerView :RecyclerView = itemView.findViewById(R.id.recyclerView_Orders)
-        val adapter = DashBoardAdapter(dashBoardViewModel.orders, dashBoardViewModel.userRole)
+        val adapter = DashBoardAdapter(dashBoardViewModel.orders, dashBoardViewModel.userRole, navigation)
         recyclerView.layoutManager =LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = adapter
     }
