@@ -84,4 +84,6 @@
     <string name="questionnaire_problem_text">Vad som hänt?</string>
     <string name="questionnaire_solution_text">Åtgärd</string>
     <string name="questionnaire_cost_text">Kostnad</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
