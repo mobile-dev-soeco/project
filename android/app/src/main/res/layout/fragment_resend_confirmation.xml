@@ -13,7 +13,7 @@
         android:id="@+id/tvResendTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resend Confirmation Email"
+        android:text="@string/Resend_confirmation_btn"
         android:textSize="24sp"
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +23,12 @@
         android:id="@+id/etEmailResend"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintHorizontal_weight="1"
-        android:inputType="textEmailAddress"
         android:layout_marginTop="50dp"
-        android:hint="Email"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvResendTitle" />
 
@@ -35,11 +36,12 @@
         android:id="@+id/btnSendEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Send"
+        android:text="@string/button_send"
         app:layout_constraintHorizontal_weight="1"
         android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/etEmailResend" />
 
     <ProgressBar

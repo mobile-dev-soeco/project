@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.carpentry.CarpentryOrderDetailFragment">
 
 
@@ -98,6 +99,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/view_button"
+                        android:textColor="@color/black"
                         android:visibility="visible"
                         card_view:cornerRadius="20dp" />
                 </LinearLayout>
@@ -124,6 +126,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/view_button"
+                        android:textColor="@color/black"
                         android:visibility="visible"
                         card_view:cornerRadius="20dp" />
                 </LinearLayout>
@@ -182,6 +185,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:text="@string/report_button"
+                    android:textColor="@color/black"
                     android:visibility="visible"
                     card_view:cornerRadius="20dp" />
 

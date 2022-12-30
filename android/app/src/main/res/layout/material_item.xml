@@ -12,13 +12,13 @@
     android:foreground="?selectableItemBackground"
     card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="16dp"
-    card_view:contentPadding="10dp"
     tools:ignore="TouchTargetSizeCheck">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
 
         <LinearLayout
@@ -32,35 +32,40 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="6dp"
-                android:text="material"
-                android:textColor="@color/Green" />
+                android:text="@string/material"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
             <EditText
                 android:id="@+id/material_unit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
+                android:hint="@string/zero"
                 android:padding="6dp"
-                android:hint="0"
-                android:textColor="@color/Green" />
+                android:textColor="@color/black" />
+
             <Button
                 android:id="@+id/calender1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:padding="6dp"
-                android:text="date"
-                android:textColor="@color/white" />
+                android:text="@string/date_text"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/confirm_material"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="6dp"
-            android:text="confirm"
             android:layout_gravity="center"
-            android:textColor="@color/white" />
+            android:layout_marginTop="5dp"
+            android:text="@string/confirm"
+            android:textColor="@color/black" />
 
 
     </LinearLayout>

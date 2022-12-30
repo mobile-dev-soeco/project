@@ -55,11 +55,12 @@
                     android:id="@+id/btnAction"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:contentDescription="@null"
                     android:layout_marginTop="10dp"
+                    android:contentDescription="@null"
+                    android:text="@string/send"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="@string/send"
                     app:layout_constraintTop_toBottomOf="@+id/etEmail"
                     tools:ignore="SpeakableTextPresentCheck" />
 
