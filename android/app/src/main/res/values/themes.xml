@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
     <style name="Theme.Soeco.SpinnerGreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorAccent">@color/Green</item>
     </style>
