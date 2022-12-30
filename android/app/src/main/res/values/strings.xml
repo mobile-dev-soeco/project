@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">Soeco</string>
+    <string name="app_copyright">Copyright ©2022 Soeco Kontorsmöbler AB - All rights reserved</string>
+
+    <!-- DashBoardFragment -->
+    <string name="order_date_text">Datum:</string>
+    <string name="order_date">01–01–2023</string>
+
+    <string name="order_hours_worked_text">Tid:</string>
+    <string name="order_hours_worked">2h</string>
+
+    <string name="order_number_text">Ordernummer:</string>
+    <string name="order_number_">23-22-8888</string>
+    <string name="order_name_text">Namn:</string>
+    <string name="order_name">Andreas</string>
+    <string name="order_products">Artiklar</string>
+    <string name="order_materials">Material</string>
+    <!--<string name="order_customerContact">Customer contact</string>-->
+    <string name="order_customerContact">0273362255</string>
+
+    <!--<string name="order_customerAddress">Customer address</string>-->
+    <string name="order_customerAddress">Tivoligatan 1 Kristianstad</string>
+    <string name="order_overview">Orderöversikt</string>
+    <string name="order_report">Avvikelserapport</string>
+    <string name="view_button">Visa</string>
+    <string name="modify_button">Ändra</string>
+    <string name="report_button">Sänd</string>
+    <string name="call_button">Ring</string>
+    <string name="map_button">Karta</string>
+    <!-- end -->
+
+
+    <!-- InstructionFragment -->
+    <string name="app_instruction_title">App instruktioner</string>
+    <string name="app_instruction_for">Appen är utvecklad åt företaget Soeco AB som jobbar med återbrukade kontorsmöbler.</string>
+    <string name="app_instruction_users">Användare för denna app är bruksmän och arbetare med administrativa roller på Soeco.</string>
+    <string name="app_instruction_access">För att få tillgång till denna app måste du vara anställd på Soeco och kontakta administrativ personal.</string>
+    <string name="app_instruction_usage">När du har loggat in, visas de nuvarande ordrar i en lista. Man kan välja en order från listan och ändra allt från arbetstid till materialet som använts i projektet. </string>
+    <string name="app_instruction_version">Utvecklad för Android version 12</string>
+    <!-- end -->
+
+    <!-- CompanyInfoFragment -->
+    <string name="companyInfo_title">Företagsinformation</string>
+    <string name="companyInfo_name">Soeco Kontorsmöbler AB</string>
+    <string name="companyInfo_mobileNumber">+46 17 885 92 73</string>
+    <string name="companyInfo_email">soecofurniture@gmail.com</string>
+    <string name="companyInfo_address">Pumpvägen 1, 247 50 Dalby</string>
+    <!-- end -->
+
+
+    <string name="order_number">Ordernummer</string>
+    <string name="Resend_confirmation_btn">Skicka bekräftelsemejlet igen</string>
+    <string name="resend_email">Skicka mejlet igen</string>
+    <string name="empty_email_warning">Vänligen ange en emailadress</string>
+    <string name="email_confirm_success_msg">Verifikation lyckades. Vänligen logga in.</string>
+    <string name="login">Logga in</string>
+    <string name="log_out">Logga ut</string>
+    <string name="new_password_hint">Nytt Lösenord</string>
+    <string name="submit">Skicka in</string>
+    <string name="reset_password_heading">Återställ lösenordet</string>
+    <string name="email_hint">Mejl</string>
+    <string name="forgot_password">Glömt lösenord</string>
+    <string name="password_hint">Lösenord</string>
+    <string name="enter_new_password">Ange ditt nya lösenord</string>
+    <string name="confirm">Bekräfta</string>
+    <string name="send">Skicka</string>
+    <string name="confirm_user_title">Skicka bekräftelselänken igen</string>
+    <string name="account_already_confirmed">Ditt konto är redan verifierat</string>
+    <string name="reset_your_password">Återställ lösenordet</string>
+    <string name="reset_password">Återställ lösenordet</string>
+    <string-array name="user_types">
+        <item>Budbärare</item>
+        <item>Tapetserare</item>
+        <item>Snickare</item>
+        <item>Administratör</item>
+    </string-array>
+    <string name="title_activity_test">test</string>
+    <string name="title_activity_nav_draw">NavDrawActivity</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="questionnaire_date_text">Datum</string>
+    <string name="questionnaire_product_text">Artikel</string>
+    <string name="questionnaire_problem_text">Vad som hänt?</string>
+    <string name="questionnaire_solution_text">Åtgärd</string>
+    <string name="questionnaire_cost_text">Kostnad</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+</resources>

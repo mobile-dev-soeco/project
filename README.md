@@ -6,14 +6,16 @@
 * presentation of what Android version the app is developed for,
 * log in to different accounts,
 * user interface
-* create database (question- are you developing local or cloud db, and will it be sql or nosql database?)
-* user interface (question- will the app handle Swedish only or other languages as well?)
+* create a database - The group starts with a local database to win time if no new information is given from the customer.
+* app UI will be in Swedish
+* Db used in the project is MongoDb and Relm 
 * communication with the customer at least once a week
 ## Grade 4:
-* create Admin with following features: add users, delete users and update users
-* create Delivery with following features: map, customer contact, orders, daily schedule and filter schedule
-* create Tradesman with following features: material list buy (question- do you mean to transact money/pay?), mark as done, project list.
+* all roles have a deviation feature with a set of questions the user can optionally choose to answer
+* create Admin with the following features: create users, delete users and update users
+* create Tradesman with the following features: the material list, and orders list.
 ## Grade 5:
-* create Admin with following features: statistical analysis overview tasks, estimate/actual time
-* create Delivery with following features: intake inventory text and quantity email to boss, mark individual item as delivered time/date, find orders by date, time with customer, deviation
-* create Tradesman with following features: time tracking, date completed, materials and estimate/actual time
+* create Delivery with the following features: customer contact, button to google maps, orders, enter the time for delivery
+* create Admin with the following features: statistical analysis estimate/actual time
+* create Tradesman with the following features: date completed, materials, and estimate/actual time.
+* Trademan has two roles, carpenter and metalworker
