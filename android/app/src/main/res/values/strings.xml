@@ -58,7 +58,7 @@
     <string name="new_password_hint">Nytt Lösenord</string>
     <string name="submit">Skicka in</string>
     <string name="reset_password_heading">Återställ lösenordet</string>
-    <string name="email_hint">Mejl</string>
+    <string name="email_hint">Mejladdress</string>
     <string name="forgot_password">Glömt lösenord</string>
     <string name="password_hint">Lösenord</string>
     <string name="enter_new_password">Ange ditt nya lösenord</string>
@@ -84,6 +84,13 @@
     <string name="questionnaire_problem_text">Vad som hänt?</string>
     <string name="questionnaire_solution_text">Åtgärd</string>
     <string name="questionnaire_cost_text">Kostnad</string>
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name="select_user_type">Välj användartyp</string>
+    <string name="create_user">Skapa konto</string>
+    <string name="logout">Logga ut</string>
+    <string name="button_send">Skicka</string>
+    <string name="date_text">Datum</string>
+    <string name="zero">0</string>
+    <string name="material">Material</string>
+    <string name="id">ID</string>
+    <string name="statistics">Statistik</string>
 </resources>

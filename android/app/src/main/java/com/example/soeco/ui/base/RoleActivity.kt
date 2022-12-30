@@ -58,17 +58,17 @@ open class RoleActivity(
         val navView: NavigationView = findViewById(navViewId)
 
         //new
-        appBarConfiguration = AppBarConfiguration(navController.graph, draw)
-//        appBarConfiguration = AppBarConfiguration(setOf(
-//            R.id.carpentryOrderDetailFragment,
-//            R.id.carpentryMaterials,
-//            R.id.dashBoardFragment,
-//            R.id.questionnaireCarpentry,
-//            R.id.productsList,
-//            R.id.deliveryOrderDetailFragment,
-//            R.id.adminHomeFragment,
-//            R.id.statisticsFragment
-//        ), draw)
+//        appBarConfiguration = AppBarConfiguration(navController.graph, draw)
+        appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.carpentryOrderDetailFragment,
+            R.id.carpentryMaterials,
+            R.id.dashBoardFragment,
+            R.id.questionnaireCarpentry,
+            R.id.productsList,
+            R.id.deliveryOrderDetailFragment,
+            R.id.adminHomeFragment,
+            R.id.statisticsFragment
+        ), draw)
         setSupportActionBar(toolBar);
         toolBar.setupWithNavController(navController, appBarConfiguration)
         setupActionBarWithNavController(navController, appBarConfiguration)

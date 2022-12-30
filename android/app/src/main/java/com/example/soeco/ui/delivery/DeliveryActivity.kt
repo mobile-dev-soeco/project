@@ -10,7 +10,7 @@ class DeliveryActivity : RoleActivity (
     R.id.carpentry_host_fragment,
     R.id.carpentry_nav_view,
     R.id.carpentry_drawer_layout,
-    R.id.delivery_toolbar
+    R.id.toolbar
 ){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
