@@ -10,19 +10,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="30dp">
 
         <TextView
             android:id="@+id/textView_questionnaireOrderNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:gravity="center_horizontal"
             android:text="@string/order_number"
-            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView_questionnaireTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/questionnaire_time_text"
+            android:textStyle="bold" />
 
+        <EditText
+            android:id="@+id/editTextDate_questionnaireTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:inputType="datetime"
+            android:minHeight="48dp"
+            android:text=""
+            tools:ignore="SpeakableTextPresentCheck" />
         <TextView
             android:id="@+id/textView_questionnaireDate"
             android:layout_width="match_parent"
@@ -47,6 +63,10 @@
             android:layout_height="wrap_content"
             android:text="@string/questionnaire_product_text"
             android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
         <EditText
             android:id="@+id/editText_questionnaireProduct"
@@ -58,6 +78,15 @@
             android:text=""
             tools:ignore="SpeakableTextPresentCheck"
             android:importantForAutofill="no" />
+        <Spinner
+            android:id="@+id/spinner_questionnaireProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:minHeight="48dp"
+            android:text=""
+            />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView_questionnaireProblem"
@@ -120,7 +149,8 @@
             android:layout_height="wrap_content"
             android:text="@string/report_button"
             android:textColor="@color/black"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck"
+            android:layout_marginTop="40dp"/>
 
     </LinearLayout>
 </ScrollView>
