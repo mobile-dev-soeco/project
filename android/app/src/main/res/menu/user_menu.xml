@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <item
-        android:id="@+id/dashBoardFragment"
-        android:title="All orders" />
-
-    <item
-        android:id="@+id/companyInfoFragment"
-        android:title="Company Info" />
-
-    <item
-        android:id="@+id/instructionFragment"
-        android:title="App Info" />
-
     <item
         android:id="@+id/logout"
         android:title="@string/log_out" />

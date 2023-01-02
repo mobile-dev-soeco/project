@@ -1,4 +1,4 @@
-package com.example.soeco.ui.appinfo
+package com.example.soeco.appinfo
 
 import android.os.Bundle
 import android.view.LayoutInflater

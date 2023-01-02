@@ -37,8 +37,9 @@
             android:exported="true">
             <nav-graph android:value="@navigation/admin_navigation" />
         </activity>
-        <activity android:name=".ui.base.RoleActivity"/>
-
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
         <activity android:name=".ui.carpentry.CarpentryActivity" />
         <activity
             android:name="com.example.soeco.ui.delivery.DeliveryActivity"

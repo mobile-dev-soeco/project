@@ -43,7 +43,6 @@ class AuthFragment: Fragment() {
             when(authViewModel.getUserRole()){
                 "admin" -> destination = R.id.action_authFragment_to_adminActivity
                 "carpenter" -> destination = R.id.action_authFragment_to_carpentryActivity
-                "blacksmith" -> destination = R.id.action_authFragment_to_carpentryActivity
                 "delivery" -> destination = R.id.action_authFragment_to_deliveryActivity
             }
             Handler(Looper.getMainLooper()).postDelayed({
