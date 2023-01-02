@@ -7,14 +7,19 @@
     <fragment
         android:id="@+id/dashBoardFragment"
         android:name="com.example.soeco.ui.dashboard.DashBoardFragment"
-        android:label="fragment_dash"
-        tools:layout="@layout/fragment_dash" >
+        tools:layout="@layout/fragment_dash">
         <action
             android:id="@+id/action_dashBoardFragment_to_carpentryOrderDetailFragment"
             app:destination="@id/carpentryOrderDetailFragment" />
         <action
             android:id="@+id/action_dashBoardFragment_to_deliveryOrderDetailFragment"
             app:destination="@id/deliveryOrderDetailFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_companyInfoFragment"
+            app:destination="@id/companyInfoFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_instructionFragment"
+            app:destination="@id/instructionFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsList"
@@ -57,7 +62,7 @@
     <fragment
         android:id="@+id/carpentryOrderDetailFragment"
         android:name="com.example.soeco.ui.carpentry.CarpentryOrderDetailFragment"
-        android:label="fragment_carpentry_order_detail"
+
         tools:layout="@layout/fragment_carpentry_order_detail" >
         <action
             android:id="@+id/action_carpentryOrderDetailFragment_to_carpentryMaterials"
@@ -95,4 +100,14 @@
             android:id="@+id/action_deliveryOrderDetailFragment_to_deliveryProductsList"
             app:destination="@id/deliveryProductsList" />
     </fragment>
+    <fragment
+        android:id="@+id/companyInfoFragment"
+        android:name="com.example.soeco.ui.appinfo.CompanyInfoFragment"
+        android:label="fragment_company_info"
+        tools:layout="@layout/fragment_company_info" />
+    <fragment
+        android:id="@+id/instructionFragment"
+        android:name="com.example.soeco.ui.appinfo.InstructionFragment"
+        android:label="fragment_instruction"
+        tools:layout="@layout/fragment_instruction" />
 </navigation>

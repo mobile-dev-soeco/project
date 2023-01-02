@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:background="#ffffff"
     android:paddingBottom="100dp"
-    tools:context=".appinfo.CompanyInfoFragment">
+    tools:context=".ui.appinfo.CompanyInfoFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

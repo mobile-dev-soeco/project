@@ -118,6 +118,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/view_button"
+                        android:textColor="@color/black"
                         android:visibility="visible"
                         card_view:cornerRadius="20dp" />
                 </LinearLayout>
@@ -145,6 +146,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/call_button"
+                        android:textColor="@color/black"
                         android:visibility="visible"
                         card_view:cornerRadius="20dp" />
                 </LinearLayout>
@@ -172,10 +174,54 @@
                         android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/map_button"
+                        android:textColor="@color/black"
                         android:visibility="visible"
                         card_view:cornerRadius="20dp" />
                 </LinearLayout>
 
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_delivery_reportTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:clickable="true"
+            android:foreground="?selectableItemBackground"
+            card_view:cardBackgroundColor="@color/white"
+            card_view:cardCornerRadius="16dp"
+            card_view:cardElevation="8dp"
+            card_view:contentPadding="10dp"
+            tools:ignore="MissingConstraints,TouchTargetSizeCheck">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextText_orderHours"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:hint="@string/hours"
+                    android:inputType="textPersonName"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/button_delivery_reportTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="8"
+                    android:text="@string/confirm"
+                    android:textColor="@color/black"
+                    android:visibility="visible"
+                    card_view:cornerRadius="20dp" />
 
             </LinearLayout>
 
@@ -218,6 +264,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:text="@string/report_button"
+                    android:textColor="@color/black"
                     android:visibility="visible"
                     card_view:cornerRadius="20dp" />
 
