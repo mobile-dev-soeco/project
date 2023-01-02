@@ -2,6 +2,7 @@ package com.example.soeco.ui.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -11,10 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import com.example.soeco.R
 import com.example.soeco.ui.auth.AuthActivity
 import com.example.soeco.utils.viewModelFactory
@@ -40,6 +38,7 @@ open class RoleActivity(
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var toolBar: Toolbar
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,6 +49,7 @@ open class RoleActivity(
         //new
         toolBar = findViewById(toolbar)
 
+
         // end new
 
         val navHostFragment = supportFragmentManager.findFragmentById(navHostId) as NavHostFragment
@@ -57,6 +57,10 @@ open class RoleActivity(
 
         val navView: NavigationView = findViewById(navViewId)
 
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            destination.label = ""
+        }
         //new
 //        appBarConfiguration = AppBarConfiguration(navController.graph, draw)
         appBarConfiguration = AppBarConfiguration(setOf(
@@ -76,6 +80,8 @@ open class RoleActivity(
         navView.setupWithNavController(navController)
         navView.setNavigationItemSelectedListener(this)
 
+//        toolBar?.setTitle(null)
+//        supportActionBar?.title = null
         roleActivityViewModel.isAuthorized.observe(this, ::handleAuthorizationChange)
     }
 
@@ -106,4 +112,5 @@ open class RoleActivity(
             finish()
         }
     }
+
 }
