@@ -58,7 +58,7 @@ class DeliveryOrderDetailFragment : Fragment() {
         setMapButtonListener(mapButton,addressText)
 
         showProductsButton.setOnClickListener {
-            val action = DeliveryOrderDetailFragmentDirections.actionDeliveryOrderDetailFragmentToProductsList(args.orderNumber)
+            val action = DeliveryOrderDetailFragmentDirections.actionDeliveryOrderDetailFragmentToDeliveryProductsList(args.orderNumber)
             navigation.navigate(action)
         }
 
