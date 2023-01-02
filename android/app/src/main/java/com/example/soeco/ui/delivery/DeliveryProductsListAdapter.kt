@@ -1,7 +1,8 @@
-package com.example.soeco.ui.carpentry
+package com.example.soeco.ui.delivery
 
 
 import android.app.DatePickerDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,28 +18,23 @@ import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
 import java.util.*
 
-internal class ProductsListAdapter(data: OrderedRealmCollection<Product_DB?>?) : RealmRecyclerViewAdapter<Product_DB?,
-        ProductsListAdapter.ProductsViewHolder?>(data, true) {
+internal class DeliveryProductsListAdapter(data: OrderedRealmCollection<Product_DB?>?) : RealmRecyclerViewAdapter<Product_DB?,
+        DeliveryProductsListAdapter.ProductsViewHolder?>(data, true) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.product_item, parent, false)
+            R.layout.delivery_product_item, parent, false)
 
         return ProductsViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
-
         val obj = getItem(position)
-        val textProductId : TextView = holder.view.findViewById(R.id.product_id)
+        val textProductCount : TextView = holder.view.findViewById(R.id.product_count)
         val textProductName : TextView = holder.view.findViewById(R.id.product_name)
-        val productId = obj!!.product_id
-        val productName = obj!!.name
-        textProductId.text = productId.toString()
-        textProductName.text = productName
+        textProductCount.text = obj!!.count.toString()
+        textProductName.text = obj!!.name
         holder.data = obj
-        val cardView: CardView = holder.view.findViewById(R.id.card_product)
-
     }
 
 

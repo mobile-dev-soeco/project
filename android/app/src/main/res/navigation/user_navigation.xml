@@ -26,6 +26,18 @@
             app:argType="string" />
     </fragment>
     <fragment
+        android:id="@+id/deliveryProductsList"
+        android:name="com.example.soeco.ui.delivery.DeliveryProductsList"
+        android:label="fragment_products_list"
+        tools:layout="@layout/fragment_delivery_products_list">
+        <argument
+            android:name="orderNumber"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_deliveryProductsList_to_deliveryOrderDetailFragment"
+            app:destination="@id/deliveryOrderDetailFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/carpentryMaterials"
         android:name="com.example.soeco.ui.carpentry.CarpentryMaterials"
         android:label="fragment_carpentry_materials"
@@ -68,9 +80,6 @@
             android:name="orderNumber"
             app:argType="string" />
         <action
-            android:id="@+id/action_deliveryOrderDetailFragment_to_productsList"
-            app:destination="@id/productsList" />
-        <action
             android:id="@+id/action_deliveryOrderDetailFragment_to_questionnaireCarpentry"
             app:destination="@id/questionnaireCarpentry" />
         <argument
@@ -82,5 +91,8 @@
         <argument
             android:name="phone"
             app:argType="string" />
+        <action
+            android:id="@+id/action_deliveryOrderDetailFragment_to_deliveryProductsList"
+            app:destination="@id/deliveryProductsList" />
     </fragment>
 </navigation>
