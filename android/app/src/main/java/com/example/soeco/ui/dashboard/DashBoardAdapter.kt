@@ -39,6 +39,9 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
                 "carpenter" -> {
                     navigateCarpenterOrderDetail(navigation, orderNumber)
                 }
+                "blacksmith" -> {
+                    navigateCarpenterOrderDetail(navigation, orderNumber)
+                }
                 "delivery" -> {
                     val name = obj!!.contact!![0]
                     val phone = obj!!.contact!![1]
