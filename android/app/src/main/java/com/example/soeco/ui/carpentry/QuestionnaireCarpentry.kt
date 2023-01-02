@@ -34,7 +34,6 @@ class QuestionnaireCarpentry : Fragment() {
         val sendDeviationButton : Button = view.findViewById(R.id.button_reportDeviation)
         val dateText : EditText = view.findViewById(R.id.editTextDate_questionnaireDate)
         orderNumberTextView.text = args.orderNumber
-        getActivity()
 
 
         setProductSelector(view)
