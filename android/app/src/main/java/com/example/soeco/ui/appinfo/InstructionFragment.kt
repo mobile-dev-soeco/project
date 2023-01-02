@@ -1,4 +1,4 @@
-package com.example.soeco.appinfo
+package com.example.soeco.ui.appinfo
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
