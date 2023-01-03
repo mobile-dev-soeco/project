@@ -4,6 +4,7 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         def nav_version = "2.5.3"
