@@ -14,6 +14,7 @@ open class Material_Report_DB : RealmObject {
     var material_ID: String = ""
 
     var amount: String = ""
+    var name: String = ""
     var unit : String = ""
 
     var date: String =""
@@ -24,6 +25,7 @@ open class Material_Report_DB : RealmObject {
         material_ID: String ="",
 
         amount: String = "",
+        name: String = "",
         unit: String ="",
 
         date : String = "",
@@ -33,6 +35,7 @@ open class Material_Report_DB : RealmObject {
         this.material_ID = material_ID
 
         this.amount = amount
+        this.name = name
         this.unit = unit
 
         this.date = date

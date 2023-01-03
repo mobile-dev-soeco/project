@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentCarpentryMaterialsBinding
-import com.example.soeco.databinding.FragmentProductsListBinding
 import com.example.soeco.ui.viewmodels.MaterialsViewModel
-import com.example.soeco.ui.viewmodels.ProductsViewModel
 import com.example.soeco.utils.viewModelFactory
 
 class CarpentryMaterials : Fragment() {
@@ -23,6 +22,7 @@ class CarpentryMaterials : Fragment() {
     private val materialsViewModel by viewModels<MaterialsViewModel> { viewModelFactory }
     private val navigation: NavController by lazy { findNavController() }
     private lateinit var binding: FragmentCarpentryMaterialsBinding
+    val args: CarpentryOrderDetailFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -36,7 +36,7 @@ class CarpentryMaterials : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         val recyclerView : RecyclerView = itemView.findViewById(R.id.recyclerView_materials)
-        val adapter = CarpentryMaterialsAdapter(materialsViewModel.materials)
+        val adapter = CarpentryMaterialsAdapter(materialsViewModel.materials,args.orderNumber,materialsViewModel)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = adapter
     }

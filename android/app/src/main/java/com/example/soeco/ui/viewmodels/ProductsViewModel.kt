@@ -6,6 +6,7 @@ import com.example.soeco.data.Models.DB_Models.Material_DB
 import com.example.soeco.data.Repository
 import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
+import com.example.soeco.data.Models.DB_Models.Product_Report_DB
 import io.realm.RealmList
 import io.realm.RealmResults
 
@@ -21,6 +22,10 @@ class ProductsViewModel(
 
     fun getProduct(id : String): Product_DB? {
         return  repository.getProduct(id)
+    }
+
+    fun addProductReport(productReportDb: Product_Report_DB) {
+            repository.addProductReport(productReportDb)
     }
 
 }

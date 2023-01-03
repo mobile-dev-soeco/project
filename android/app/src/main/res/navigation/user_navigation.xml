@@ -46,7 +46,11 @@
         android:id="@+id/carpentryMaterials"
         android:name="com.example.soeco.ui.carpentry.CarpentryMaterials"
         android:label="fragment_carpentry_materials"
-        tools:layout="@layout/fragment_carpentry_materials" />
+        tools:layout="@layout/fragment_carpentry_materials" >
+        <argument
+            android:name="orderNumber"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/questionnaireCarpentry"
         android:name="com.example.soeco.ui.carpentry.QuestionnaireCarpentry"

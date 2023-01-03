@@ -6,10 +6,7 @@ import com.example.soeco.data.Api.RetrofitClient
 import com.example.soeco.data.Models.API_Models.Material_API
 import com.example.soeco.data.Models.API_Models.Order_API
 import com.example.soeco.data.Models.API_Models.Product_API
-import com.example.soeco.data.Models.DB_Models.Deviation_Report_DB
-import com.example.soeco.data.Models.DB_Models.Material_DB
-import com.example.soeco.data.Models.DB_Models.Order_DB
-import com.example.soeco.data.Models.DB_Models.Product_DB
+import com.example.soeco.data.Models.DB_Models.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmList
@@ -157,6 +154,7 @@ class RealmDataSource(context: Context) {
                 resetSuccess.invoke()
             }
         }
+
     }
 
     fun sendPasswordResetEmail(
@@ -220,12 +218,7 @@ class RealmDataSource(context: Context) {
 
 
 
-    fun addDeviation(deviation : Deviation_Report_DB) {
-        localRealm.executeTransactionAsync {
-            Log.e("tag", deviation.toString())
-            it.insert(deviation)
-        }
-    }
+
 
 
 
@@ -330,5 +323,24 @@ class RealmDataSource(context: Context) {
         return localRealm.where(Product_DB::class.java).containsKey("orderNumber",
             orderNumber).findAll()
 
+    }
+    fun addDeviation(deviation : Deviation_Report_DB) {
+        localRealm.executeTransactionAsync {
+            Log.e("tag", deviation.toString())
+            it.insert(deviation)
+        }
+    }
+    fun addMaterialReport(material: Material_Report_DB) {
+        localRealm.executeTransactionAsync {
+            Log.e("tag", material.toString())
+            it.insert(material)
+        }
+    }
+
+    fun addProductReport(productReportDb: Product_Report_DB) {
+        localRealm.executeTransactionAsync {
+            Log.e("tag", productReportDb.toString())
+            it.insert(productReportDb)
+        }
     }
 }

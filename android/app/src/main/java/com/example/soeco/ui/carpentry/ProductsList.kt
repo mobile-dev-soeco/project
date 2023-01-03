@@ -12,10 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
-import com.example.soeco.databinding.FragmentDashBinding
 import com.example.soeco.databinding.FragmentProductsListBinding
-import com.example.soeco.ui.dashboard.DashBoardAdapter
-import com.example.soeco.ui.viewmodels.DashBoardViewModel
 import com.example.soeco.ui.viewmodels.ProductsViewModel
 import com.example.soeco.utils.viewModelFactory
 
@@ -41,7 +38,7 @@ class ProductsList : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = itemView.findViewById(R.id.recyclerView_products)
-        val adapter = ProductsListAdapter(productsListViewModel.getProducts(args.orderNumber))
+        val adapter = ProductsListAdapter(productsListViewModel.getProducts(args.orderNumber), productsListViewModel)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = adapter
     }

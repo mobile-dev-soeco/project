@@ -6,19 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.data.Models.DB_Models.Material_DB
 import android.view.View.OnFocusChangeListener
+import android.widget.Button
+import com.example.soeco.data.Models.DB_Models.Material_Report_DB
+import com.example.soeco.ui.viewmodels.MaterialsViewModel
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
 import java.util.*
 
 
-internal class CarpentryMaterialsAdapter(data: OrderedRealmCollection<Material_DB?>?) : RealmRecyclerViewAdapter<Material_DB?,
+internal class CarpentryMaterialsAdapter(
+    data: OrderedRealmCollection<Material_DB?>?,
+    val orderNumber: String,
+    val materialsViewModel: MaterialsViewModel
+) : RealmRecyclerViewAdapter<Material_DB?,
         CarpentryMaterialsAdapter.MaterialsViewHolder?>(data, true) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaterialsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -30,15 +35,33 @@ internal class CarpentryMaterialsAdapter(data: OrderedRealmCollection<Material_D
 
     override fun onBindViewHolder(holder: MaterialsViewHolder, position: Int) {
 
-        val obj = getItem(position)
+        val material = getItem(position)
         val textMaterialName: TextView = holder.view.findViewById(R.id.material_name)
         val textDate: EditText = holder.view.findViewById(R.id.calender_material)
-        val productName = obj!!.name
+        val confirmButton : Button = holder.view.findViewById(R.id.confirm_material)
+        val productName = material!!.name
         textMaterialName.text = productName
-
-        holder.data = obj
-        val cardView: CardView = holder.view.findViewById(R.id.card_material)
+        holder.data = material
         setDateListener(textDate)
+        createReportListener(confirmButton,holder)
+    }
+
+    private fun createReportListener(confirmButton: Button, holder: MaterialsViewHolder) {
+
+        confirmButton.setOnClickListener{
+            val name = holder.data?.name.toString()
+            val id = holder.data?._id.toString()
+            val unit = holder.data?.unit.toString()
+
+            val textDate: EditText = holder.view.findViewById(R.id.calender_material)
+            val textMaterial: EditText = holder.view.findViewById(R.id.material_unit)
+
+            val date = textDate.text.toString()
+            val amount = textMaterial.text.toString()
+
+            materialsViewModel.addMaterialReport(Material_Report_DB(orderNumber, id, amount, name, unit, date))
+
+        }
     }
 
 

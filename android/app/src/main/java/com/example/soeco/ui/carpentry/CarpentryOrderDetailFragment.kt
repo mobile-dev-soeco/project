@@ -45,7 +45,8 @@ class CarpentryOrderDetailFragment : Fragment() {
 
         }
         viewMaterialsButton.setOnClickListener {
-            navigation.navigate(R.id.action_carpentryOrderDetailFragment_to_carpentryMaterials)
+            val action = CarpentryOrderDetailFragmentDirections.actionCarpentryOrderDetailFragmentToCarpentryMaterials(order_id)
+            navigation.navigate(action)
         }
 
         reportDeviationButton.setOnClickListener {

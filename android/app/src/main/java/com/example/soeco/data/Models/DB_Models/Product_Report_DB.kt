@@ -13,7 +13,7 @@ open class Product_Report_DB : RealmObject {
     var product_id: String =""
     var orderNumber: String = ""
 
-    var product_count : Int = 0
+    var product_count : Int? = 0
     var product_name : String = ""
 
     var date: String =""
@@ -25,7 +25,7 @@ open class Product_Report_DB : RealmObject {
         product_id:String  = "",
         orderNumber: String ="",
 
-        product_count: Int =0,
+        product_count: Int? =0,
         product_name: String ="",
 
         date : String = "",

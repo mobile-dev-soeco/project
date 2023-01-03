@@ -2,7 +2,6 @@ package com.example.soeco.ui.carpentry
 
 
 import android.app.DatePickerDialog
-import android.app.PendingIntent.getActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +12,18 @@ import android.view.View.OnFocusChangeListener
 import android.widget.Button
 import android.widget.EditText
 import com.example.soeco.R
+import com.example.soeco.data.Models.DB_Models.Material_Report_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
+import com.example.soeco.data.Models.DB_Models.Product_Report_DB
+import com.example.soeco.ui.viewmodels.ProductsViewModel
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
-import java.security.AccessController.getContext
 import java.util.*
 
-internal class ProductsListAdapter(data: OrderedRealmCollection<Product_DB?>?) : RealmRecyclerViewAdapter<Product_DB?,
+internal class ProductsListAdapter(
+    data: OrderedRealmCollection<Product_DB?>?,
+    val productsListViewModel: ProductsViewModel
+) : RealmRecyclerViewAdapter<Product_DB?,
         ProductsListAdapter.ProductsViewHolder?>(data, true) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
@@ -31,20 +35,39 @@ internal class ProductsListAdapter(data: OrderedRealmCollection<Product_DB?>?) :
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
 
-        val obj = getItem(position)
+        val product = getItem(position)
         val textProductId : TextView = holder.view.findViewById(R.id.product_id)
         val textProductName : TextView = holder.view.findViewById(R.id.product_name)
         val textDate: EditText = holder.view.findViewById(R.id.calender)
-        val productId = obj!!.product_id
-        val productName = obj!!.name
+        val productId = product!!.product_id
+        val productName = product!!.name
+        val confirmButton : Button = holder.view.findViewById(R.id.confirm_product)
+
         textProductId.text = productId.toString()
         textProductName.text = productName
-        holder.data = obj
-        val cardView: CardView = holder.view.findViewById(R.id.card_product)
-        setDateListener(textDate)
+        holder.data = product
+        createReportListener(confirmButton, holder)
     }
 
+    private fun createReportListener(confirmButton: Button, holder: ProductsViewHolder) {
 
+        confirmButton.setOnClickListener{
+            val name = holder.data?.name.toString()
+            val id = holder.data?._id.toString()
+            val orderNumber = holder.data?.orderNumber.toString()
+            val count = holder.data?.count
+
+
+            val textDate: EditText = holder.view.findViewById(R.id.calender)
+            val textTime: EditText = holder.view.findViewById(R.id.actual_hours)
+
+            val date = textDate.text.toString()
+            val time = textTime.text.toString()
+
+            productsListViewModel.addProductReport(Product_Report_DB(id,orderNumber,count,name,date,time))
+
+        }
+    }
     override fun getItemId(index: Int): Long {
         return getItem(index)!!.product_id.toLong()
     }

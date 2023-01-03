@@ -1,9 +1,6 @@
 package com.example.soeco.data
 
-import com.example.soeco.data.Models.DB_Models.Deviation_Report_DB
-import com.example.soeco.data.Models.DB_Models.Material_DB
-import com.example.soeco.data.Models.DB_Models.Order_DB
-import com.example.soeco.data.Models.DB_Models.Product_DB
+import com.example.soeco.data.Models.DB_Models.*
 import io.realm.RealmList
 import io.realm.RealmResults
 import io.realm.mongodb.App
@@ -80,4 +77,6 @@ interface Repository {
     fun getProductsDb(orderNumber: String): RealmResults<Product_DB>
 
     fun addDeviation(deviation : Deviation_Report_DB)
-    }
+    fun addMaterialReport(material: Material_Report_DB)
+    fun addProductReport(productReportDb: Product_Report_DB)
+}
