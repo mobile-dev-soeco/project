@@ -36,7 +36,6 @@ class QuestionnaireCarpentry : Fragment() {
         orderNumberTextView.text = args.orderNumber
 
 
-
         setProductSelector(view)
         setProductText(view)
         setDateListener(dateText)
@@ -132,11 +131,9 @@ class QuestionnaireCarpentry : Fragment() {
         dateText.setText(String.format("%d/%d/%d", day, month+1, year))
         dateText.keyListener=null
         dateText.setOnClickListener {
-            val datePickerDialog = activity?.let { it1 ->
-                DatePickerDialog(it1, { _, year, month, dayOfMonth ->
-                    dateText.setText(  String.format("%d/%d/%d", dayOfMonth, month+1, year))
-                }, year, month, day)
-            }
+            val datePickerDialog = DatePickerDialog(requireActivity(), { _, year, month, dayOfMonth ->
+                dateText.setText(  String.format("%d/%d/%d", dayOfMonth, month+1, year))
+            }, year, month, day)
             datePickerDialog?.show()
         }
         dateText.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
