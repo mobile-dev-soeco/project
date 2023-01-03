@@ -6,9 +6,7 @@ import com.example.soeco.data.Api.RetrofitClient
 import com.example.soeco.data.Models.API_Models.Material_API
 import com.example.soeco.data.Models.API_Models.Order_API
 import com.example.soeco.data.Models.API_Models.Product_API
-import com.example.soeco.data.Models.DB_Models.Material_DB
-import com.example.soeco.data.Models.DB_Models.Order_DB
-import com.example.soeco.data.Models.DB_Models.Product_DB
+import com.example.soeco.data.Models.DB_Models.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmList
@@ -18,7 +16,7 @@ import io.realm.mongodb.AppConfiguration
 import io.realm.mongodb.AppException
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
-import org.bson.types.ObjectId
+import io.realm.mongodb.sync.SyncConfiguration
 import retrofit2.Call
 import java.io.IOException
 
@@ -27,7 +25,8 @@ class RealmDataSource(context: Context) {
     private val realmApp: App
     private val APP_ID = "soecoapp-ciaaa"
 
-    private lateinit var realm: Realm
+    private lateinit var localRealm: Realm
+
     private lateinit var currentRealmUser: User
     private lateinit var userRole: String
     lateinit var materials: RealmResults<Material_DB>
@@ -47,24 +46,29 @@ class RealmDataSource(context: Context) {
 
         val userData = user.customData
 
+        localRealm()
+        val productQuery = localRealm.where(Product_DB::class.java)
+        val orderQuery = localRealm.where(Order_DB::class.java)
+        val materialQuery = localRealm.where(Material_DB::class.java)
+
+        materials = materialQuery.findAllAsync()
+        products = productQuery.findAllAsync()
+        orders = orderQuery.findAllAsync()
+    }
+
+
+    private fun localRealm(){
         val config = RealmConfiguration.Builder()
-            .name("local-realm")
+            .name("local-Realm")
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)
             .schemaVersion(2)
             .deleteRealmIfMigrationNeeded()
             .build()
 
-        realm = Realm.getInstance(config)
-
-        val productQuery = realm.where(Product_DB::class.java)
-        val orderQuery = realm.where(Order_DB::class.java)
-        val materialQuery = realm.where(Material_DB::class.java)
-
-        materials = materialQuery.findAllAsync()
-        products = productQuery.findAllAsync()
-        orders = orderQuery.findAllAsync()
+        localRealm = Realm.getInstance(config)
     }
+
 
     fun registerUser(
         email: String,
@@ -81,7 +85,7 @@ class RealmDataSource(context: Context) {
         functionsManager.callFunctionAsync("registerUser", userData, String::class.java) { addUser ->
             if (addUser.isSuccess){
                 Log.v("User registration", "User was added to database")
-                // Register the user to realm email/password authentication
+                // Register the user to localRealm email/password authentication
                 realmApp.emailPassword.registerUserAsync(email, password) { registerUser ->
                     if (registerUser.isSuccess) {
                         Log.v("User registration", "User was added to emailPassword auth service.")
@@ -89,7 +93,7 @@ class RealmDataSource(context: Context) {
                     } else {
                         Log.e("User registration", "emailPassword registration failed. Error: ${registerUser.error.message}")
                         registerError.invoke(registerUser.error)
-                        // User could not be added to realm authentication. Remove the user from the database.
+                        // User could not be added to localRealm authentication. Remove the user from the database.
                         functionsManager.callFunctionAsync("DeleteUser", null, Unit::class.java) { deleteUser ->
                             if (deleteUser.isSuccess) {
                                 Log.v("User registration", "User was deleted from database")
@@ -150,6 +154,7 @@ class RealmDataSource(context: Context) {
                 resetSuccess.invoke()
             }
         }
+
     }
 
     fun sendPasswordResetEmail(
@@ -211,12 +216,18 @@ class RealmDataSource(context: Context) {
         return realmApp.currentUser()?.isLoggedIn ?: false
     }
 
+
+
+
+
+
+
     fun getOrder(id: String): Order_DB? {
-        return realm.where(Order_DB::class.java).containsKey("OrderNumber", id).findFirst()
+        return localRealm.where(Order_DB::class.java).containsKey("_id", id).findFirst()
     }
 
     fun updateOrders() {
-        realm.executeTransactionAsync {
+        localRealm.executeTransactionAsync {
             try {
                 val api = RetrofitClient.getInstance().api
                 val call: Call<ArrayList<Order_API>> = api.getOrder(userRole)
@@ -279,7 +290,7 @@ class RealmDataSource(context: Context) {
     }
 
     fun updateMaterials() {
-        realm.executeTransactionAsync {
+        localRealm.executeTransactionAsync {
             try {
                 val api = RetrofitClient.getInstance().api
                 val call: Call<ArrayList<Material_API>> = api.getMaterial(userRole)
@@ -304,13 +315,32 @@ class RealmDataSource(context: Context) {
     }
 
     fun getProductRealm(id: String): Product_DB? {
-        return realm.where(Product_DB::class.java).containsKey("id", id).findFirst()
+        return localRealm.where(Product_DB::class.java).containsKey("id", id).findFirst()
 
     }
 
     fun getProductsDb(orderNumber: String): RealmResults<Product_DB> {
-        return realm.where(Product_DB::class.java).containsKey("orderNumber",
+        return localRealm.where(Product_DB::class.java).containsKey("orderNumber",
             orderNumber).findAll()
 
+    }
+    fun addDeviation(deviation : Deviation_Report_DB) {
+        localRealm.executeTransactionAsync {
+            Log.e("tag", deviation.toString())
+            it.insert(deviation)
+        }
+    }
+    fun addMaterialReport(material: Material_Report_DB) {
+        localRealm.executeTransactionAsync {
+            Log.e("tag", material.toString())
+            it.insert(material)
+        }
+    }
+
+    fun addProductReport(productReportDb: Product_Report_DB) {
+        localRealm.executeTransactionAsync {
+            Log.e("tag", productReportDb.toString())
+            it.insert(productReportDb)
+        }
     }
 }

@@ -36,7 +36,7 @@ class CarpentryOrderDetailFragment : Fragment() {
         orderNumberTextView.text= order_id.toString()
 //        val order = order_id.let { viewmodel.getOrder(it) }
 //        if (order != null) {
-//            orderNumberTextView.text= order.OrderNumber
+//            orderNumberTextView.text= order._id
 //        }
 
         viewProductsButton.setOnClickListener {
@@ -45,7 +45,8 @@ class CarpentryOrderDetailFragment : Fragment() {
 
         }
         viewMaterialsButton.setOnClickListener {
-            navigation.navigate(R.id.action_carpentryOrderDetailFragment_to_carpentryMaterials)
+            val action = CarpentryOrderDetailFragmentDirections.actionCarpentryOrderDetailFragmentToCarpentryMaterials(order_id)
+            navigation.navigate(action)
         }
 
         reportDeviationButton.setOnClickListener {

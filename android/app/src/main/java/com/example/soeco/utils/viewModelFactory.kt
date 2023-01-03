@@ -14,10 +14,7 @@ import com.example.soeco.ui.auth.forgot.ForgotPasswordViewModel
 import com.example.soeco.ui.auth.resend.ResendConfirmationViewModel
 import com.example.soeco.ui.auth.reset.ResetPaswordViewModel
 import com.example.soeco.ui.base.RoleActivityViewModel
-import com.example.soeco.ui.viewmodels.DashBoardViewModel
-import com.example.soeco.ui.viewmodels.MaterialsViewModel
-import com.example.soeco.ui.viewmodels.OrderDetailsViewModel
-import com.example.soeco.ui.viewmodels.ProductsViewModel
+import com.example.soeco.ui.viewmodels.*
 
 val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
@@ -56,6 +53,8 @@ val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Fact
                     ProductsViewModel(repository, savedStateHandle)
                 isAssignableFrom(RoleActivityViewModel::class.java) ->
                     RoleActivityViewModel(repository, savedStateHandle)
+                isAssignableFrom(DevitaionViewmodel::class.java) ->
+                    DevitaionViewmodel(repository, savedStateHandle)
                 else ->
                     throw IllegalArgumentException("Unknown viewModel class: ${modelClass.name}")
             }

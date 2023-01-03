@@ -10,7 +10,7 @@ import io.realm.annotations.Required
 
 open class Material_DB(
     @PrimaryKey
-    var id: Int = 0,
+    var _id: Int = 0,
     @Required
     var name: String = "",
     var unit: String = "",

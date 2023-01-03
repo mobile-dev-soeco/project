@@ -7,29 +7,33 @@ import org.bson.types.ObjectId
 
 
 
-open class Deviation_DB : RealmObject {
+open class Deviation_Report_DB : RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId()
     @Required
     var date: String = ""
-    var product_id: String =""
+    var time: String = ""
+
+    var product_id: String? =""
     var problem: String =""
     var solution: String =""
-    var cost: Int = 0
+    var cost: String = ""
 
     var orderNumber: String = ""
 
 
     constructor(
         date:String  = "",
-        product_id: String ="",
+        time: String = "",
+        product_id: String? ="",
         problem: String = "",
         solution : String = "",
-        cost: Int = 0,
+        cost: String ="",
         orderNumber: String = ""
 
     ) {
         this.date = date
+        this.time = time
         this.product_id = product_id
         this.problem = problem
         this.solution = solution
@@ -38,4 +42,10 @@ open class Deviation_DB : RealmObject {
 
     }
     constructor() {} // RealmObject subclasses must provide an empty constructor
+
+    override fun toString(): String {
+        return "$date $time $product_id $problem $solution $cost $orderNumber"
+    }
+
+
 }

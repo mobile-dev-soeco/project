@@ -29,7 +29,7 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
     override fun onBindViewHolder(holder: DashBoardViewHolder, position: Int) {
         val obj = getItem(position)
         val textView : TextView = holder.view.findViewById(R.id.textView_ordernumber)
-        val orderNumber = obj!!.OrderNumber
+        val orderNumber = obj!!._id
         textView.text = orderNumber
         holder.data = obj
         val cardView :CardView = holder.view.findViewById(R.id.card_Order)
@@ -64,7 +64,7 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
     }
 
     override fun getItemId(index: Int): Long {
-        return getItem(index)!!.OrderNumber.toLong()
+        return getItem(index)!!._id.toLong()
     }
 
     internal inner class DashBoardViewHolder(var view: View) :
