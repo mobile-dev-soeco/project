@@ -1,5 +1,6 @@
 package com.example.soeco.data
 
+import com.example.soeco.data.Models.DB_Models.Deviation_Report_DB
 import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
 import io.realm.RealmList
@@ -102,6 +103,9 @@ class RepositoryImpl(
 
     }
 
+    override fun addDeviation(deviation : Deviation_Report_DB){
+        realmDataSource.addDeviation(deviation)
+    }
 
 
 }

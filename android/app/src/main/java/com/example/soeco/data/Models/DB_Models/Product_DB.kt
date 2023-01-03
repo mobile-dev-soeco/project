@@ -33,6 +33,6 @@ open class Product_DB : RealmObject {
     constructor() {} // RealmObject subclasses must provide an empty constructor
 
     override fun toString():String{
-        return name
+        return  name
     }
 }

@@ -1,5 +1,6 @@
 package com.example.soeco.data
 
+import com.example.soeco.data.Models.DB_Models.Deviation_Report_DB
 import com.example.soeco.data.Models.DB_Models.Material_DB
 import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
@@ -78,4 +79,5 @@ interface Repository {
 
     fun getProductsDb(orderNumber: String): RealmResults<Product_DB>
 
-}
+    fun addDeviation(deviation : Deviation_Report_DB)
+    }

@@ -36,7 +36,7 @@ class CarpentryOrderDetailFragment : Fragment() {
         orderNumberTextView.text= order_id.toString()
 //        val order = order_id.let { viewmodel.getOrder(it) }
 //        if (order != null) {
-//            orderNumberTextView.text= order.OrderNumber
+//            orderNumberTextView.text= order._id
 //        }
 
         viewProductsButton.setOnClickListener {

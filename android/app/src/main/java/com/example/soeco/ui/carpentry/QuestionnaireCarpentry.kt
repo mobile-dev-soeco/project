@@ -3,6 +3,7 @@ package com.example.soeco.ui.carpentry
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -14,14 +15,15 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.soeco.R
+import com.example.soeco.data.Models.DB_Models.Deviation_Report_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
-import com.example.soeco.ui.viewmodels.ProductsViewModel
+import com.example.soeco.ui.viewmodels.DevitaionViewmodel
 import com.example.soeco.utils.viewModelFactory
 import java.util.*
 
 
 class QuestionnaireCarpentry : Fragment() {
-    private val productsListViewModel by viewModels<ProductsViewModel> { viewModelFactory }
+    private val DeviationViewmodel by viewModels<DevitaionViewmodel> { viewModelFactory }
     val args: QuestionnaireCarpentryArgs by navArgs()
     private val navigation: NavController by lazy { findNavController() }
     override fun onCreateView(
@@ -32,22 +34,54 @@ class QuestionnaireCarpentry : Fragment() {
 
         val orderNumberTextView : TextView = view.findViewById(R.id.textView_questionnaireOrderNumber)
         val sendDeviationButton : Button = view.findViewById(R.id.button_reportDeviation)
-        val dateText : EditText = view.findViewById(R.id.editTextDate_questionnaireDate)
         orderNumberTextView.text = args.orderNumber
 
 
         setProductSelector(view)
         setProductText(view)
-        setDateListener(dateText)
+        setDateListener(view)
         setTimePicker(view)
 
         // takes back to dashboard
         sendDeviationButton.setOnClickListener {
-            val action = QuestionnaireCarpentryDirections.actionQuestionnaireCarpentryToDashBoardFragment()
-            navigation.navigate(action)
+            val deviation = createDeviation(view)
+            Log.e("tag", deviation.orderNumber)
+            DeviationViewmodel.addDeviation(deviation)
         }
 
         return view
+    }
+
+
+
+
+    private fun createDeviation(view: View): Deviation_Report_DB {
+        val timeText: EditText = view.findViewById(R.id.editTextDate_questionnaireTime)
+        val dateText : EditText = view.findViewById(R.id.editTextDate_questionnaireDate)
+        val problemText : EditText = view.findViewById(R.id.editText_questionnaireProblem)
+        val solutionText : EditText = view.findViewById(R.id.editText_questionnaireSolution)
+        val costText : EditText = view.findViewById(R.id.editText_questionnaireCost)
+
+        val date = dateText.text.toString()
+        val product = getProductSelection(view)
+        val time = timeText.text.toString()
+        val problem = problemText.text.toString()
+        val solution = solutionText.text.toString()
+        val cost = costText.text.toString()
+
+
+        return Deviation_Report_DB(date,time,product?.product_id, problem,solution,cost,args.orderNumber )
+
+    }
+
+    private fun getProductSelection(view: View): Product_DB? {
+        val spinner: Spinner = view.findViewById(R.id.spinner_questionnaireProduct)
+
+        val products = DeviationViewmodel.getProducts(args.orderNumber)
+        val selectedIndex = spinner.selectedItemPosition-1
+        val product = if (selectedIndex != -1 )  products[spinner.selectedItemPosition-1]
+        else Product_DB("empty","empty","empty",0)
+        return product
     }
 
     private fun setTimePicker(view :View){
@@ -94,8 +128,8 @@ class QuestionnaireCarpentry : Fragment() {
 
     private fun setProductSelector(view :View) {
         val spinner: Spinner = view.findViewById(R.id.spinner_questionnaireProduct)
-        val products = productsListViewModel.getProducts(args.orderNumber)
-        val list = mutableListOf<Product_DB>(Product_DB("","","",0))
+        val products = DeviationViewmodel.getProducts(args.orderNumber)
+        val list = mutableListOf(Product_DB("","","",0))
         list.addAll(products)
         val dataAdapter: ArrayAdapter<Product_DB> =
             ArrayAdapter<Product_DB>(view.context, android.R.layout.simple_spinner_item, list)
@@ -123,7 +157,9 @@ class QuestionnaireCarpentry : Fragment() {
     }
 
 
-    private fun setDateListener(dateText: EditText) {
+    private fun setDateListener(view: View) {
+        val dateText : EditText = view.findViewById(R.id.editTextDate_questionnaireDate)
+
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)

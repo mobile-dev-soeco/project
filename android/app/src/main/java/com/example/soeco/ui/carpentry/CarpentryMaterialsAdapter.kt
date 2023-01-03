@@ -43,7 +43,7 @@ internal class CarpentryMaterialsAdapter(data: OrderedRealmCollection<Material_D
 
 
     override fun getItemId(index: Int): Long {
-        return getItem(index)!!.id.toLong()
+        return getItem(index)!!._id.toLong()
     }
 
     internal inner class MaterialsViewHolder(var view: View) :
