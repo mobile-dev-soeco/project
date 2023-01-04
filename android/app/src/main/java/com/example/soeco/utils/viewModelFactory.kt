@@ -55,6 +55,8 @@ val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Fact
                     RoleActivityViewModel(repository, savedStateHandle)
                 isAssignableFrom(DevitaionViewmodel::class.java) ->
                     DevitaionViewmodel(repository, savedStateHandle)
+                isAssignableFrom(StatsViewModel::class.java) ->
+                    StatsViewModel(repository, savedStateHandle)
                 else ->
                     throw IllegalArgumentException("Unknown viewModel class: ${modelClass.name}")
             }

@@ -16,7 +16,6 @@ import io.realm.mongodb.AppConfiguration
 import io.realm.mongodb.AppException
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
-import io.realm.mongodb.sync.SyncConfiguration
 import retrofit2.Call
 import java.io.IOException
 
@@ -26,34 +25,48 @@ class RealmDataSource(context: Context) {
     private val APP_ID = "soecoapp-ciaaa"
 
     private lateinit var localRealm: Realm
-
     private lateinit var currentRealmUser: User
     private lateinit var userRole: String
     lateinit var materials: RealmResults<Material_DB>
     lateinit var orders: RealmResults<Order_DB>
     lateinit var products: RealmResults<Product_DB>
+    lateinit var deviationReports: RealmResults<Deviation_Report_DB>
+    lateinit var materialReports: RealmResults<Material_Report_DB>
+    lateinit var productReport: RealmResults<Product_Report_DB>
 
     init {
         Log.v("Realm Data", "Created a new instance of Realm data source")
         Realm.init(context)
         realmApp = App(AppConfiguration.Builder(APP_ID).build())
+
+
+
+
     }
 
     // Called when user logs in or is restored
     private fun instantiateRealm(user: User) {
+
         currentRealmUser = user
         userRole = currentRealmUser.customData["role"].toString()
-
-        val userData = user.customData
-
         localRealm()
+        val userData = user.customData
         val productQuery = localRealm.where(Product_DB::class.java)
         val orderQuery = localRealm.where(Order_DB::class.java)
         val materialQuery = localRealm.where(Material_DB::class.java)
 
+        val Product_Report_Query = localRealm.where(Product_Report_DB::class.java)
+        val Material_Reports_Query = localRealm.where(Material_Report_DB::class.java)
+        val Deviation_Reports_Query = localRealm.where(Deviation_Report_DB::class.java)
+
         materials = materialQuery.findAllAsync()
         products = productQuery.findAllAsync()
         orders = orderQuery.findAllAsync()
+
+        deviationReports = Deviation_Reports_Query.findAllAsync()
+        materialReports = Material_Reports_Query.findAllAsync()
+        productReport = Product_Report_Query.findAllAsync()
+
     }
 
 
@@ -68,6 +81,9 @@ class RealmDataSource(context: Context) {
 
         localRealm = Realm.getInstance(config)
     }
+
+
+
 
 
     fun registerUser(
@@ -235,7 +251,10 @@ class RealmDataSource(context: Context) {
                 if (response.isSuccessful) {
                     val orders = response.body()
                     if (orders != null) {
-                        it.deleteAll()
+                        it.delete(Order_DB::class.java)
+                        it.delete(Material_DB::class.java)
+                        it.delete(Product_DB::class.java)
+
                         for (order in orders) {
                             for (product in order.Products)
                                 it.copyToRealmOrUpdate(getProduct(product.id,order.OrderNumber,product.count))
@@ -343,4 +362,7 @@ class RealmDataSource(context: Context) {
             it.insert(productReportDb)
         }
     }
+
+
+
 }

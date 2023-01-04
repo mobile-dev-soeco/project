@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.soeco.R
+import com.example.soeco.ui.viewmodels.ProductsViewModel
+import com.example.soeco.ui.viewmodels.StatsViewModel
+import com.example.soeco.utils.viewModelFactory
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -19,6 +23,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 class StatisticsFragment : Fragment() {
 
     private lateinit var lineChart: LineChart
+    private val statsViewModel by viewModels<StatsViewModel> { viewModelFactory }
 
 
     override fun onCreateView(

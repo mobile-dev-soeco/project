@@ -79,4 +79,7 @@ interface Repository {
     fun addDeviation(deviation : Deviation_Report_DB)
     fun addMaterialReport(material: Material_Report_DB)
     fun addProductReport(productReportDb: Product_Report_DB)
+    fun get_Deviation_Reports() : RealmResults<Deviation_Report_DB>
+    fun get_Product_Report()  : RealmResults<Product_Report_DB>
+    fun get_Material_Reports()  : RealmResults<Material_Report_DB>
 }
