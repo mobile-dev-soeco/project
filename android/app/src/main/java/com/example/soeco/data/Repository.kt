@@ -82,4 +82,5 @@ interface Repository {
     fun get_Deviation_Reports() : RealmResults<Deviation_Report_DB>
     fun get_Product_Report()  : RealmResults<Product_Report_DB>
     fun get_Material_Reports()  : RealmResults<Material_Report_DB>
+    fun addDeliveryReport(delivery : Delivery_Report_DB) : Unit
 }

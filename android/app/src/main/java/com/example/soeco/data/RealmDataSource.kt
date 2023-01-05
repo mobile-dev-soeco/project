@@ -38,10 +38,6 @@ class RealmDataSource(context: Context) {
         Log.v("Realm Data", "Created a new instance of Realm data source")
         Realm.init(context)
         realmApp = App(AppConfiguration.Builder(APP_ID).build())
-
-
-
-
     }
 
     // Called when user logs in or is restored
@@ -345,24 +341,26 @@ class RealmDataSource(context: Context) {
     }
     fun addDeviation(deviation : Deviation_Report_DB) {
         localRealm.executeTransactionAsync {
-            Log.e("tag", deviation.toString())
             it.insert(deviation)
         }
     }
     fun addMaterialReport(material: Material_Report_DB) {
         localRealm.executeTransactionAsync {
-            Log.e("tag", material.toString())
             it.insert(material)
         }
     }
 
     fun addProductReport(productReportDb: Product_Report_DB) {
         localRealm.executeTransactionAsync {
-            Log.e("tag", productReportDb.toString())
             it.insert(productReportDb)
         }
     }
 
+    fun addDeliveryReport(delivery: Delivery_Report_DB) {
+        localRealm.executeTransactionAsync {
+            it.insert(delivery)
+        }
+    }
 
 
 }

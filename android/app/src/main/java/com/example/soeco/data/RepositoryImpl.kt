@@ -117,4 +117,9 @@ class RepositoryImpl(
 
     }
 
+    override     fun addDeliveryReport(delivery : Delivery_Report_DB) {
+        realmDataSource.addDeliveryReport(delivery)
+
+    }
+
 }

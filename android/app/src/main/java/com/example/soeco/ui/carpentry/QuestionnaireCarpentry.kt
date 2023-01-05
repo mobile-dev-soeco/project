@@ -45,8 +45,8 @@ class QuestionnaireCarpentry : Fragment() {
         // takes back to dashboard
         sendDeviationButton.setOnClickListener {
             val deviation = createDeviation(view)
-            Log.e("tag", deviation.orderNumber)
             DeviationViewmodel.addDeviation(deviation)
+            navigation.popBackStack()
         }
 
         return view
