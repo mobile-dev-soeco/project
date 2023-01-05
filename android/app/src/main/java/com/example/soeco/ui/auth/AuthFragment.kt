@@ -40,17 +40,25 @@ class AuthFragment: Fragment() {
     private fun handleAuthState(state: AuthViewModel.AuthState) {
         var destination: Int = R.id.action_authFragment_to_startFragment
         if (state == AuthSuccess) {
-            when(authViewModel.getUserRole()){
+            // Navigate to Role based activity and finish Auth activity
+            // ELSE // Navigate to start fragment
+            when(authViewModel.getUserRole().lowercase()){
                 "admin" -> destination = R.id.action_authFragment_to_adminActivity
-                "carpenter" -> destination = R.id.action_authFragment_to_carpentryActivity
-                "delivery" -> destination = R.id.action_authFragment_to_deliveryActivity
+                "snickare" -> destination = R.id.action_authFragment_to_carpentryActivity
+                "tapetserare" -> destination = R.id.action_authFragment_to_carpentryActivity
+                "leverans" -> destination = R.id.action_authFragment_to_deliveryActivity
             }
+
             Handler(Looper.getMainLooper()).postDelayed({
                 navigation.navigate(destination)
-                requireActivity().finish()
-            }, 1000)
+                if (destination != R.id.action_authFragment_to_startFragment){
+                    requireActivity().finish()
+                }
+            }, 500)
         } else {
-            navigation.navigate(R.id.action_authFragment_to_startFragment)
+            Handler(Looper.getMainLooper()).postDelayed({
+                navigation.navigate(destination)
+            }, 500)
         }
     }
 }

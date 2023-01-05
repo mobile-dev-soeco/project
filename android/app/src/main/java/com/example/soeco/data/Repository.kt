@@ -1,17 +1,18 @@
 package com.example.soeco.data
 
+import com.example.soeco.data.Models.CustomData
 import com.example.soeco.data.Models.DB_Models.Material_DB
 import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
 import io.realm.RealmResults
-import io.realm.mongodb.App
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
-import io.realm.mongodb.functions.Functions
 
 interface Repository {
 
     fun registerUser(
+        firstname: String,
+        lastName: String,
         email: String,
         password: String,
         userType: String,
@@ -75,4 +76,23 @@ interface Repository {
 
     fun getProduct(id:String): Product_DB?
 
+    fun getUsers(
+        onSuccess: (MutableList<CustomData>) -> Unit,
+        onError: (Exception) -> Unit
+    )
+
+    fun updateUser(
+        email: String,
+        firstname: String,
+        lastName: String,
+        role: String,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    )
+
+    fun deleteUser(
+        user: CustomData,
+        onSuccess: (id: String) -> Unit,
+        onError: (Exception) -> Unit
+    )
 }

@@ -36,4 +36,8 @@ class DashBoardFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
+    fun onItemClicked() {
+
+    }
+
 }
