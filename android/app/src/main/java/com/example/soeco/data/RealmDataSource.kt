@@ -2,10 +2,15 @@ package com.example.soeco.data
 
 import android.content.Context
 import android.util.Log
+import com.example.soeco.TAG
 import com.example.soeco.data.Api.RetrofitClient
 import com.example.soeco.data.Models.API_Models.Material_API
 import com.example.soeco.data.Models.API_Models.Order_API
 import com.example.soeco.data.Models.API_Models.Product_API
+import com.example.soeco.data.Models.CustomData
+import com.example.soeco.data.Models.DB_Models.Material_DB
+import com.example.soeco.data.Models.DB_Models.Order_DB
+import com.example.soeco.data.Models.DB_Models.Product_DB
 import com.example.soeco.data.Models.DB_Models.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -16,6 +21,16 @@ import io.realm.mongodb.AppConfiguration
 import io.realm.mongodb.AppException
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
+
+// MongoDB Service Packages
+import io.realm.mongodb.mongo.MongoClient
+import io.realm.mongodb.mongo.MongoCollection
+import io.realm.mongodb.mongo.MongoDatabase
+import org.bson.Document
+import org.bson.codecs.configuration.CodecRegistries
+import org.bson.codecs.pojo.PojoCodecProvider
+import org.bson.types.ObjectId
+
 import retrofit2.Call
 import java.io.IOException
 
@@ -38,15 +53,10 @@ class RealmDataSource(context: Context) {
         Log.v("Realm Data", "Created a new instance of Realm data source")
         Realm.init(context)
         realmApp = App(AppConfiguration.Builder(APP_ID).build())
-
-
-
-
     }
 
     // Called when user logs in or is restored
     private fun instantiateRealm(user: User) {
-
         currentRealmUser = user
         userRole = currentRealmUser.customData["role"].toString()
         localRealm()
@@ -86,7 +96,36 @@ class RealmDataSource(context: Context) {
 
 
 
+    fun getUsers(
+        onSuccess: (MutableList<CustomData>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val usersCollection = getUsersCollectionHandle()
+
+        // Don't return the current user in user list
+        val queryFilter = Document(
+            "realmUserId", Document("\$ne", currentRealmUser.id)
+        )
+
+        usersCollection.find(queryFilter).iterator()
+            .getAsync { task ->
+                if (task.isSuccess) {
+                    val users = mutableListOf<CustomData>()
+                    val result = task.get()
+                    while (result.hasNext()) {
+                        val user = result.next()
+                        users.add(user)
+                    }
+                    onSuccess.invoke(users)
+                } else {
+                    onError.invoke(task.error)
+                }
+            }
+    }
+
     fun registerUser(
+        firstname: String,
+        lastname: String,
         email: String,
         password: String,
         userType: String,
@@ -94,7 +133,7 @@ class RealmDataSource(context: Context) {
         registerError: (Exception) -> Unit
     ) {
 
-        val userData = listOf(email, password, userType)
+        val userData = listOf(firstname, lastname, email, userType)
         val functionsManager = realmApp.getFunctions(currentRealmUser)
 
         // Create user in database
@@ -121,7 +160,7 @@ class RealmDataSource(context: Context) {
                 }
             } else {
                 // User could not be added to database.
-                Log.v("User registration", "Database registration failed. Error: ${addUser.error.message}")
+                Log.e("User registration", "Database registration failed. Error: ${addUser.error.message}")
                 registerError.invoke(addUser.error)
             }
         }
@@ -140,6 +179,52 @@ class RealmDataSource(context: Context) {
                 confirmSuccess.invoke()
             }
         }
+    }
+
+    fun updateUser(
+        email: String,
+        firstname: String,
+        lastname: String,
+        role: String,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val mongoClient: MongoClient = currentRealmUser.getMongoClient("mongodb-atlas")
+        val mongoDatabase: MongoDatabase = mongoClient.getDatabase("auth")
+
+        // Handle Plain Old Javascript Objects POJOs
+        val pojoCodecRegistry = CodecRegistries.fromRegistries(
+            AppConfiguration.DEFAULT_BSON_CODEC_REGISTRY,
+            CodecRegistries.fromProviders(
+                PojoCodecProvider.builder().automatic(true).build()
+            )
+        )
+
+        val users = mongoDatabase.getCollection(
+            "users",
+            Unit::class.java).withCodecRegistry(pojoCodecRegistry)
+        Log.v(TAG(), "MongoDB collection collection handle instantiated")
+
+        val queryFilter: Document = Document(
+            "email", Document("\$eq", email)
+        )
+
+        val updates = Document(
+                "\$set", mapOf(
+                    "firstname" to firstname,
+                    "lastname" to lastname,
+                    "role" to role
+                )
+        )
+
+        users.updateOne(queryFilter, updates)
+            .getAsync { task ->
+                if (task.isSuccess) {
+                    onSuccess.invoke()
+                } else {
+                    onError.invoke(task.error)
+                }
+            }
     }
 
     fun resendConfirmationEmail(
@@ -170,7 +255,6 @@ class RealmDataSource(context: Context) {
                 resetSuccess.invoke()
             }
         }
-
     }
 
     fun sendPasswordResetEmail(
@@ -183,6 +267,22 @@ class RealmDataSource(context: Context) {
                 sendError.invoke(it.error)
             } else {
                 sendSuccess.invoke()
+            }
+        }
+    }
+
+    fun deleteUser(user: CustomData, onSuccess: (email: String) -> Unit, onError: (Exception) -> Unit){
+        Log.v(TAG(), "Delete user with id ${user.id} called")
+        realmApp.getFunctions(currentRealmUser).callFunctionAsync(
+            "deleteUser",
+            listOf(user.realmUserId, user.email),
+            String::class.java
+        ){
+            if (it.isSuccess) {
+                onSuccess.invoke(it.get())
+            }
+            else {
+                onError.invoke(it.error)
             }
         }
     }
@@ -231,12 +331,6 @@ class RealmDataSource(context: Context) {
     fun isUserLoggedIn(): Boolean {
         return realmApp.currentUser()?.isLoggedIn ?: false
     }
-
-
-
-
-
-
 
     fun getOrder(id: String): Order_DB? {
         return localRealm.where(Order_DB::class.java).containsKey("_id", id).findFirst()
@@ -341,7 +435,26 @@ class RealmDataSource(context: Context) {
     fun getProductsDb(orderNumber: String): RealmResults<Product_DB> {
         return localRealm.where(Product_DB::class.java).containsKey("orderNumber",
             orderNumber).findAll()
+    }
 
+    private fun getUsersCollectionHandle(): MongoCollection<CustomData> {
+        val mongoClient: MongoClient = currentRealmUser.getMongoClient("mongodb-atlas")
+        val mongoDatabase: MongoDatabase = mongoClient.getDatabase("auth")
+
+        // Handle Plain Old Javascript Objects POJOs
+        val pojoCodecRegistry = CodecRegistries.fromRegistries(
+            AppConfiguration.DEFAULT_BSON_CODEC_REGISTRY,
+            CodecRegistries.fromProviders(
+                PojoCodecProvider.builder().automatic(true).build()
+            )
+        )
+
+        val collection = mongoDatabase.getCollection(
+            "users",
+            CustomData::class.java).withCodecRegistry(pojoCodecRegistry)
+        Log.v(TAG(), "MongoDB collection collection handle instantiated")
+
+        return collection
     }
     fun addDeviation(deviation : Deviation_Report_DB) {
         localRealm.executeTransactionAsync {

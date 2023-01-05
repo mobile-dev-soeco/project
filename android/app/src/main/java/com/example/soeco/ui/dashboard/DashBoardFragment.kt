@@ -40,4 +40,8 @@ class DashBoardFragment : Fragment() {
         return view
     }
 
+    fun onItemClicked() {
+
+    }
+
 }

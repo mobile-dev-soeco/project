@@ -7,6 +7,8 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.soeco.RealmApplication
 import com.example.soeco.ui.admin.AdminHomeViewModel
+import com.example.soeco.ui.admin.users.RegisterUserViewModel
+import com.example.soeco.ui.admin.users.UsersViewModel
 import com.example.soeco.ui.auth.login.LoginViewModel
 import com.example.soeco.ui.auth.AuthViewModel
 import com.example.soeco.ui.auth.confirm.ConfirmUserViewModel
@@ -53,6 +55,10 @@ val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Fact
                     ProductsViewModel(repository, savedStateHandle)
                 isAssignableFrom(RoleActivityViewModel::class.java) ->
                     RoleActivityViewModel(repository, savedStateHandle)
+                isAssignableFrom(UsersViewModel::class.java) ->
+                    UsersViewModel(repository, savedStateHandle)
+                isAssignableFrom(RegisterUserViewModel::class.java) ->
+                    RegisterUserViewModel(repository, savedStateHandle)
                 isAssignableFrom(DevitaionViewmodel::class.java) ->
                     DevitaionViewmodel(repository, savedStateHandle)
                 isAssignableFrom(StatsViewModel::class.java) ->
