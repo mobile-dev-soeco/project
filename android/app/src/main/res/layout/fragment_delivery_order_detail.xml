@@ -211,6 +211,8 @@
                     android:layout_weight="5"
                     android:hint="@string/hours"
                     android:inputType="textPersonName"
+                    android:textColor="#C1424242"
+                    android:textColorHint="@color/black"
                     android:textSize="16sp" />
 
                 <Button
