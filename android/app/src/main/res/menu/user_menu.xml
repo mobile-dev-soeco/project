@@ -4,15 +4,15 @@
 
     <item
         android:id="@+id/dashBoardFragment"
-        android:title="All orders" />
+        android:title="Alla beställningar" />
 
     <item
         android:id="@+id/companyInfoFragment"
-        android:title="Company Info" />
+        android:title="Information om företaget" />
 
     <item
         android:id="@+id/instructionFragment"
-        android:title="App Info" />
+        android:title="Information om appen" />
 
     <item
         android:id="@+id/logout"
