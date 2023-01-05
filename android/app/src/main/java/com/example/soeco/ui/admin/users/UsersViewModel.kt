@@ -20,21 +20,6 @@ class UsersViewModel(
     val usersLiveData: LiveData<List<CustomData>>
         get() = _usersLiveData
 
-    fun updateUser(
-        email: String,
-        firstname: String,
-        lastname: String,
-        role: String,
-        onSuccess: () -> Unit,
-        onError: (Exception) -> Unit
-    ) {
-        repository.updateUser(email, firstname, lastname, role, onSuccess, onError)
-    }
-
-    fun deleteUser(user: CustomData, onSuccess: (email: String) -> Unit, onError: (Exception) -> Unit) {
-        repository.deleteUser(user, onSuccess, onError)
-    }
-
     fun getUsers() {
         repository.getUsers(
             onSuccess = {
@@ -45,5 +30,9 @@ class UsersViewModel(
                 Log.e("getUsers", it.message.toString())
             }
         )
+    }
+
+    fun deleteUser(user: CustomData, onSuccess: (email: String) -> Unit, onError: (Exception) -> Unit) {
+        repository.deleteUser(user, onSuccess, onError)
     }
 }

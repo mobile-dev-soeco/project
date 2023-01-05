@@ -18,7 +18,7 @@ import com.example.soeco.utils.viewModelFactory
 
 class EditUserFragment : Fragment() {
 
-    private val usersViewModel by viewModels<UsersViewModel> { viewModelFactory }
+    private val viewModel by viewModels<EditUserViewModel> { viewModelFactory }
     private val navigation by lazy { findNavController() }
 
     private lateinit var binding: FragmentEditUserBinding
@@ -74,6 +74,21 @@ class EditUserFragment : Fragment() {
             )
         }
 
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            showProgressSpinner(isLoading)
+        }
+
+        viewModel.updateResult.observe(viewLifecycleOwner) { result ->
+            when(result){
+                is EditUserViewModel.Result.Success -> {
+                    Toast.makeText(context, "User updated", Toast.LENGTH_SHORT).show()
+                    navigation.navigate(R.id.action_editUserFragment_to_usersFragment)
+                }
+                is EditUserViewModel.Result.Error -> {
+                    Toast.makeText(context, "Update Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun updateUser(
@@ -82,19 +97,13 @@ class EditUserFragment : Fragment() {
         lastname: String,
         role: String
     ) {
-        usersViewModel.updateUser(
+        viewModel.updateUser(
             email,
             firstname,
             lastname,
-            role,
-            onSuccess = {
-                Toast.makeText(context, "User updated", Toast.LENGTH_SHORT).show()
-                navigation.navigate(R.id.action_editUserFragment_to_usersFragment)
-            },
-            onError = {
-                Toast.makeText(context, "Update Failed", Toast.LENGTH_SHORT).show()
-            }
+            role
         )
+
     }
 
     private fun validateInputs(): Boolean {
@@ -103,6 +112,16 @@ class EditUserFragment : Fragment() {
                     etSurname.text.isNotEmpty() &&
                     etName.text.length <= MAX_INPUT_LENGTH &&
                     etSurname.text.length <= MAX_INPUT_LENGTH
+        }
+    }
+
+    private fun showProgressSpinner(isVisible: Boolean) {
+        if (isVisible){
+            binding.pbSpinner.visibility = View.VISIBLE
+            binding.btnUpdate.visibility = View.INVISIBLE
+        } else {
+            binding.pbSpinner.visibility = View.INVISIBLE
+            binding.btnUpdate.visibility = View.VISIBLE
         }
     }
 
