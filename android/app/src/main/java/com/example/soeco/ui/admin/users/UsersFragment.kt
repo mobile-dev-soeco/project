@@ -65,7 +65,7 @@ class UsersFragment : Fragment() {
     private fun handleMenuClick(view: View, user: CustomData) {
         val popupMenu = PopupMenu(this.context, view)
 
-        popupMenu.inflate(R.menu.user_menu)
+        popupMenu.inflate(R.menu.user_item_menu)
 
         popupMenu.setOnMenuItemClickListener(object: PopupMenu.OnMenuItemClickListener{
 

@@ -6,6 +6,10 @@
         android:title="@string/statistics"/>
 
     <item
+        android:id="@+id/usersFragment"
+        android:title="Users"/>
+
+    <item
         android:id="@+id/logout"
         android:title="@string/log_out" />
 
