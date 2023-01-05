@@ -2,6 +2,7 @@ package com.example.soeco.ui.carpentry
 
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,16 +37,18 @@ internal class ProductsListAdapter(
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
 
         val product = getItem(position)
-        val textProductId : TextView = holder.view.findViewById(R.id.product_id)
+        val textProductCount : TextView = holder.view.findViewById(R.id.product_count)
         val textProductName : TextView = holder.view.findViewById(R.id.product_name)
         val textDate: EditText = holder.view.findViewById(R.id.calender)
-        val productId = product!!.product_id
+        val productCount = product!!.count
         val productName = product!!.name
         val confirmButton : Button = holder.view.findViewById(R.id.confirm_product)
 
-        textProductId.text = productId.toString()
+        textProductCount.text = productCount.toString()
         textProductName.text = productName
         holder.data = product
+        setDateListener(textDate)
+        setTimePicker(holder.view)
         createReportListener(confirmButton, holder)
     }
 
@@ -95,4 +98,28 @@ internal class ProductsListAdapter(
 
         }
     }
+
+    private fun setTimePicker(view :View){
+        val timeText: EditText = view.findViewById(R.id.actual_hours)
+        timeText.keyListener = null
+
+        val timePickerDialogListener: TimePickerDialog.OnTimeSetListener =
+            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                val newTime = "$hourOfDay timmar :  $minute minuter"
+                timeText.setText(newTime)
+            }
+
+
+        timeText.setOnClickListener {
+            val timePicker: TimePickerDialog =
+                TimePickerDialog(view.context, timePickerDialogListener, 0, 0, true)
+            timePicker.show()
+        }
+        timeText.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) timeText.performClick()
+
+        }
+    }
+
+
 }
