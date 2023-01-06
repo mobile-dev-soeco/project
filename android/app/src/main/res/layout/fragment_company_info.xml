@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/companyInfo_mobileNumber"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -51,6 +52,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/companyInfo_email"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -59,6 +61,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/companyInfo_address"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
     </LinearLayout>
