@@ -14,10 +14,61 @@
             android:id="@+id/action_adminHomeFragment_to_statisticsFragment"
             app:destination="@id/statisticsFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_adminHomeFragment_to_usersFragment"
+            app:destination="@id/usersFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="com.example.soeco.ui.admin.statistics.StatisticsFragment"
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.example.soeco.ui.admin.users.UsersFragment"
+        android:label="fragment_users"
+        tools:layout="@layout/fragment_users" >
+        <action
+            android:id="@+id/action_usersFragment_to_registerUser"
+            app:destination="@id/registerUser"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_usersFragment_to_editUserFragment"
+            app:destination="@id/editUserFragment"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerUser"
+        android:name="com.example.soeco.ui.admin.users.RegisterUserFragment"
+        android:label="fragment_register_user"
+        tools:layout="@layout/fragment_register_user" />
+    <fragment
+        android:id="@+id/editUserFragment"
+        android:name="com.example.soeco.ui.admin.users.EditUserFragment"
+        android:label="fragment_edit_user"
+        tools:layout="@layout/fragment_edit_user" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="surname"
+            app:argType="string" />
+        <argument
+            android:name="role"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_editUserFragment_to_usersFragment"
+            app:destination="@id/usersFragment"
+            app:popUpTo="@id/usersFragment"
+            app:launchSingleTop="true" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 </navigation>
