@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.soeco.R
 import com.example.soeco.ui.carpentry.CarpentryOrderDetailFragmentArgs
 import com.example.soeco.ui.viewmodels.DashBoardViewModel
@@ -36,12 +37,15 @@ class DashBoardFragment : Fragment() {
             DashBoardAdapter(dashBoardViewModel.orders, dashBoardViewModel.userRole, navigation)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = adapter
-
+        val swipeRefresh : SwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
+        swipeRefresh.setOnRefreshListener {
+            dashBoardViewModel.updateDB()
+            swipeRefresh.isRefreshing = false;
+        }
         return view
     }
 
-    fun onItemClicked() {
 
-    }
+
 
 }

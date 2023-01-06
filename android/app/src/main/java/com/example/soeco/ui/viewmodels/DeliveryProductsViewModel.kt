@@ -12,14 +12,13 @@ class DeliveryProductsViewModel(
     val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
-    fun getProducts(orderNumber: String): RealmResults<Product_DB> {
-        return  repository.getProductsDb(orderNumber)
+
+    fun getProducts(): RealmResults<Product_DB> {
+        return  repository.getProductsDb()
 
     }
 
-    fun getProduct(id : String): Product_DB? {
-        return  repository.getProduct(id)
-    }
+
 
     fun addDeliveryReport(report: Delivery_Report_DB) {
             repository.addDeliveryReport(report)

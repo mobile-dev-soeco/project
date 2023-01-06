@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="6dp"
-                    android:text="Material name"
+                    android:text="Material"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -73,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:inputType="number"
                     android:hint="@string/zero"
                     android:padding="6dp"
                     android:textColor="@color/black" />

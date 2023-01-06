@@ -38,6 +38,7 @@ class DeliveryProductsList : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return FragmentDeliveryProductsListBinding.inflate(inflater, container, false)
             .also { this.binding = it }
             .root
@@ -46,7 +47,7 @@ class DeliveryProductsList : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = itemView.findViewById(R.id.recyclerView_products)
-        val adapter = DeliveryProductsListAdapter(deliveryProductsViewModel.getProducts(args.orderNumber))
+        val adapter = DeliveryProductsListAdapter(deliveryProductsViewModel.getProducts())
         val button : Button = itemView.findViewById(R.id.button_delivery_reportTime)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = adapter

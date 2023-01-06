@@ -15,8 +15,15 @@ class DashBoardViewModel(
     val userRole: String = repository.getUserRole()
 
     init {
-        repository.updateOrders()
+        updateDB()
+    }
+    fun updateDB(){
+        clearLocaleDb()
         repository.updateMaterials()
+        repository.updateOrders()
     }
 
+    fun clearLocaleDb(){
+        repository.clearLocaleDb()
+    }
 }
