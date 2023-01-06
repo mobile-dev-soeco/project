@@ -64,6 +64,8 @@ val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Fact
                     DevitaionViewmodel(repository, savedStateHandle)
                 isAssignableFrom(StatsViewModel::class.java) ->
                     StatsViewModel(repository, savedStateHandle)
+                isAssignableFrom(DeliveryProductsViewModel::class.java) ->
+                    DeliveryProductsViewModel(repository, savedStateHandle)
                 isAssignableFrom(EditUserViewModel::class.java) ->
                     EditUserViewModel(repository, savedStateHandle)
                 else ->

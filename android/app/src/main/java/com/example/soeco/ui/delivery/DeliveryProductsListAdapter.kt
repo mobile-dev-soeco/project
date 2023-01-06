@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +21,6 @@ import java.util.*
 
 internal class DeliveryProductsListAdapter(data: OrderedRealmCollection<Product_DB?>?) : RealmRecyclerViewAdapter<Product_DB?,
         DeliveryProductsListAdapter.ProductsViewHolder?>(data, true) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.delivery_product_item, parent, false)
@@ -28,10 +28,13 @@ internal class DeliveryProductsListAdapter(data: OrderedRealmCollection<Product_
         return ProductsViewHolder(view)
     }
 
+
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         val obj = getItem(position)
         val textProductCount : TextView = holder.view.findViewById(R.id.product_count)
         val textProductName : TextView = holder.view.findViewById(R.id.product_name)
+        val checkBox : CheckBox = holder.view.findViewById(R.id.checkBox)
+
         textProductCount.text = obj!!.count.toString()
         textProductName.text = obj!!.name
         holder.data = obj

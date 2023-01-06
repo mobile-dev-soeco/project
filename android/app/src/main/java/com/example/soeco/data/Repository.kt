@@ -72,13 +72,13 @@ interface Repository {
 
     fun updateMaterials(): Unit
 
+    fun clearLocaleDb():Unit
+
     fun getMaterials(): RealmResults<Material_DB>
 
-    fun getProducts(): RealmResults<Product_DB>
 
-    fun getProduct(id:String): Product_DB?
 
-    fun getProductsDb(orderNumber: String): RealmResults<Product_DB>
+    fun getProductsDb(): RealmResults<Product_DB>
 
     fun addDeviation(deviation : Deviation_Report_DB)
     fun addMaterialReport(material: Material_Report_DB)
@@ -105,4 +105,6 @@ interface Repository {
         onSuccess: (id: String) -> Unit,
         onError: (Exception) -> Unit
     )
+    fun addDeliveryReport(delivery : Delivery_Report_DB) : Unit
+    fun updateProducts(orderNumber: String)
 }

@@ -26,6 +26,7 @@ class DeliveryOrderDetailFragment : Fragment() {
 
     val args: DeliveryOrderDetailFragmentArgs by navArgs()
     private val navigation: NavController by lazy { findNavController() }
+    private val OrderDetailsViewModel by viewModels<OrderDetailsViewModel> { viewModelFactory }
 
     private lateinit var binding: FragmentDeliveryOrderDetailBinding
 
@@ -34,6 +35,7 @@ class DeliveryOrderDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_delivery_order_detail, container, false)
+        OrderDetailsViewModel.updateProducts(args.orderNumber)
 
         val orderNumberTextView : TextView = view.findViewById(R.id.textView_delivery_products_view_order_number)
         val customerName : TextView = view.findViewById(R.id.textView_delivery_orderName)

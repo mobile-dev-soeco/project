@@ -38,7 +38,7 @@ class ProductsList : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = itemView.findViewById(R.id.recyclerView_products)
-        val adapter = ProductsListAdapter(productsListViewModel.getProducts(args.orderNumber), productsListViewModel)
+        val adapter = ProductsListAdapter(productsListViewModel.getProducts(), productsListViewModel)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = adapter
     }
