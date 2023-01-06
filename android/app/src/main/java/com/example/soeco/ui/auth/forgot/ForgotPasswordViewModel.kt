@@ -1,9 +1,11 @@
 package com.example.soeco.ui.auth.forgot
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.soeco.TAG
 import com.example.soeco.data.Repository
 
 class ForgotPasswordViewModel(
@@ -27,12 +29,13 @@ class ForgotPasswordViewModel(
         repository.sendPasswordResetEmail(
             email,
             sendSuccess = {
-                _resultTextLiveData.value = "Password reset email sent to $email"
+                _resultTextLiveData.value = "Reset link sent to $email"
                 _isLoading.value = false
                 _shouldNavigate.value = true
             },
             sendError = {
-                _resultTextLiveData.value = it?.errorMessage
+                Log.e(TAG(), it?.errorMessage.toString())
+                _resultTextLiveData.value = "Password reset failed"
                 _isLoading.value = false
                 _shouldNavigate.value = true
             }

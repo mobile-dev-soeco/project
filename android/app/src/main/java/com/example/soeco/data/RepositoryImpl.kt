@@ -2,6 +2,9 @@ package com.example.soeco.data
 
 import com.example.soeco.data.Models.DB_Models.*
 import io.realm.RealmResults
+import com.example.soeco.data.Models.CustomData
+import com.example.soeco.data.Models.DB_Models.Order_DB
+import com.example.soeco.data.Models.DB_Models.Product_DB
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
 
@@ -10,13 +13,15 @@ class RepositoryImpl(
 ): Repository {
 
     override fun registerUser(
+        firstname: String,
+        lastname: String,
         email: String,
         password: String,
         userType: String,
         registerSuccess: () -> Unit,
         registerError: (Exception?) -> Unit
     ) {
-        realmDataSource.registerUser(email, password, userType, registerSuccess, registerError)
+        realmDataSource.registerUser(firstname, lastname, email, password, userType, registerSuccess, registerError)
     }
 
     override fun confirmUser(
@@ -26,6 +31,17 @@ class RepositoryImpl(
         confirmError: (Exception) -> Unit
     ) {
         realmDataSource.confirmUser(token, tokenId, confirmSuccess, confirmError)
+    }
+
+    override fun updateUser(
+        email: String,
+        firstname: String,
+        lastName: String,
+        role: String,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        realmDataSource.updateUser(email, firstname, lastName, role, onSuccess, onError)
     }
 
     override fun resendConfirmationEmail(
@@ -101,20 +117,30 @@ class RepositoryImpl(
 
     override fun getProductsDb(orderNumber: String): RealmResults<Product_DB>{
         return realmDataSource.getProductsDb(orderNumber)
-
     }
 
-    override fun addDeviation(deviation : Deviation_Report_DB){
+    override fun getUsers(
+        onSuccess: (users: MutableList<CustomData>) -> Unit,
+        onError: (Exception) -> Unit)
+    {
+        realmDataSource.getUsers(onSuccess, onError)
+    }
+
+    override fun addDeviation(deviation : Deviation_Report_DB) {
         realmDataSource.addDeviation(deviation)
+    }
+
+    override fun deleteUser(user: CustomData, onSuccess: (id: String) -> Unit, onError: (Exception) -> Unit) {
+        realmDataSource.deleteUser(user, onSuccess, onError)
     }
 
     override fun addMaterialReport(material: Material_Report_DB){
         realmDataSource.addMaterialReport(material)
 
     }
+
     override fun addProductReport(productReportDb: Product_Report_DB){
         realmDataSource.addProductReport(productReportDb)
-
     }
 
 }

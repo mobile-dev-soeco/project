@@ -69,10 +69,10 @@
     <string name="reset_your_password">Återställ lösenordet</string>
     <string name="reset_password">Återställ lösenordet</string>
     <string-array name="user_types">
-        <item>Budbärare</item>
+        <item>Leverans</item>
         <item>Tapetserare</item>
         <item>Snickare</item>
-        <item>Administratör</item>
+        <item>Admin</item>
     </string-array>
     <string name="title_activity_test">test</string>
     <string name="title_activity_nav_draw">NavDrawActivity</string>

@@ -39,7 +39,7 @@ class ResetPaswordViewModel(
             },
             resetError = {
                 Log.v(TAG(), "Password reset failed: ${it?.message}")
-                _resultTextLiveData.value = it?.message
+                _resultTextLiveData.value = "Password reset failed"
                 _shouldNavigateTo.value = "forgotPassword"
                 _isLoading.value = false
             }
