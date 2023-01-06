@@ -38,7 +38,7 @@ class AuthFragment: Fragment() {
 
     // Handle the auth state change
     private fun handleAuthState(state: AuthViewModel.AuthState) {
-        var destination: Int = R.id.action_authFragment_to_startFragment
+        var destination: Int = R.id.action_authFragment_to_loginFragment
         if (state == AuthSuccess) {
             // Navigate to Role based activity and finish Auth activity
             // ELSE // Navigate to start fragment
@@ -51,7 +51,7 @@ class AuthFragment: Fragment() {
 
             Handler(Looper.getMainLooper()).postDelayed({
                 navigation.navigate(destination)
-                if (destination != R.id.action_authFragment_to_startFragment){
+                if (destination != R.id.action_authFragment_to_loginFragment){
                     requireActivity().finish()
                 }
             }, 500)

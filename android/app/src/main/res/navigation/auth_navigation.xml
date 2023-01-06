@@ -28,14 +28,12 @@
             app:popUpToInclusive="true"
             app:launchSingleTop="true" />
         <action
-            android:id="@+id/action_authFragment_to_startFragment"
-            app:destination="@id/startFragment"
-            app:popUpTo="@id/startFragment"
-            app:launchSingleTop="true" />
-        <action
             android:id="@+id/action_authFragment_to_deliveryActivity"
             app:destination="@id/deliveryActivity"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_authFragment_to_loginFragment2"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -127,16 +125,6 @@
         android:name="com.example.soeco.ui.carpentry.CarpentryActivity"
         android:label="activity_carpentry"
         tools:layout="@layout/activity_carpentry" />
-    <fragment
-        android:id="@+id/startFragment"
-        android:name="com.example.soeco.ui.auth.StartFragment"
-        android:label="fragment_start"
-        tools:layout="@layout/fragment_start" >
-        <action
-            android:id="@+id/action_startFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:launchSingleTop="true" />
-    </fragment>
     <activity
         android:id="@+id/deliveryActivity"
         android:name="com.example.soeco.ui.delivery.DeliveryActivity"
