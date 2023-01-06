@@ -35,7 +35,7 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
         val cardView :CardView = holder.view.findViewById(R.id.card_Order)
         cardView.setOnClickListener {
             // depending on the user role, navigate to different fragments
-            when(userRole){
+            when(userRole?.lowercase()){
                 "tapetserare" -> {
                     navigateCarpenterOrderDetail(navigation, orderNumber)
                 }
