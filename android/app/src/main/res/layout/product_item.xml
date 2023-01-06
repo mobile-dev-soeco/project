@@ -105,7 +105,7 @@
                     android:layout_weight="1"
                     android:hint="@string/zero"
                     android:padding="6dp"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
 
                     android:textColor="@color/Green" />
 
@@ -133,7 +133,7 @@
                     android:layout_weight="1"
                     android:hint="@string/zero"
                     android:padding="6dp"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textColor="@color/Green" />
 
             </LinearLayout>

@@ -109,14 +109,11 @@ class RepositoryImpl(
 
     override fun getMaterials() = realmDataSource.materials
 
-    override fun getProducts() = realmDataSource.products
-
-    override fun getProduct(id:String) : Product_DB?{
-        return realmDataSource.getProductRealm(id)
+    override fun updateProducts(orderNumber: String){
+        return realmDataSource.updateProducts(orderNumber)
     }
-
-    override fun getProductsDb(orderNumber: String): RealmResults<Product_DB>{
-        return realmDataSource.getProductsDb(orderNumber)
+    override fun getProductsDb(): RealmResults<Product_DB>{
+        return realmDataSource.getProductsDb()
     }
 
     override fun getUsers(
@@ -142,5 +139,14 @@ class RepositoryImpl(
     override fun addProductReport(productReportDb: Product_Report_DB){
         realmDataSource.addProductReport(productReportDb)
     }
+
+    override fun addDeliveryReport(delivery : Delivery_Report_DB) {
+        realmDataSource.addDeliveryReport(delivery)
+
+    }
+    override fun clearLocaleDb(){
+        realmDataSource.clearLocaleDb()
+    }
+
 
 }

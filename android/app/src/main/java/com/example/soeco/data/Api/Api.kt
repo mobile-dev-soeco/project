@@ -21,6 +21,6 @@ interface Api {
     fun getMaterial(@Query("role") role :String) : Call<ArrayList<Material_API>>
 
 
-    @GET("product")
-    fun getProduct(@Query("id") id :Int) : Call<Product_API>
+    @GET("products")
+    fun getProducts(@Query("id") id :String) : Call<ArrayList<Product_API> >
 }

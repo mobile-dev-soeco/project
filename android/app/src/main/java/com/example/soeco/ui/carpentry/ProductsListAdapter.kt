@@ -105,7 +105,7 @@ internal class ProductsListAdapter(
 
         val timePickerDialogListener: TimePickerDialog.OnTimeSetListener =
             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                val newTime = "$hourOfDay timmar :  $minute minuter"
+                val newTime = "$hourOfDay tim :  $minute min"
                 timeText.setText(newTime)
             }
 

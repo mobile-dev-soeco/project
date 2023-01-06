@@ -2,15 +2,12 @@ package com.example.soeco.ui.viewmodels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.soeco.data.Models.DB_Models.Material_DB
+import com.example.soeco.data.Models.DB_Models.*
 import com.example.soeco.data.Repository
-import com.example.soeco.data.Models.DB_Models.Order_DB
-import com.example.soeco.data.Models.DB_Models.Product_DB
-import com.example.soeco.data.Models.DB_Models.Product_Report_DB
 import io.realm.RealmList
 import io.realm.RealmResults
 
-class ProductsViewModel(
+class DeliveryProductsViewModel(
     val repository: Repository,
     val savedStateHandle: SavedStateHandle
 ): ViewModel() {
@@ -21,8 +18,10 @@ class ProductsViewModel(
 
     }
 
-    fun addProductReport(productReportDb: Product_Report_DB) {
-            repository.addProductReport(productReportDb)
+
+
+    fun addDeliveryReport(report: Delivery_Report_DB) {
+            repository.addDeliveryReport(report)
     }
 
 }

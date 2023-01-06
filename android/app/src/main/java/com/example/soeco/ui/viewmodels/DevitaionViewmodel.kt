@@ -12,8 +12,8 @@ class DevitaionViewmodel (
         val savedStateHandle: SavedStateHandle
     ): ViewModel() {
 
-        fun getProducts(orderNumber: String): RealmResults<Product_DB> {
-            return  repository.getProductsDb(orderNumber)
+        fun getProducts(): RealmResults<Product_DB> {
+            return  repository.getProductsDb()
 
         }
 
