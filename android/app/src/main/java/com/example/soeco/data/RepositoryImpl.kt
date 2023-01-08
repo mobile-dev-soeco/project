@@ -96,9 +96,9 @@ class RepositoryImpl(
     override fun getOrders() = realmDataSource.orders
 
     override fun get_Deviation_Reports() = realmDataSource.deviationReports
-    override fun get_Product_Report() = realmDataSource.productReport
+    override fun get_Tradesmen_Report() = realmDataSource.tradesmenReport
     override fun get_Material_Reports() = realmDataSource.materialReports
-
+    override fun get_Delivery_Reports() = realmDataSource.deliveryReport
     override fun updateOrders() {
         realmDataSource.updateOrders()
     }
@@ -136,8 +136,8 @@ class RepositoryImpl(
 
     }
 
-    override fun addProductReport(productReportDb: Product_Report_DB){
-        realmDataSource.addProductReport(productReportDb)
+    override fun addTradesmenReport(tradesmenReportDb: Tradesmen_Report_DB){
+        realmDataSource.addTradesmenReport(tradesmenReportDb)
     }
 
     override fun addDeliveryReport(delivery : Delivery_Report_DB) {
@@ -148,5 +148,8 @@ class RepositoryImpl(
         realmDataSource.clearLocaleDb()
     }
 
+    override fun getExpectedTime(orderNumber: String): String {
+       return realmDataSource.getExpectedTime(orderNumber)
+    }
 
 }

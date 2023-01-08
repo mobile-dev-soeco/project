@@ -18,7 +18,9 @@ class DeliveryProductsViewModel(
 
     }
 
-
+    fun getExpectedTime(orderNumber:String): String {
+        return  repository.getExpectedTime(orderNumber)
+    }
 
     fun addDeliveryReport(report: Delivery_Report_DB) {
             repository.addDeliveryReport(report)

@@ -1,7 +1,6 @@
 package com.example.soeco.data
 
 import com.example.soeco.data.Models.DB_Models.*
-import io.realm.RealmList
 import com.example.soeco.data.Models.CustomData
 import com.example.soeco.data.Models.DB_Models.Material_DB
 import com.example.soeco.data.Models.DB_Models.Order_DB
@@ -82,10 +81,12 @@ interface Repository {
 
     fun addDeviation(deviation : Deviation_Report_DB)
     fun addMaterialReport(material: Material_Report_DB)
-    fun addProductReport(productReportDb: Product_Report_DB)
+    fun addTradesmenReport(tradesmenReportDb: Tradesmen_Report_DB)
     fun get_Deviation_Reports() : RealmResults<Deviation_Report_DB>
-    fun get_Product_Report()  : RealmResults<Product_Report_DB>
+    fun get_Tradesmen_Report()  : RealmResults<Tradesmen_Report_DB>
     fun get_Material_Reports()  : RealmResults<Material_Report_DB>
+    fun get_Delivery_Reports(): RealmResults<Delivery_Report_DB>
+
     fun getUsers(
         onSuccess: (MutableList<CustomData>) -> Unit,
         onError: (Exception) -> Unit
@@ -107,4 +108,5 @@ interface Repository {
     )
     fun addDeliveryReport(delivery : Delivery_Report_DB) : Unit
     fun updateProducts(orderNumber: String)
+    fun getExpectedTime(orderNumber: String) : String
 }
