@@ -15,6 +15,7 @@ open class Delivery_Report_DB : RealmObject {
     var selected: RealmList<Product_DB> = RealmList()
     var notselected: RealmList<Product_DB> = RealmList()
 
+    var orderExpectedTime : String= ""
     var orderNumber: String = ""
 
 
@@ -22,6 +23,7 @@ open class Delivery_Report_DB : RealmObject {
         time:String  = "",
         selected: RealmList<Product_DB> = RealmList(),
         notselected: RealmList<Product_DB> = RealmList(),
+        orderExpectedTime: String = "",
         orderNumber: String = "",
 
 
@@ -29,6 +31,7 @@ open class Delivery_Report_DB : RealmObject {
         this.time = time
         this.selected = selected
         this.notselected = notselected
+        this.orderExpectedTime=orderExpectedTime
         this.orderNumber = orderNumber
 
     }

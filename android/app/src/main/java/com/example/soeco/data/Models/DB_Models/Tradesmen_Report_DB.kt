@@ -6,12 +6,13 @@ import io.realm.annotations.Required
 import org.bson.types.ObjectId
 
 
-open class Product_Report_DB : RealmObject {
+open class Tradesmen_Report_DB : RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId()
     @Required
     var product_id: String =""
     var orderNumber: String = ""
+    var orderExpectedTime: String =""
 
     var product_count : Int? = 0
     var product_name : String = ""
@@ -24,6 +25,7 @@ open class Product_Report_DB : RealmObject {
     constructor(
         product_id:String  = "",
         orderNumber: String ="",
+        orderExpectedTime: String ="",
 
         product_count: Int? =0,
         product_name: String ="",
@@ -34,6 +36,7 @@ open class Product_Report_DB : RealmObject {
         ) {
         this.product_id = product_id
         this.orderNumber = orderNumber
+        this.orderExpectedTime =orderExpectedTime
 
         this.product_count = product_count
         this.product_name = product_name

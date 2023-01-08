@@ -29,7 +29,6 @@ import io.realm.mongodb.mongo.MongoDatabase
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
-import org.bson.types.ObjectId
 
 import retrofit2.Call
 import java.io.IOException
@@ -47,7 +46,8 @@ class RealmDataSource(context: Context) {
     lateinit var products: RealmResults<Product_DB>
     lateinit var deviationReports: RealmResults<Deviation_Report_DB>
     lateinit var materialReports: RealmResults<Material_Report_DB>
-    lateinit var productReport: RealmResults<Product_Report_DB>
+    lateinit var tradesmenReport: RealmResults<Tradesmen_Report_DB>
+    lateinit var deliveryReport: RealmResults<Delivery_Report_DB>
 
     init {
         Log.v("Realm Data", "Created a new instance of Realm data source")
@@ -65,9 +65,10 @@ class RealmDataSource(context: Context) {
         val orderQuery = localRealm.where(Order_DB::class.java)
         val materialQuery = localRealm.where(Material_DB::class.java)
 
-        val Product_Report_Query = localRealm.where(Product_Report_DB::class.java)
+        val tradesmen_Report_Query = localRealm.where(Tradesmen_Report_DB::class.java)
         val Material_Reports_Query = localRealm.where(Material_Report_DB::class.java)
         val Deviation_Reports_Query = localRealm.where(Deviation_Report_DB::class.java)
+        val Delivery_Reports_Query = localRealm.where(Delivery_Report_DB::class.java)
 
         materials = materialQuery.findAllAsync()
         products = productQuery.findAllAsync()
@@ -75,7 +76,9 @@ class RealmDataSource(context: Context) {
 
         deviationReports = Deviation_Reports_Query.findAllAsync()
         materialReports = Material_Reports_Query.findAllAsync()
-        productReport = Product_Report_Query.findAllAsync()
+        tradesmenReport = tradesmen_Report_Query.findAllAsync()
+        deliveryReport = Delivery_Reports_Query.findAllAsync()
+
 
     }
 
@@ -460,9 +463,9 @@ class RealmDataSource(context: Context) {
         }
     }
 
-    fun addProductReport(productReportDb: Product_Report_DB) {
+    fun addTradesmenReport(tradesmenReportDb: Tradesmen_Report_DB) {
         localRealm.executeTransactionAsync {
-            it.insert(productReportDb)
+            it.insert(tradesmenReportDb)
         }
     }
 
@@ -478,6 +481,12 @@ class RealmDataSource(context: Context) {
             it.delete(Material_DB::class.java)
             it.delete(Product_DB::class.java)
         }
+    }
+
+    fun getExpectedTime(orderNumber: String): String {
+        val order = getOrder(orderNumber)
+        return order?.expectHours.toString()
+
     }
 
 

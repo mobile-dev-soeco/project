@@ -65,6 +65,7 @@ class DeliveryProductsList : Fragment() {
         val listOfChildren = recyclerView.children.toList()
         val listOfSelected = RealmList<Product_DB>()
         val listOfNotSelected = RealmList<Product_DB>()
+        val expectedTime = deliveryProductsViewModel.getExpectedTime(args.orderNumber)
 
         for (i in listOfChildren.indices) {
             val checkBox : CheckBox= listOfChildren[i].findViewById(R.id.checkBox)
@@ -73,7 +74,7 @@ class DeliveryProductsList : Fragment() {
             else adapter.getItem(i)?.let { listOfNotSelected.add(it) }
 
         }
-        deliveryProductsViewModel.addDeliveryReport(Delivery_Report_DB(time,listOfSelected,listOfNotSelected, args.orderNumber) )
+        deliveryProductsViewModel.addDeliveryReport(Delivery_Report_DB(time,listOfSelected,listOfNotSelected,expectedTime, args.orderNumber) )
         navigation.popBackStack()
 
 
@@ -86,7 +87,7 @@ class DeliveryProductsList : Fragment() {
 
         val timePickerDialogListener: TimePickerDialog.OnTimeSetListener =
             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                val newTime = "$hourOfDay timmar :  $minute minuter"
+                val newTime = "$hourOfDay tim :  $minute min"
                 timeText.setText(newTime)
             }
 
