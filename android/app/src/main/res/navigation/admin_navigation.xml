@@ -9,7 +9,7 @@
         android:id="@+id/adminHomeFragment"
         android:name="com.example.soeco.ui.admin.AdminHomeFragment"
         android:label="fragment_admin_home"
-        tools:layout="@layout/fragment_admin_home" >
+        tools:layout="@layout/fragment_admin_home">
         <action
             android:id="@+id/action_adminHomeFragment_to_statisticsFragment"
             app:destination="@id/statisticsFragment"

@@ -44,23 +44,24 @@ class StatisticsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lineChart = view.findViewById(R.id.reportingChart);
         setSelector(view)
-        tradesmenReportsChart(view)
+        tradesmenReportsChart()
 
     }
 
     private fun setSelector(view: View){
         val selector : Spinner = view.findViewById(R.id.selector)
-        val list = listOf("Tradesmen","Delivery", "Deviation")
+        val list = listOf("Snickare och Tapetserare","Leverans", "Avikelser")
         val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_item, list)
         selector.adapter = dataAdapter
         selector.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view1: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 when (selector.selectedItem.toString()){
-                    "Tradesmen" ->  tradesmenReportsChart(view)
-                    "Delivery" -> deliveryReportChart(view)
-                    "Deviation" -> deviationReportChart(view)
+                    "Snickare och Tapetserare" ->  tradesmenReportsChart()
+                    "Leverans" -> deliveryReportChart()
+                    "Avikelser" -> deviationReportChart()
                 }
             }
 
@@ -164,7 +165,8 @@ class StatisticsFragment : Fragment() {
         return listOfOrders
     }
     private fun convertHours( time: Float): Float{
-        return  time / 60
+        return   Math.round(time / 60).toFloat()
+
     }
     private fun convertMin(time: String): Float {
         val hours = time.substringBefore(":").substringBefore(" tim")
@@ -173,33 +175,32 @@ class StatisticsFragment : Fragment() {
     }
 
 
-    private fun deliveryReportChart(view: View) {
+    private fun deliveryReportChart() {
         val deliveryReports = statsViewModel.deliveryReports
         val listOfOrders = getOrderNumbersDelivery(deliveryReports)
         val actualTimes = getActualTimesDelivery(deliveryReports,listOfOrders)
         val expectedTimes = getExpectedTimesDelivery(deliveryReports,listOfOrders)
-        setEntriesLabels(view, actualTimes,expectedTimes,listOfOrders)
+        setEntriesLabels(actualTimes,expectedTimes,listOfOrders)
 
     }
 
 
-    private fun tradesmenReportsChart(view: View){
+    private fun tradesmenReportsChart(){
         val tradesmenReports = statsViewModel.tradesmenReports
         val listOfOrders = getOrderNumbersTradesmen(tradesmenReports)
         val actualTimes= getActualTimesTradesmen(tradesmenReports,listOfOrders)
         val expectedTimes = getExpectedTimesTradesmen(tradesmenReports,listOfOrders)
-        setEntriesLabels(view, actualTimes,expectedTimes,listOfOrders)
+        setEntriesLabels(actualTimes,expectedTimes,listOfOrders)
 
     }
 
-    private fun deviationReportChart(view: View){
+    private fun deviationReportChart(){
         val deviationReports = statsViewModel.deviationReports
         val listOfOrders = getOrderNumbersDeviation(deviationReports)
         val times= getTimesDeviation(deviationReports,listOfOrders)
-        setEntriesLabels(view, times,listOfOrders)
+        setEntriesLabels(times,listOfOrders)
     }
     private fun setEntriesLabels(
-        view: View,
         actualTimes: ArrayList<Float>,
         listOfOrders: ArrayList<String>
     ) {
@@ -210,11 +211,10 @@ class StatisticsFragment : Fragment() {
             line2.add(Entry(i.toFloat(), actualTimes[i]))
             xLabel.add(listOfOrders[i])
         }
-        oneLineChart(view,line2,xLabel)
+        oneLineChart(line2,xLabel)
     }
 
     private fun setEntriesLabels(
-        view: View,
         actualTimes: ArrayList<Float>,
         expectedTimes: ArrayList<Float>,
         listOfOrders: ArrayList<String>
@@ -228,14 +228,13 @@ class StatisticsFragment : Fragment() {
             line2.add(Entry(i.toFloat(), actualTimes[i]))
             xLabel.add(listOfOrders[i])
         }
-        twoLineChart(view, line1,line2,xLabel)
+        twoLineChart(line1,line2,xLabel)
     }
-    private fun oneLineChart(view: View, line1 : ArrayList<Entry>, xLabel : ArrayList<String>) {
-        lineChart = view.findViewById(R.id.reportingChart);
+    private fun oneLineChart(line1 : ArrayList<Entry>, xLabel : ArrayList<String>) {
         lineChart.setTouchEnabled(true);
         lineChart.setPinchZoom(true);
         // create LineDataSet objects
-        val setEstimate = LineDataSet(line1, "Deviation hours")
+        val setEstimate = LineDataSet(line1, "Avikande timmar")
         setEstimate.axisDependency = YAxis.AxisDependency.LEFT
         setEstimate.color = R.color.Green
 
@@ -256,15 +255,14 @@ class StatisticsFragment : Fragment() {
         xAxis.valueFormatter = IndexAxisValueFormatter(xLabel)
         xAxis.labelRotationAngle = 300f
     }
-    private fun twoLineChart(view: View, line1 : ArrayList<Entry>, line2 :ArrayList<Entry>, xLabel : ArrayList<String>){
-        lineChart = view.findViewById(R.id.reportingChart);
+    private fun twoLineChart( line1 : ArrayList<Entry>, line2 :ArrayList<Entry>, xLabel : ArrayList<String>){
         lineChart.setTouchEnabled(true);
         lineChart.setPinchZoom(true);
         // create LineDataSet objects
-        val setEstimate = LineDataSet(line1, "Estimate hours")
+        val setEstimate = LineDataSet(line1, "Uppskattade antal timmar")
         setEstimate.axisDependency = YAxis.AxisDependency.LEFT
         setEstimate.color = R.color.Green
-        val setActual = LineDataSet(line2, "Actual hours")
+        val setActual = LineDataSet(line2, "Rappoterade antal timmar")
         setActual.axisDependency = YAxis.AxisDependency.LEFT
 
         // IDataSets to build CharData object
