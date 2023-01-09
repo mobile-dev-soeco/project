@@ -9,9 +9,11 @@ open class Order_DB
     (
     @PrimaryKey
     var _id: String ="",
+    var idoo :Int? = 0,
     var expectHours: Int? = 0,
     var address: String? = "",
-    var contact: RealmList<String>? = null,
+    var phone: String? = "",
+    var name: String? = "",
 ): RealmObject()
 
 

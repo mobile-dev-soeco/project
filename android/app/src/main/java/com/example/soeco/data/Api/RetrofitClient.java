@@ -1,5 +1,8 @@
 package com.example.soeco.data.Api;
 
+import android.util.Base64;
+
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -7,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "https://fake-api-napn.onrender.com/";
+    private static final String BASE_URL = "http://api.soeco.se/";
     private static RetrofitClient mInstance;
     private final Retrofit retrofit;
 
@@ -16,7 +19,7 @@ public class RetrofitClient {
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .build();
-        retrofit = new Retrofit.Builder()
+                retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
@@ -31,7 +34,7 @@ public class RetrofitClient {
         return mInstance;
     }
 
-    public Api getAPI(){
+    public Api getAPI() {
         return retrofit.create(Api.class);
     }
 }

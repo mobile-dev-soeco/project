@@ -1,37 +1,33 @@
 package com.example.soeco.data
 
+// MongoDB Service Packages
+
 import android.content.Context
+import android.util.Base64
 import android.util.Log
 import com.example.soeco.TAG
 import com.example.soeco.data.Api.RetrofitClient
+import com.example.soeco.data.Models.API_Models.Contact_API
 import com.example.soeco.data.Models.API_Models.Material_API
 import com.example.soeco.data.Models.API_Models.Order_API
 import com.example.soeco.data.Models.API_Models.Product_API
 import com.example.soeco.data.Models.CustomData
-import com.example.soeco.data.Models.DB_Models.Material_DB
-import com.example.soeco.data.Models.DB_Models.Order_DB
-import com.example.soeco.data.Models.DB_Models.Product_DB
 import com.example.soeco.data.Models.DB_Models.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmList
 import io.realm.RealmResults
-import io.realm.mongodb.App
-import io.realm.mongodb.AppConfiguration
-import io.realm.mongodb.AppException
-import io.realm.mongodb.Credentials
-import io.realm.mongodb.User
-
-// MongoDB Service Packages
+import io.realm.mongodb.*
 import io.realm.mongodb.mongo.MongoClient
 import io.realm.mongodb.mongo.MongoCollection
 import io.realm.mongodb.mongo.MongoDatabase
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
-
 import retrofit2.Call
 import java.io.IOException
+import java.io.UnsupportedEncodingException
+import java.util.*
 
 class RealmDataSource(context: Context) {
 
@@ -344,30 +340,45 @@ class RealmDataSource(context: Context) {
         localRealm.executeTransactionAsync {
             try {
                 val api = RetrofitClient.getInstance().api
-                val call: Call<ArrayList<Order_API>> = api.getOrder(userRole)
+                val calendar = Calendar.getInstance()
+                val year = calendar.get(Calendar.YEAR).toString()
+                val month = calendar.get(Calendar.MONTH).toString()
+                val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
+                val dateString= "$year-$month-$day"
+                val fullUrl = when (userRole.lowercase()){
+                    "leverans" -> "orders/delivery/$dateString"
+                    "snickare" -> "orders/blacksmith"
+                    else -> "orders/carpenter"
+                }
+
+                val call: Call<ArrayList<Order_API>> = api.getOrder(getAuthToken(),fullUrl)
                 val response = call.execute()
                 if (response.isSuccessful) {
                     val orders = response.body()
                     if (orders != null) {
-
                         for (order in orders) {
                             it.copyToRealmOrUpdate(convertOrder(order))
+                            Log.e("order", order.toString())
+
                         }
                     }
                 } else {
-                    Log.e("Repository:  Update:   if", "Network Error")
+                    Log.e("Repository:  Update:   if", response.toString())
                 }
             } catch (error: IOException) {
-                Log.e("Repository:  Update:  Catch", "Network Error")
+                Log.e("Repository:  Update:  Catch", error.toString())
             }
         }
     }
 
     fun updateProducts(orderNumber: String) {
+        val order = getOrder(orderNumber)?.idoo
         localRealm.executeTransactionAsync {
             try {
+                val fullUrl = "products/"+ order.toString()
+
                 val api = RetrofitClient.getInstance().api
-                val call: Call<ArrayList<Product_API>> = api.getProducts(orderNumber)
+                val call: Call<ArrayList<Product_API>> = api.getProducts(getAuthToken(),fullUrl)
                 val response = call.execute()
                 if (response.isSuccessful) {
                     val products = response.body()
@@ -377,10 +388,10 @@ class RealmDataSource(context: Context) {
                             it.copyToRealmOrUpdate(convertProduct(product))
                     }
                 } else {
-                    Log.e("Repository:  getProduct:   if", "Network Error")
+                    Log.e("Repository:  getProduct:   if", response.toString())
                 }
             } catch (error: IOException) {
-                Log.e("Repository:  getProduct:  Catch", "Network Error")
+                Log.e("Repository:  getProduct:  Catch", error.toString())
 
             }
 
@@ -388,17 +399,26 @@ class RealmDataSource(context: Context) {
     }
     private fun convertOrder(fromApi: Order_API): Order_DB {
 
-        val contact_List = RealmList<String>()
-        if(fromApi.contact != null) {
-            for (string in fromApi.contact)
-                contact_List.add(string)
-        }
+        val contact = getContact(fromApi.idoo)
 
-        val item = Order_DB(fromApi.OrderNumber, fromApi.expectHours, fromApi.address, contact_List)
+
+        val item = Order_DB(fromApi.oo_nr, fromApi.idoo,0, contact?.phone , contact?.name)
         return item
     }
 
+    private fun getContact(idoo : Int): Contact_API? {
+        var contact :Contact_API? = null
+        val fullUrl = "contact$idoo"
+        val api = RetrofitClient.getInstance().api
+        val call: Call<Contact_API> = api.getContact(getAuthToken(), fullUrl)
+        val response = call.execute()
+        if (response.isSuccessful) {
+            contact = response.body()
+        }
+        return contact
+    }
     private fun  convertProduct (fromApi: Product_API): Product_DB {
+
         val item = Product_DB(fromApi.id, fromApi.name, fromApi.OrderNumber, fromApi.count)
         return(item)
     }
@@ -406,13 +426,18 @@ class RealmDataSource(context: Context) {
     fun updateMaterials() {
         localRealm.executeTransactionAsync {
             try {
+                val fullUrl = when (userRole.lowercase()) {
+                    "snickare" -> "mateial/blacksmith"
+                    else -> "mateial/carpenter"
+                }
                 val api = RetrofitClient.getInstance().api
-                val call: Call<ArrayList<Material_API>> = api.getMaterial(userRole)
+                val call: Call<ArrayList<Material_API>> = api.getMaterial(getAuthToken(),fullUrl)
                 val response = call.execute()
                 if (response.isSuccessful) {
                     val materials = response.body()
                     if (materials != null) {
                         for (material in materials) {
+                            Log.e("tag",material.toString())
                             it.copyToRealmOrUpdate(convertMaterial(material))
                         }
                     }
@@ -489,5 +514,13 @@ class RealmDataSource(context: Context) {
 
     }
 
-
+    fun getAuthToken(): String {
+        var data = ByteArray(0)
+        try {
+            data = ("Soeco API" + ":" + "phefr3p2lGawlfrEkeprUrAs").toByteArray(charset("UTF-8"))
+        } catch (e: UnsupportedEncodingException) {
+            e.printStackTrace()
+        }
+        return "Basic " + Base64.encodeToString(data, Base64.NO_WRAP)
+    }
 }

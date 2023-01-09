@@ -43,8 +43,8 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
                     navigateCarpenterOrderDetail(navigation, orderNumber)
                 }
                 "leverans" -> {
-                    val name = obj!!.contact!![0]
-                    val phone = obj!!.contact!![1]
+                    val name = obj!!.name
+                    val phone = obj!!.phone
                     val address = obj!!.address
                     if (name != null && phone != null && address != null) {
                         navigateDeliveryOrderDetail(navigation, orderNumber, address, name, phone)
