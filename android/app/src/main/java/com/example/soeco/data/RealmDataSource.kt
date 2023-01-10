@@ -12,6 +12,8 @@ import com.example.soeco.data.Models.DB_Models.Material_DB
 import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
 import com.example.soeco.data.Models.DB_Models.*
+import com.example.soeco.data.Models.mongo.Deviation
+import com.example.soeco.data.Models.mongo.TimeReport
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmList
@@ -79,7 +81,6 @@ class RealmDataSource(context: Context) {
 
     }
 
-
     private fun localRealm(){
         val config = RealmConfiguration.Builder()
             .name("local-Realm")
@@ -92,15 +93,11 @@ class RealmDataSource(context: Context) {
         localRealm = Realm.getInstance(config)
     }
 
-
-
-
-
     fun getUsers(
         onSuccess: (MutableList<CustomData>) -> Unit,
         onError: (Exception) -> Unit
     ) {
-        val usersCollection = getUsersCollectionHandle()
+        val usersCollection = getCollection("users")
 
         // Don't return the current user in user list
         val queryFilter = Document(
@@ -113,7 +110,7 @@ class RealmDataSource(context: Context) {
                     val users = mutableListOf<CustomData>()
                     val result = task.get()
                     while (result.hasNext()) {
-                        val user = result.next()
+                        val user = result.next() as CustomData
                         users.add(user)
                     }
                     onSuccess.invoke(users)
@@ -477,5 +474,74 @@ class RealmDataSource(context: Context) {
     }
 
 
+    /** MongoDB methods **/
+
+    fun getDeviations(id: String, onSuccess: (List<Deviation>) -> Unit, onError: (Exception) -> Unit) {
+
+        val collection = getCollection("deviations")
+
+        val queryFilter = Document("owner_id", id)
+
+        val deviations = mutableListOf<Deviation>()
+
+        collection.find(queryFilter).iterator()
+            .getAsync {
+                if (it.isSuccess) {
+                    val result = it.get()
+                    while (result.hasNext()) {
+                        val item = result.next() as Deviation
+                        deviations.add(item)
+                    }
+                    onSuccess.invoke(deviations.toList())
+                } else {
+                    onError.invoke(it.error)
+                }
+            }
+    }
+
+//    fun insertDeviation(
+//        deviation: Deviation,
+//        onSuccess: () -> Unit,
+//        onError: (Exception) -> Unit
+//    ){
+//        val deviations = getCollection("deviations")
+//
+//
+//        deviations.insertOne(deviation)?.getAsync {
+//            if (it.isSuccess) {
+//
+//            }
+//        }
+//    }
+
+    private fun getCollection(collectionName: String): MongoCollection<out Any?> {
+
+        val type = when(collectionName) {
+            "users" -> CustomData::class.java
+            "deviations" -> Deviation::class.java
+            "time_report" -> TimeReport::class.java
+            else -> throw(Error("Collection name not supported"))
+        }
+
+        val mongoClient: MongoClient = currentRealmUser.getMongoClient("mongodb-atlas")
+        val mongoDatabase: MongoDatabase = mongoClient.getDatabase("auth")
+
+        // Handle Plain Old Javascript Objects POJOs
+        val pojoCodecRegistry = CodecRegistries.fromRegistries(
+            AppConfiguration.DEFAULT_BSON_CODEC_REGISTRY,
+            CodecRegistries.fromProviders(
+                PojoCodecProvider.builder().automatic(true).build()
+            )
+        )
+
+        val collection = mongoDatabase.getCollection(
+            collectionName,
+            type
+        ).withCodecRegistry(pojoCodecRegistry)
+
+        Log.v(TAG(), "MongoDB collection collection handle instantiated")
+
+        return collection
+    }
 
 }

@@ -5,6 +5,8 @@ import io.realm.RealmResults
 import com.example.soeco.data.Models.CustomData
 import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
+import com.example.soeco.data.Models.mongo.Deviation
+import com.example.soeco.data.Models.mongo.TimeReport
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
 
@@ -143,4 +145,31 @@ class RepositoryImpl(
         realmDataSource.addProductReport(productReportDb)
     }
 
+    override fun insertDeviation(
+        deviation: Deviation,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        realmDataSource.insertDeviation(deviation, onSuccess, onError)
+    }
+
+    override fun getDeviations(id: String, onSuccess: (List<Deviation>) -> Unit, onError: (Exception) -> Unit) {
+        realmDataSource.getDeviations(id, onSuccess, onError)
+    }
+
+    override fun insertTimeReport(
+        report: TimeReport,
+        onSuccess: (List<TimeReport>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getTimeReports(
+        id: String,
+        onSuccess: (List<TimeReport>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        TODO("Not yet implemented")
+    }
 }
