@@ -50,6 +50,7 @@ class QuestionnaireCarpentry : Fragment() {
             Log.e("tag", deviation.orderNumber)
             DeviationViewmodel.addDeviation(deviation)
             DeviationViewmodel.insertDeviation(generateDeviation(view))
+            navigation.popBackStack()
         }
 
         return view
@@ -94,7 +95,7 @@ class QuestionnaireCarpentry : Fragment() {
     private fun getProductSelection(view: View): Product_DB? {
         val spinner: Spinner = view.findViewById(R.id.spinner_questionnaireProduct)
 
-        val products = DeviationViewmodel.getProducts(args.orderNumber)
+        val products = DeviationViewmodel.getProducts()
         val selectedIndex = spinner.selectedItemPosition-1
         val product = if (selectedIndex != -1 )  products[spinner.selectedItemPosition-1]
         else Product_DB("empty","empty","empty",0)
@@ -145,7 +146,7 @@ class QuestionnaireCarpentry : Fragment() {
 
     private fun setProductSelector(view :View) {
         val spinner: Spinner = view.findViewById(R.id.spinner_questionnaireProduct)
-        val products = DeviationViewmodel.getProducts(args.orderNumber)
+        val products = DeviationViewmodel.getProducts()
         val list = mutableListOf(Product_DB("","","",0))
         list.addAll(products)
         val dataAdapter: ArrayAdapter<Product_DB> =

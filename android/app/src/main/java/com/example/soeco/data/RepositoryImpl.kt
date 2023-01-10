@@ -98,9 +98,9 @@ class RepositoryImpl(
     override fun getOrders() = realmDataSource.orders
 
     override fun get_Deviation_Reports() = realmDataSource.deviationReports
-    override fun get_Product_Report() = realmDataSource.productReport
+    override fun get_Tradesmen_Report() = realmDataSource.tradesmenReport
     override fun get_Material_Reports() = realmDataSource.materialReports
-
+    override fun get_Delivery_Reports() = realmDataSource.deliveryReport
     override fun updateOrders() {
         realmDataSource.updateOrders()
     }
@@ -111,14 +111,11 @@ class RepositoryImpl(
 
     override fun getMaterials() = realmDataSource.materials
 
-    override fun getProducts() = realmDataSource.products
-
-    override fun getProduct(id:String) : Product_DB?{
-        return realmDataSource.getProductRealm(id)
+    override fun updateProducts(orderNumber: String){
+        return realmDataSource.updateProducts(orderNumber)
     }
-
-    override fun getProductsDb(orderNumber: String): RealmResults<Product_DB>{
-        return realmDataSource.getProductsDb(orderNumber)
+    override fun getProductsDb(): RealmResults<Product_DB>{
+        return realmDataSource.getProductsDb()
     }
 
     override fun getUsers(
@@ -150,8 +147,20 @@ class RepositoryImpl(
 
     }
 
-    override fun addProductReport(productReportDb: Product_Report_DB){
-        realmDataSource.addProductReport(productReportDb)
+    override fun addTradesmenReport(tradesmenReportDb: Tradesmen_Report_DB){
+        realmDataSource.addTradesmenReport(tradesmenReportDb)
+    }
+
+    override fun addDeliveryReport(delivery : Delivery_Report_DB) {
+        realmDataSource.addDeliveryReport(delivery)
+
+    }
+    override fun clearLocaleDb(){
+        realmDataSource.clearLocaleDb()
+    }
+
+    override fun getExpectedTime(orderNumber: String): String {
+       return realmDataSource.getExpectedTime(orderNumber)
     }
 
     /** MongoDB methods **/

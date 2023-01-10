@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_instruction_for"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -37,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_instruction_access"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -44,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_instruction_users"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -51,13 +54,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_instruction_usage"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textView_instructionVersion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_instruction_version" />
+            android:text="@string/app_instruction_version"
+            android:textColor="@color/black" />
     </LinearLayout>
 
 </ScrollView>

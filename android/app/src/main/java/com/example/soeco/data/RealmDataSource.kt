@@ -31,7 +31,6 @@ import io.realm.mongodb.mongo.MongoDatabase
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
-import org.bson.types.ObjectId
 
 import retrofit2.Call
 import java.io.IOException
@@ -49,7 +48,8 @@ class RealmDataSource(context: Context) {
     lateinit var products: RealmResults<Product_DB>
     lateinit var deviationReports: RealmResults<Deviation_Report_DB>
     lateinit var materialReports: RealmResults<Material_Report_DB>
-    lateinit var productReport: RealmResults<Product_Report_DB>
+    lateinit var tradesmenReport: RealmResults<Tradesmen_Report_DB>
+    lateinit var deliveryReport: RealmResults<Delivery_Report_DB>
 
     init {
         Log.v("Realm Data", "Created a new instance of Realm data source")
@@ -67,9 +67,10 @@ class RealmDataSource(context: Context) {
         val orderQuery = localRealm.where(Order_DB::class.java)
         val materialQuery = localRealm.where(Material_DB::class.java)
 
-        val Product_Report_Query = localRealm.where(Product_Report_DB::class.java)
+        val tradesmen_Report_Query = localRealm.where(Tradesmen_Report_DB::class.java)
         val Material_Reports_Query = localRealm.where(Material_Report_DB::class.java)
         val Deviation_Reports_Query = localRealm.where(Deviation_Report_DB::class.java)
+        val Delivery_Reports_Query = localRealm.where(Delivery_Report_DB::class.java)
 
         materials = materialQuery.findAllAsync()
         products = productQuery.findAllAsync()
@@ -77,7 +78,9 @@ class RealmDataSource(context: Context) {
 
         deviationReports = Deviation_Reports_Query.findAllAsync()
         materialReports = Material_Reports_Query.findAllAsync()
-        productReport = Product_Report_Query.findAllAsync()
+        tradesmenReport = tradesmen_Report_Query.findAllAsync()
+        deliveryReport = Delivery_Reports_Query.findAllAsync()
+
 
     }
 
@@ -306,6 +309,7 @@ class RealmDataSource(context: Context) {
         logoutSuccess: () -> Unit,
         logoutError: (Throwable?) -> Unit
     ) {
+        clearLocaleDb()
         realmApp.currentUser()?.logOutAsync {
             if (it.error != null) {
                 logoutError.invoke(it.error.exception)
@@ -342,14 +346,8 @@ class RealmDataSource(context: Context) {
                 if (response.isSuccessful) {
                     val orders = response.body()
                     if (orders != null) {
-                        it.delete(Order_DB::class.java)
-                        it.delete(Material_DB::class.java)
-                        it.delete(Product_DB::class.java)
 
                         for (order in orders) {
-                            for (product in order.Products)
-                                it.copyToRealmOrUpdate(getProduct(product.id,order.OrderNumber,product.count))
-
                             it.copyToRealmOrUpdate(convertOrder(order))
                         }
                     }
@@ -362,26 +360,29 @@ class RealmDataSource(context: Context) {
         }
     }
 
-    private fun getProduct(id: Int, ordernumber: String,count: Int): Product_DB {
-        try {
-            val api = RetrofitClient.getInstance().api
-            val call: Call<Product_API> = api.getProduct(id)
-            val response = call.execute()
-            if (response.isSuccessful) {
-                val product = response.body()
-                if (product != null) {
-                    return(convertProduct(product,ordernumber,count))
+    fun updateProducts(orderNumber: String) {
+        localRealm.executeTransactionAsync {
+            try {
+                val api = RetrofitClient.getInstance().api
+                val call: Call<ArrayList<Product_API>> = api.getProducts(orderNumber)
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    val products = response.body()
+                    if (products != null) {
+                        it.delete(Product_DB::class.java)
+                        for (product in products)
+                            it.copyToRealmOrUpdate(convertProduct(product))
+                    }
+                } else {
+                    Log.e("Repository:  getProduct:   if", "Network Error")
                 }
-            } else {
-                Log.e("Repository:  getProduct:   if", "Network Error")
+            } catch (error: IOException) {
+                Log.e("Repository:  getProduct:  Catch", "Network Error")
+
             }
-        } catch (error: IOException) {
-            Log.e("Repository:  getProduct:  Catch", "Network Error")
 
         }
-        return Product_DB("0","error","error")
     }
-
     private fun convertOrder(fromApi: Order_API): Order_DB {
 
         val contact_List = RealmList<String>()
@@ -394,8 +395,8 @@ class RealmDataSource(context: Context) {
         return item
     }
 
-    private fun  convertProduct (fromApi: Product_API, ordernumber :String,count :Int): Product_DB {
-        val item = Product_DB(fromApi.id.toString(), fromApi.name, ordernumber,count)
+    private fun  convertProduct (fromApi: Product_API): Product_DB {
+        val item = Product_DB(fromApi.id, fromApi.name, fromApi.OrderNumber, fromApi.count)
         return(item)
     }
 
@@ -414,7 +415,7 @@ class RealmDataSource(context: Context) {
                     }
                 }
             } catch (error: IOException) {
-                Log.e("Repository:  getProduct:  Catch", "Network Error")
+                Log.e("Repository:  getMaterial:  Catch", "Network Error")
             }
         }
     }
@@ -424,14 +425,9 @@ class RealmDataSource(context: Context) {
         return(item)
     }
 
-    fun getProductRealm(id: String): Product_DB? {
-        return localRealm.where(Product_DB::class.java).containsKey("id", id).findFirst()
 
-    }
-
-    fun getProductsDb(orderNumber: String): RealmResults<Product_DB> {
-        return localRealm.where(Product_DB::class.java).containsKey("orderNumber",
-            orderNumber).findAll()
+    fun getProductsDb(): RealmResults<Product_DB> {
+        return localRealm.where(Product_DB::class.java).findAll()
     }
 
     private fun getUsersCollectionHandle(): MongoCollection<CustomData> {
@@ -455,24 +451,40 @@ class RealmDataSource(context: Context) {
     }
     fun addDeviation(deviation : Deviation_Report_DB) {
         localRealm.executeTransactionAsync {
-            Log.e("tag", deviation.toString())
             it.insert(deviation)
         }
     }
     fun addMaterialReport(material: Material_Report_DB) {
         localRealm.executeTransactionAsync {
-            Log.e("tag", material.toString())
             it.insert(material)
         }
     }
 
-    fun addProductReport(productReportDb: Product_Report_DB) {
+    fun addTradesmenReport(tradesmenReportDb: Tradesmen_Report_DB) {
         localRealm.executeTransactionAsync {
-            Log.e("tag", productReportDb.toString())
-            it.insert(productReportDb)
+            it.insert(tradesmenReportDb)
         }
     }
 
+    fun addDeliveryReport(delivery: Delivery_Report_DB) {
+        localRealm.executeTransactionAsync {
+            it.insert(delivery)
+        }
+    }
+
+    fun clearLocaleDb() {
+        localRealm.executeTransactionAsync {
+            it.delete(Order_DB::class.java)
+            it.delete(Material_DB::class.java)
+            it.delete(Product_DB::class.java)
+        }
+    }
+
+    fun getExpectedTime(orderNumber: String): String {
+        val order = getOrder(orderNumber)
+        return order?.expectHours.toString()
+
+    }
 
     /** MongoDB methods **/
 

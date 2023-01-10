@@ -11,6 +11,9 @@ class OrderDetailsViewModel(
     val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
+    fun updateProducts(orderNumber: String){
+        repository.updateProducts(orderNumber)
+    }
 
     fun getOrder(order : String): Order_DB? {
         return  repository.getOrder(order)

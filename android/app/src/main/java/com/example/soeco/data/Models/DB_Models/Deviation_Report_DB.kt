@@ -43,9 +43,7 @@ open class Deviation_Report_DB : RealmObject {
     }
     constructor() {} // RealmObject subclasses must provide an empty constructor
 
-    override fun toString(): String {
-        return "$date $time $product_id $problem $solution $cost $orderNumber"
-    }
+
 
 
 }

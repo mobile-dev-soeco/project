@@ -7,15 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View.OnFocusChangeListener
 import android.widget.Button
 import android.widget.EditText
 import com.example.soeco.R
-import com.example.soeco.data.Models.DB_Models.Material_Report_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
-import com.example.soeco.data.Models.DB_Models.Product_Report_DB
+import com.example.soeco.data.Models.DB_Models.Tradesmen_Report_DB
 import com.example.soeco.ui.viewmodels.ProductsViewModel
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
@@ -23,7 +21,7 @@ import java.util.*
 
 internal class ProductsListAdapter(
     data: OrderedRealmCollection<Product_DB?>?,
-    val productsListViewModel: ProductsViewModel
+    private val productsListViewModel: ProductsViewModel
 ) : RealmRecyclerViewAdapter<Product_DB?,
         ProductsListAdapter.ProductsViewHolder?>(data, true) {
 
@@ -59,7 +57,7 @@ internal class ProductsListAdapter(
             val id = holder.data?._id.toString()
             val orderNumber = holder.data?.orderNumber.toString()
             val count = holder.data?.count
-
+            val expectedTime = productsListViewModel.getExpectedTime(orderNumber)
 
             val textDate: EditText = holder.view.findViewById(R.id.calender)
             val textTime: EditText = holder.view.findViewById(R.id.actual_hours)
@@ -67,7 +65,7 @@ internal class ProductsListAdapter(
             val date = textDate.text.toString()
             val time = textTime.text.toString()
 
-            productsListViewModel.addProductReport(Product_Report_DB(id,orderNumber,count,name,date,time))
+            productsListViewModel.addProductReport(Tradesmen_Report_DB(id,orderNumber,expectedTime,count,name,date,time))
 
         }
     }
@@ -105,7 +103,7 @@ internal class ProductsListAdapter(
 
         val timePickerDialogListener: TimePickerDialog.OnTimeSetListener =
             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                val newTime = "$hourOfDay timmar :  $minute minuter"
+                val newTime = "$hourOfDay tim :  $minute min"
                 timeText.setText(newTime)
             }
 

@@ -3,14 +3,14 @@ package com.example.soeco.ui.carpentry
 import android.app.DatePickerDialog
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.data.Models.DB_Models.Material_DB
-import android.view.View.OnFocusChangeListener
-import android.widget.Button
 import com.example.soeco.data.Models.DB_Models.Material_Report_DB
 import com.example.soeco.ui.viewmodels.MaterialsViewModel
 import io.realm.OrderedRealmCollection
@@ -39,6 +39,12 @@ internal class CarpentryMaterialsAdapter(
         val textMaterialName: TextView = holder.view.findViewById(R.id.material_name)
         val textDate: EditText = holder.view.findViewById(R.id.calender_material)
         val confirmButton : Button = holder.view.findViewById(R.id.confirm_material)
+        val textCount : TextView = holder.view.findViewById(R.id.materialAntal)
+        val antal = textCount.text.toString()
+        val enhet = material?.unit
+        val concatenate = "$antal ($enhet)"
+        textCount.text= concatenate
+
         val productName = material!!.name
         textMaterialName.text = productName
         holder.data = material
