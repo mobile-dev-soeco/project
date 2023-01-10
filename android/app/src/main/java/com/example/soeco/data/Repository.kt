@@ -107,7 +107,7 @@ interface Repository {
         onSuccess: (id: String) -> Unit,
         onError: (Exception) -> Unit
     )
-    fun addDeliveryReport(delivery : Delivery_Report_DB) : Unit
+
     fun updateProducts(orderNumber: String)
     fun getExpectedTime(orderNumber: String) : String
 

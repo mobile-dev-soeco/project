@@ -136,6 +136,15 @@ class RepositoryImpl(
         realmDataSource.deleteUser(user, onSuccess, onError)
     }
 
+    override fun updateProducts(orderNumber: String) {
+        // TODO("Not yet implemented")
+    }
+
+    override fun getExpectedTime(orderNumber: String): String {
+        // TODO("Not yet implemented")
+        return ""
+    }
+
     override fun addMaterialReport(material: Material_Report_DB){
         realmDataSource.addMaterialReport(material)
 
@@ -144,6 +153,8 @@ class RepositoryImpl(
     override fun addProductReport(productReportDb: Product_Report_DB){
         realmDataSource.addProductReport(productReportDb)
     }
+
+    /** MongoDB methods **/
 
     override fun insertDeviation(
         deviation: Deviation,
@@ -170,6 +181,8 @@ class RepositoryImpl(
         onSuccess: (List<TimeReport>) -> Unit,
         onError: (Exception) -> Unit
     ) {
-        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
+
+
 }

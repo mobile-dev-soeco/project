@@ -7,8 +7,7 @@ data class Deviation (
     var owner_id: String = "",
     var date: String = "",
     var time: String = "",
-    var product_id: String? ="",
     var problem: String ="",
     var solution: String ="",
     var cost: String = ""
-    )
+)

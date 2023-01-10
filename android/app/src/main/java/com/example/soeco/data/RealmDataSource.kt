@@ -478,7 +478,7 @@ class RealmDataSource(context: Context) {
 
     fun getDeviations(id: String, onSuccess: (List<Deviation>) -> Unit, onError: (Exception) -> Unit) {
 
-        val collection = getCollection("deviations")
+        val collection = getCollection("deviations") as MongoCollection<Deviation>
 
         val queryFilter = Document("owner_id", id)
 
@@ -499,20 +499,22 @@ class RealmDataSource(context: Context) {
             }
     }
 
-//    fun insertDeviation(
-//        deviation: Deviation,
-//        onSuccess: () -> Unit,
-//        onError: (Exception) -> Unit
-//    ){
-//        val deviations = getCollection("deviations")
-//
-//
-//        deviations.insertOne(deviation)?.getAsync {
-//            if (it.isSuccess) {
-//
-//            }
-//        }
-//    }
+    fun insertDeviation(
+        deviation: Deviation,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ){
+        val deviations = getCollection("deviations") as MongoCollection<Deviation>
+
+        deviations.insertOne(deviation)?.getAsync {
+            if (it.isSuccess) {
+                Log.v(TAG(), "Deviation report with id ${deviation._id} inserted")
+                onSuccess.invoke()
+            } else {
+                onError.invoke(it.error)
+            }
+        }
+    }
 
     private fun getCollection(collectionName: String): MongoCollection<out Any?> {
 
@@ -520,10 +522,11 @@ class RealmDataSource(context: Context) {
             "users" -> CustomData::class.java
             "deviations" -> Deviation::class.java
             "time_report" -> TimeReport::class.java
-            else -> throw(Error("Collection name not supported"))
+            else -> throw(Error("Collection type '$collectionName' not supported"))
         }
 
         val mongoClient: MongoClient = currentRealmUser.getMongoClient("mongodb-atlas")
+
         val mongoDatabase: MongoDatabase = mongoClient.getDatabase("auth")
 
         // Handle Plain Old Javascript Objects POJOs
