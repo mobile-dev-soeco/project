@@ -16,8 +16,10 @@ import androidx.navigation.fragment.navArgs
 import com.example.soeco.R
 import com.example.soeco.data.Models.DB_Models.Deviation_Report_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
+import com.example.soeco.data.Models.mongo.Deviation
 import com.example.soeco.ui.viewmodels.DevitaionViewmodel
 import com.example.soeco.utils.viewModelFactory
+import org.bson.types.ObjectId
 import java.util.*
 
 
@@ -44,15 +46,31 @@ class QuestionnaireCarpentry : Fragment() {
         // takes back to dashboard
         sendDeviationButton.setOnClickListener {
             val deviation = createDeviation(view)
+            Log.e("tag", deviation.orderNumber)
             DeviationViewmodel.addDeviation(deviation)
+            DeviationViewmodel.insertDeviation(generateDeviation(view))
             navigation.popBackStack()
         }
 
         return view
     }
 
-
-
+    private fun generateDeviation(view: View): Deviation {
+        val timeText: EditText = view.findViewById(R.id.editTextDate_questionnaireTime)
+        val dateText : EditText = view.findViewById(R.id.editTextDate_questionnaireDate)
+        val problemText : EditText = view.findViewById(R.id.editText_questionnaireProblem)
+        val solutionText : EditText = view.findViewById(R.id.editText_questionnaireSolution)
+        val costText : EditText = view.findViewById(R.id.editText_questionnaireCost)
+        return Deviation(
+            ObjectId(),
+            owner_id = args.orderNumber,
+            date = dateText.text.toString(),
+            time = timeText.text.toString(),
+            problem = problemText.text.toString(),
+            solution = solutionText.text.toString(),
+            cost = costText.text.toString()
+        )
+    }
 
     private fun createDeviation(view: View): Deviation_Report_DB {
         val timeText: EditText = view.findViewById(R.id.editTextDate_questionnaireTime)

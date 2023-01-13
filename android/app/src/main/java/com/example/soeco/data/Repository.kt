@@ -1,10 +1,13 @@
 package com.example.soeco.data
 
 import com.example.soeco.data.Models.DB_Models.*
+import io.realm.RealmList
 import com.example.soeco.data.Models.CustomData
 import com.example.soeco.data.Models.DB_Models.Material_DB
 import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.data.Models.DB_Models.Product_DB
+import com.example.soeco.data.Models.mongo.Deviation
+import com.example.soeco.data.Models.mongo.TimeReport
 import io.realm.RealmResults
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
@@ -109,4 +112,12 @@ interface Repository {
     fun addDeliveryReport(delivery : Delivery_Report_DB) : Unit
     fun updateProducts(orderNumber: String)
     fun getExpectedTime(orderNumber: String) : String
+
+    fun insertDeviation(deviation: Deviation, onSuccess: () -> Unit, onError: (Exception) -> Unit)
+
+    fun getDeviations(id: String, onSuccess: (List<Deviation>) -> Unit, onError: (Exception) -> Unit)
+
+    fun insertTimeReport(report: TimeReport, onSuccess: (List<TimeReport>) -> Unit, onError: (Exception) -> Unit)
+
+    fun getTimeReports(id: String, onSuccess: (List<TimeReport>) -> Unit, onError: (Exception) -> Unit)
 }
