@@ -15,19 +15,22 @@ open class Product_DB : RealmObject {
     var product_id: String = ""
     var name: String =""
     var orderNumber: String = ""
-    var count: Int = 0
+    var count: String = ""
+    var note : String = ""
 
     constructor(
         product_id: String = "",
         name: String ="",
         orderNumber: String = "",
-        count : Int = 0
+        count: String = "",
+        note : String = ""
 
     ) {
         this.product_id = product_id
         this.name = name
         this.orderNumber = orderNumber
         this.count = count
+        this.note = note
 
     }
     constructor() {} // RealmObject subclasses must provide an empty constructor

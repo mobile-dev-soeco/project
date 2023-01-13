@@ -1,12 +1,21 @@
 package com.example.soeco.data.Models.API_Models
 
-class Order_API (var OrderNumber: String,
-                 var expectHours:Int,
+class Order_API (
+                 var idoo: Int,
+                 var oo_nr: String,
+                 var costumers_name :String,
                  var address:String,
-                 var contact :ArrayList<String>)
+                 var zip:String,
+                 var city:String,
+                 var contact :String
+
+
+
+
+                 )
 {
     override fun toString (): String {
-        return OrderNumber
+        return oo_nr
     }
 }
 

@@ -23,21 +23,17 @@ open class Material_Report_DB : RealmObject {
     constructor(
         orderNumber: String ="",
         material_ID: String ="",
-
         amount: String = "",
         name: String = "",
         unit: String ="",
-
         date : String = "",
 
         ) {
         this.orderNumber = orderNumber
         this.material_ID = material_ID
-
         this.amount = amount
         this.name = name
         this.unit = unit
-
         this.date = date
 
     }

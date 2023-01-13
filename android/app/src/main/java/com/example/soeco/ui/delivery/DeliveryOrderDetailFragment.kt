@@ -11,13 +11,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.soeco.R
+import com.example.soeco.data.Models.DB_Models.Order_DB
 import com.example.soeco.databinding.FragmentDeliveryOrderDetailBinding
-import com.example.soeco.ui.carpentry.CarpentryOrderDetailFragmentArgs
-import com.example.soeco.ui.dashboard.DashBoardFragmentDirections
 import com.example.soeco.ui.viewmodels.OrderDetailsViewModel
 import com.example.soeco.utils.viewModelFactory
 
@@ -50,14 +48,14 @@ class DeliveryOrderDetailFragment : Fragment() {
         val addressText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerAddress)
 
         val reportButton : Button = view.findViewById(R.id.button_delivery_reportDeviation)
-
+        val order = OrderDetailsViewModel.getOrder(args.orderNumber)
         orderNumberTextView.text = args.orderNumber
-        customerName.text = args.name
-        phoneText.text = args.phone
-        addressText.text = args.address
+        customerName.text = "Andreas"
+        phoneText.text = order?.phone
+        addressText.text = order?.address
 
         setCallButtonListener(callButton, phoneText)
-        setMapButtonListener(mapButton,addressText)
+        setMapButtonListener(mapButton,order)
 
         showProductsButton.setOnClickListener {
             val action = DeliveryOrderDetailFragmentDirections.actionDeliveryOrderDetailFragmentToDeliveryProductsList(args.orderNumber)
@@ -81,11 +79,12 @@ class DeliveryOrderDetailFragment : Fragment() {
         }
     }
 
-    private fun setMapButtonListener(mapButton: Button, mapText: TextView) {
+    private fun setMapButtonListener(mapButton: Button, order: Order_DB?,) {
         mapButton.setOnClickListener{
-            val address = mapText.text
+            val address = order?.address
+            val city = order?.city
             val gmmIntentUri =
-                Uri.parse("geo:0,0?q=$address")
+                Uri.parse("geo:0,0?q=$address,$city")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             startActivity(mapIntent)
