@@ -2,6 +2,8 @@ package com.example.soeco.data.Api;
 
 import android.util.Base64;
 
+import com.example.soeco.BuildConfig;
+
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
@@ -10,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "http://api.soeco.se/";
+    private static final String BASE_URL = BuildConfig.APIURL;
     private static RetrofitClient mInstance;
     private final Retrofit retrofit;
 

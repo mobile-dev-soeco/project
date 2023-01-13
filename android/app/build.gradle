@@ -4,6 +4,7 @@ plugins {
     id 'org.jetbrains.kotlin.kapt'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 apply plugin: "realm-android"

@@ -43,5 +43,18 @@
         <activity
             android:name="com.example.soeco.ui.delivery.DeliveryActivity"
             android:exported="false" />
+
+        <meta-data
+            android:name="APIUSER"
+            android:value="${APIUSER}"
+            />
+        <meta-data
+            android:name="APIPASS"
+            android:value="${APIPASS}"
+            />
+        <meta-data
+            android:name="APIURL"
+            android:value="${APIURL}"
+            />
     </application>
 </manifest>

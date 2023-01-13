@@ -3,8 +3,10 @@ package com.example.soeco.data
 // MongoDB Service Packages
 
 import android.content.Context
+import android.os.Build
 import android.util.Base64
 import android.util.Log
+import com.example.soeco.BuildConfig
 import com.example.soeco.TAG
 import com.example.soeco.data.Api.RetrofitClient
 import com.example.soeco.data.Models.API_Models.*
@@ -510,7 +512,7 @@ class RealmDataSource(context: Context) {
     fun getAuthToken(): String {
         var data = ByteArray(0)
         try {
-            data = ("username" + ":" + "password").toByteArray(charset("UTF-8"))
+            data = (BuildConfig.APIUSER + ":" + BuildConfig.APIPASS).toByteArray(charset("UTF-8"))
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
         }
