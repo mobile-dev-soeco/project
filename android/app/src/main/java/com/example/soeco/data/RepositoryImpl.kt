@@ -133,18 +133,8 @@ class RepositoryImpl(
         realmDataSource.deleteUser(user, onSuccess, onError)
     }
 
-    override fun updateProducts(orderNumber: String) {
-        // TODO("Not yet implemented")
-    }
-
-    override fun getExpectedTime(orderNumber: String): String {
-        // TODO("Not yet implemented")
-        return ""
-    }
-
     override fun addMaterialReport(material: Material_Report_DB){
         realmDataSource.addMaterialReport(material)
-
     }
 
     override fun addTradesmenReport(tradesmenReportDb: Tradesmen_Report_DB){
@@ -190,7 +180,7 @@ class RepositoryImpl(
         onSuccess: (List<TimeReport>) -> Unit,
         onError: (Exception) -> Unit
     ) {
-        // TODO("Not yet implemented")
+        realmDataSource.getTimeReports(id, onSuccess, onError)
     }
 
 

@@ -100,7 +100,7 @@ class RealmDataSource(context: Context) {
         onSuccess: (MutableList<CustomData>) -> Unit,
         onError: (Exception) -> Unit
     ) {
-        val usersCollection = getCollection("users")
+        val usersCollection = getCollectionHandle("users")
 
         // Don't return the current user in user list
         val queryFilter = Document(
@@ -488,47 +488,7 @@ class RealmDataSource(context: Context) {
 
     /** MongoDB methods **/
 
-    fun getDeviations(id: String, onSuccess: (List<Deviation>) -> Unit, onError: (Exception) -> Unit) {
-
-        val collection = getCollection("deviations") as MongoCollection<Deviation>
-
-        val queryFilter = Document("owner_id", id)
-
-        val deviations = mutableListOf<Deviation>()
-
-        collection.find(queryFilter).iterator()
-            .getAsync {
-                if (it.isSuccess) {
-                    val result = it.get()
-                    while (result.hasNext()) {
-                        val item = result.next() as Deviation
-                        deviations.add(item)
-                    }
-                    onSuccess.invoke(deviations.toList())
-                } else {
-                    onError.invoke(it.error)
-                }
-            }
-    }
-
-    fun insertDeviation(
-        deviation: Deviation,
-        onSuccess: () -> Unit,
-        onError: (Exception) -> Unit
-    ){
-        val deviations = getCollection("deviations") as MongoCollection<Deviation>
-
-        deviations.insertOne(deviation)?.getAsync {
-            if (it.isSuccess) {
-                Log.v(TAG(), "Deviation report with id ${deviation._id} inserted")
-                onSuccess.invoke()
-            } else {
-                onError.invoke(it.error)
-            }
-        }
-    }
-
-    private fun getCollection(collectionName: String): MongoCollection<out Any?> {
+    private fun getCollectionHandle(collectionName: String): MongoCollection<out Any?> {
 
         val type = when(collectionName) {
             "users" -> CustomData::class.java
@@ -559,4 +519,92 @@ class RealmDataSource(context: Context) {
         return collection
     }
 
+    @Suppress("UNCHECKED_CAST")
+    fun getDeviations(
+        id: String,
+        onSuccess: (List<Deviation>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val collection = getCollectionHandle("deviations") as MongoCollection<Deviation>
+
+        val queryFilter = Document("owner_id", id)
+
+        val deviations = mutableListOf<Deviation>()
+
+        collection.find(queryFilter).iterator()
+            .getAsync {
+                if (it.isSuccess) {
+                    val result = it.get()
+                    while (result.hasNext()) {
+                        val item = result.next() as Deviation
+                        deviations.add(item)
+                    }
+                    onSuccess.invoke(deviations.toList())
+                } else {
+                    onError.invoke(it.error)
+                }
+            }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun insertDeviation(
+        deviation: Deviation,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ){
+        val deviations = getCollectionHandle("deviations") as MongoCollection<Deviation>
+
+        deviations.insertOne(deviation).getAsync {
+            if (it.isSuccess) {
+                Log.v(TAG(), "Deviation report with id ${it.get().insertedId} inserted")
+                onSuccess.invoke()
+            } else {
+                onError.invoke(it.error)
+            }
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun getTimeReports(
+        id: String,
+        onSuccess: (List<TimeReport>) -> Unit,
+        onError: (Exception) -> Unit
+    ){
+        val collection = getCollectionHandle("time_report") as MongoCollection<TimeReport>
+
+        val queryFilter = Document("owner_id", id)
+
+        val reports = mutableListOf<TimeReport>()
+
+        collection.find(queryFilter).iterator()
+            .getAsync {
+                if (it.isSuccess) {
+                    val result = it.get()
+                    while (result.hasNext()) {
+                        reports.add(result.next())
+                    }
+                    onSuccess.invoke(reports.toList())
+                } else {
+                    onError.invoke(it.error)
+                }
+            }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun insertTimeReport(
+        report: TimeReport,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val collection = getCollectionHandle("time_report") as MongoCollection<TimeReport>
+
+        collection.insertOne(report).getAsync {
+            if (it.isSuccess) {
+                Log.v(TAG(), "Time report inserted, id: ${it.get().insertedId}")
+                onSuccess.invoke()
+            } else {
+                onError.invoke(it.error)
+            }
+        }
+    }
 }
