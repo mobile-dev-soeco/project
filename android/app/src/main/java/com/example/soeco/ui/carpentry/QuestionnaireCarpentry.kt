@@ -3,7 +3,6 @@ package com.example.soeco.ui.carpentry
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -80,7 +79,7 @@ class QuestionnaireCarpentry : Fragment() {
         val products = DeviationViewmodel.getProducts()
         val selectedIndex = spinner.selectedItemPosition-1
         val product = if (selectedIndex != -1 )  products[spinner.selectedItemPosition-1]
-        else Product_DB("empty","empty","empty",0)
+        else Product_DB("empty","empty","empty","0")
         return product
     }
 
@@ -129,7 +128,7 @@ class QuestionnaireCarpentry : Fragment() {
     private fun setProductSelector(view :View) {
         val spinner: Spinner = view.findViewById(R.id.spinner_questionnaireProduct)
         val products = DeviationViewmodel.getProducts()
-        val list = mutableListOf(Product_DB("","","",0))
+        val list = mutableListOf(Product_DB("","","","0"))
         list.addAll(products)
         val dataAdapter: ArrayAdapter<Product_DB> =
             ArrayAdapter<Product_DB>(view.context, android.R.layout.simple_spinner_item, list)

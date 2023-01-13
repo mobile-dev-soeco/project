@@ -91,15 +91,6 @@
         <action
             android:id="@+id/action_deliveryOrderDetailFragment_to_questionnaireCarpentry"
             app:destination="@id/questionnaireCarpentry" />
-        <argument
-            android:name="address"
-            app:argType="string" />
-        <argument
-            android:name="name"
-            app:argType="string" />
-        <argument
-            android:name="phone"
-            app:argType="string" />
         <action
             android:id="@+id/action_deliveryOrderDetailFragment_to_deliveryProductsList"
             app:destination="@id/deliveryProductsList" />

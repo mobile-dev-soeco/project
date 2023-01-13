@@ -23,7 +23,7 @@ interface Api {
     fun getMaterial(@Header("Authorization") authkey:String, @Path(value = "fullUrl", encoded = true) fullUrl: String): Call<ArrayList<Material_API>>
 
     @GET("{fullUrl}")
-    fun getContact(@Header("Authorization") authkey:String, @Path(value = "fullUrl", encoded = true) fullUrl: String): Call<Contact_API>
+    fun getContact(@Header("Authorization") authkey:String, @Path(value = "fullUrl", encoded = true) fullUrl: String): Call<ArrayList<Contact_API>>
 
     @GET("{fullUrl}")
     fun getProducts(@Header("Authorization") authkey:String, @Path(value = "fullUrl", encoded = true) fullUrl: String): Call<ArrayList<Product_API>>

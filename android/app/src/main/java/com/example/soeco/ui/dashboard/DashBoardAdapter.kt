@@ -43,18 +43,14 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
                     navigateCarpenterOrderDetail(navigation, orderNumber)
                 }
                 "leverans" -> {
-                    val name = obj!!.name
-                    val phone = obj!!.phone
-                    val address = obj!!.address
-                    if (name != null && phone != null && address != null) {
-                        navigateDeliveryOrderDetail(navigation, orderNumber, address, name, phone)
+                    navigateDeliveryOrderDetail(navigation, orderNumber)
                     }
                 }
             }
         }
-    }
-    private fun navigateDeliveryOrderDetail(navigation: NavController, ordernumber: String,address: String, name: String, phone:String){
-        val action = DashBoardFragmentDirections.actionDashBoardFragmentToDeliveryOrderDetailFragment(ordernumber,address, name, phone)
+
+    private fun navigateDeliveryOrderDetail(navigation: NavController, ordernumber: String){
+        val action = DashBoardFragmentDirections.actionDashBoardFragmentToDeliveryOrderDetailFragment(ordernumber)
         navigation.navigate(action)
     }
 

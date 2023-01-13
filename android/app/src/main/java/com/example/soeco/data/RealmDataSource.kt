@@ -7,15 +7,11 @@ import android.util.Base64
 import android.util.Log
 import com.example.soeco.TAG
 import com.example.soeco.data.Api.RetrofitClient
-import com.example.soeco.data.Models.API_Models.Contact_API
-import com.example.soeco.data.Models.API_Models.Material_API
-import com.example.soeco.data.Models.API_Models.Order_API
-import com.example.soeco.data.Models.API_Models.Product_API
+import com.example.soeco.data.Models.API_Models.*
 import com.example.soeco.data.Models.CustomData
 import com.example.soeco.data.Models.DB_Models.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import io.realm.RealmList
 import io.realm.RealmResults
 import io.realm.mongodb.*
 import io.realm.mongodb.mongo.MongoClient
@@ -24,10 +20,13 @@ import io.realm.mongodb.mongo.MongoDatabase
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
+import org.json.JSONArray
+import org.json.JSONObject
 import retrofit2.Call
 import java.io.IOException
 import java.io.UnsupportedEncodingException
 import java.util.*
+import kotlin.collections.ArrayList
 
 class RealmDataSource(context: Context) {
 
@@ -342,27 +341,25 @@ class RealmDataSource(context: Context) {
                 val api = RetrofitClient.getInstance().api
                 val calendar = Calendar.getInstance()
                 val year = calendar.get(Calendar.YEAR).toString()
-                val month = calendar.get(Calendar.MONTH).toString()
+                val month = (calendar.get(Calendar.MONTH)+1).toString()
                 val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
                 val dateString= "$year-$month-$day"
-                val fullUrl = when (userRole.lowercase()){
-                    "leverans" -> "orders/delivery/$dateString"
-                    "snickare" -> "orders/blacksmith"
-                    else -> "orders/carpenter"
-                }
 
+                val fullUrl = when (userRole.lowercase()){
+                    "leverans" -> "orders/delivery/$dateString/"
+                    "snickare" -> "orders/blacksmith/"
+                    else -> "orders/carpenter/"
+                }
                 val call: Call<ArrayList<Order_API>> = api.getOrder(getAuthToken(),fullUrl)
                 val response = call.execute()
                 if (response.isSuccessful) {
                     val orders = response.body()
-                    if (orders != null) {
+                    if (orders != null)
                         for (order in orders) {
                             it.copyToRealmOrUpdate(convertOrder(order))
-                            Log.e("order", order.toString())
-
                         }
-                    }
-                } else {
+                }
+                else {
                     Log.e("Repository:  Update:   if", response.toString())
                 }
             } catch (error: IOException) {
@@ -371,21 +368,25 @@ class RealmDataSource(context: Context) {
         }
     }
 
+
     fun updateProducts(orderNumber: String) {
         val order = getOrder(orderNumber)?.idoo
         localRealm.executeTransactionAsync {
             try {
                 val fullUrl = "products/"+ order.toString()
-
                 val api = RetrofitClient.getInstance().api
                 val call: Call<ArrayList<Product_API>> = api.getProducts(getAuthToken(),fullUrl)
                 val response = call.execute()
                 if (response.isSuccessful) {
-                    val products = response.body()
+                    val products_api = response.body()
+                    it.delete(Product_DB::class.java)
+                    val products = products_api?.get(0)?.products
                     if (products != null) {
-                        it.delete(Product_DB::class.java)
-                        for (product in products)
-                            it.copyToRealmOrUpdate(convertProduct(product))
+                        val json = JSONArray(products)
+                        for (i in 0 until json.length()) {
+                            val product = JSONObject(json.get(i).toString())
+                            it.copyToRealmOrUpdate(convertProduct(product,orderNumber))
+                        }
                     }
                 } else {
                     Log.e("Repository:  getProduct:   if", response.toString())
@@ -398,29 +399,25 @@ class RealmDataSource(context: Context) {
         }
     }
     private fun convertOrder(fromApi: Order_API): Order_DB {
-
-        val contact = getContact(fromApi.idoo)
-
-
-        val item = Order_DB(fromApi.oo_nr, fromApi.idoo,0, contact?.phone , contact?.name)
-        return item
-    }
-
-    private fun getContact(idoo : Int): Contact_API? {
-        var contact :Contact_API? = null
-        val fullUrl = "contact$idoo"
-        val api = RetrofitClient.getInstance().api
-        val call: Call<Contact_API> = api.getContact(getAuthToken(), fullUrl)
-        val response = call.execute()
-        if (response.isSuccessful) {
-            contact = response.body()
+        if (fromApi.contact.isNullOrBlank()) {
+            return Order_DB(fromApi.oo_nr, fromApi.idoo, 0)
         }
-        return contact
-    }
-    private fun  convertProduct (fromApi: Product_API): Product_DB {
 
-        val item = Product_DB(fromApi.id, fromApi.name, fromApi.OrderNumber, fromApi.count)
-        return(item)
+        val name = fromApi.contact.substringAfter(':').substringBefore(',')
+        val phone = fromApi.contact.substringAfter("phone:").substringBefore('}')
+
+
+        return Order_DB(
+            fromApi.oo_nr, fromApi.idoo, 0, fromApi.address, fromApi.zip,
+            fromApi.city, phone, name
+        )
+    }
+
+
+    private fun  convertProduct (fromApi: JSONObject, orderNumber: String): Product_DB {
+
+        return(Product_DB(fromApi.getString("idproducts"),
+            fromApi.getString("name"), orderNumber, fromApi.getString("count"),fromApi.getString("note")))
     }
 
     fun updateMaterials() {
@@ -437,7 +434,6 @@ class RealmDataSource(context: Context) {
                     val materials = response.body()
                     if (materials != null) {
                         for (material in materials) {
-                            Log.e("tag",material.toString())
                             it.copyToRealmOrUpdate(convertMaterial(material))
                         }
                     }
@@ -517,7 +513,7 @@ class RealmDataSource(context: Context) {
     fun getAuthToken(): String {
         var data = ByteArray(0)
         try {
-            data = ("Soeco API" + ":" + "phefr3p2lGawlfrEkeprUrAs").toByteArray(charset("UTF-8"))
+            data = ("username" + ":" + "password").toByteArray(charset("UTF-8"))
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
         }

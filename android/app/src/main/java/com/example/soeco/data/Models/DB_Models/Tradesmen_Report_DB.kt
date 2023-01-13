@@ -14,7 +14,7 @@ open class Tradesmen_Report_DB : RealmObject {
     var orderNumber: String = ""
     var orderExpectedTime: String =""
 
-    var product_count : Int? = 0
+    var product_count : String? = ""
     var product_name : String = ""
 
     var date: String =""
@@ -27,10 +27,10 @@ open class Tradesmen_Report_DB : RealmObject {
         orderNumber: String ="",
         orderExpectedTime: String ="",
 
-        product_count: Int? =0,
+        product_count: String? ="",
         product_name: String ="",
 
-        date : String = "",
+        date: String = "",
         time: String = "",
 
         ) {
