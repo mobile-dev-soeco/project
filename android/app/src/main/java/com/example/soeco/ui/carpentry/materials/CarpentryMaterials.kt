@@ -1,4 +1,4 @@
-package com.example.soeco.ui.carpentry
+package com.example.soeco.ui.carpentry.materials
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentCarpentryMaterialsBinding
+import com.example.soeco.ui.carpentry.CarpentryOrderDetailFragmentArgs
 import com.example.soeco.ui.viewmodels.MaterialsViewModel
 import com.example.soeco.utils.viewModelFactory
 

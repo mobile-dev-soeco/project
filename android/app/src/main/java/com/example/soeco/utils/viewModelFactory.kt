@@ -17,6 +17,7 @@ import com.example.soeco.ui.auth.forgot.ForgotPasswordViewModel
 import com.example.soeco.ui.auth.resend.ResendConfirmationViewModel
 import com.example.soeco.ui.auth.reset.ResetPaswordViewModel
 import com.example.soeco.ui.base.RoleActivityViewModel
+import com.example.soeco.ui.carpentry.products.ProductDetailsViewModel
 import com.example.soeco.ui.viewmodels.*
 
 val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Factory {
@@ -68,6 +69,8 @@ val viewModelFactory: ViewModelProvider.Factory = object: ViewModelProvider.Fact
                     DeliveryProductsViewModel(repository, savedStateHandle)
                 isAssignableFrom(EditUserViewModel::class.java) ->
                     EditUserViewModel(repository, savedStateHandle)
+                isAssignableFrom(ProductDetailsViewModel::class.java) ->
+                    ProductDetailsViewModel(repository, savedStateHandle)
                 else ->
                     throw IllegalArgumentException("Unknown viewModel class: ${modelClass.name}")
             }

@@ -87,7 +87,9 @@ class RepositoryImpl(
 
     override fun isUserLoggedIn(): Boolean = realmDataSource.isUserLoggedIn()
 
-    override fun getUserRole() = realmDataSource.getUserRole()
+    override fun getUserRole() = realmDataSource.userRole
+
+    override fun getUserId(): String = realmDataSource.currentRealmUser.id.toString()
 
     override fun restoreLoggedInUser() = realmDataSource.restoreLoggedInUser()
 
@@ -169,10 +171,10 @@ class RepositoryImpl(
 
     override fun insertTimeReport(
         report: TimeReport,
-        onSuccess: (List<TimeReport>) -> Unit,
+        onSuccess: () -> Unit,
         onError: (Exception) -> Unit
     ) {
-        TODO("Not yet implemented")
+        realmDataSource.insertTimeReport(report, onSuccess, onError)
     }
 
     override fun getTimeReports(
@@ -183,5 +185,11 @@ class RepositoryImpl(
         realmDataSource.getTimeReports(id, onSuccess, onError)
     }
 
-
+    override fun getUsersTimeReports(
+        id: String,
+        onSuccess: (List<TimeReport>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        realmDataSource.getUserTimeReports(id, onSuccess, onError)
+    }
 }

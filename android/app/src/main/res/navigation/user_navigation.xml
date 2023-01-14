@@ -23,12 +23,16 @@
     </fragment>
     <fragment
         android:id="@+id/productsList"
-        android:name="com.example.soeco.ui.carpentry.ProductsList"
+        android:name="com.example.soeco.ui.carpentry.products.ProductsList"
         android:label="fragment_products_list"
         tools:layout="@layout/fragment_products_list" >
         <argument
             android:name="orderNumber"
             app:argType="string" />
+        <action
+            android:id="@+id/action_productsList_to_productDetails"
+            app:destination="@id/productDetails"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/deliveryProductsList"
@@ -44,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/carpentryMaterials"
-        android:name="com.example.soeco.ui.carpentry.CarpentryMaterials"
+        android:name="com.example.soeco.ui.carpentry.materials.CarpentryMaterials"
         android:label="fragment_carpentry_materials"
         tools:layout="@layout/fragment_carpentry_materials" >
         <argument
@@ -105,4 +109,22 @@
         android:name="com.example.soeco.ui.appinfo.InstructionFragment"
         android:label="fragment_instruction"
         tools:layout="@layout/fragment_instruction" />
+    <fragment
+        android:id="@+id/productDetails"
+        android:name="com.example.soeco.ui.carpentry.products.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" >
+        <argument
+            android:name="product_id"
+            app:argType="string" />
+        <argument
+            android:name="quantity"
+            app:argType="string" />
+        <argument
+            android:name="notes"
+            app:argType="string" />
+        <argument
+            android:name="order_id"
+            app:argType="string" />
+    </fragment>
 </navigation>
