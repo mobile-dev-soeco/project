@@ -18,7 +18,7 @@
                     android:layout_marginRight="16dp"
                     android:clickable="true"
                     android:foreground="?selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/white"
+                    card_view:cardBackgroundColor="?attr/colorSurface"
                     card_view:cardCornerRadius="16dp"
                     card_view:cardElevation="8dp"
                     card_view:contentPadding="10dp"
@@ -44,7 +44,6 @@
                                     android:layout_height="50dp"
                                     android:layout_weight="8"
                                     android:text="@string/confirm"
-                                    android:textColor="@color/black"
                                     android:visibility="visible"
                                     card_view:cornerRadius="20dp" />
 
