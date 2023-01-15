@@ -24,6 +24,7 @@ import io.realm.mongodb.mongo.MongoDatabase
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
+import org.bson.types.ObjectId
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -657,11 +658,36 @@ class RealmDataSource(context: Context) {
                     while (result.hasNext()) {
                         reports.add(result.next())
                     }
-                    Log.v(TAG(), reports.toString())
                     onSuccess.invoke(reports.toList())
                 } else {
                     onError.invoke(it.error)
                 }
             }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun deleteTimeReport(
+        id: ObjectId,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val collection = getCollectionHandle("time_report") as MongoCollection<TimeReport>
+
+        val queryFilter = Document("_id", id)
+
+        collection.deleteOne(queryFilter).getAsync { task ->
+            if (task.isSuccess) {
+                val count = task.get().deletedCount
+                if (count == 1L) {
+                    Log.v(TAG(), "Time report with id $id deleted")
+                    onSuccess.invoke()
+                } else {
+                    Log.v(TAG(), "No document deleted")
+                }
+            } else {
+                Log.e(TAG(), task.error.toString())
+                onError.invoke(task.error)
+            }
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.soeco.ui.carpentry.products
 
-import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.data.Models.mongo.TimeReport
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 

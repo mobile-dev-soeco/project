@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.data.Models.DB_Models.Product_DB
 import com.example.soeco.databinding.FragmentProductsListBinding
+import com.example.soeco.ui.carpentry.CarpentryViewModel
 import com.example.soeco.ui.viewmodels.ProductsViewModel
 import com.example.soeco.utils.viewModelFactory
 
 class ProductsList : Fragment() {
 
-    private val productsListViewModel by viewModels<ProductsViewModel> { viewModelFactory }
+    private lateinit var carpentryViewModel: CarpentryViewModel
     private val navigation: NavController by lazy { findNavController() }
 
     private lateinit var binding: FragmentProductsListBinding
@@ -33,21 +35,16 @@ class ProductsList : Fragment() {
     }
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
+        carpentryViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[CarpentryViewModel::class.java]
         val recyclerView: RecyclerView = itemView.findViewById(R.id.recyclerView_products)
-        val adapter = ProductsListAdapter(productsListViewModel.getProducts(), ::onProductItemClick)
+        val adapter = ProductsListAdapter(carpentryViewModel.getProducts(), ::onProductItemClick)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = adapter
     }
 
     private fun onProductItemClick(view: View, product: Product_DB) {
-        val action = ProductsListDirections
-            .actionProductsListToProductDetails(
-                product.product_id,
-                product.count,
-                product.note,
-                product.orderNumber
-            )
-        navigation.navigate(action)
+        carpentryViewModel.setCurrentProduct(product)
+        navigation.navigate(R.id.action_productsList_to_productDetails)
     }
 
 }

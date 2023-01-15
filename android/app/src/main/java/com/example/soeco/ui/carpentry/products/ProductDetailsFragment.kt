@@ -7,17 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.soeco.R
 import com.example.soeco.TAG
 import com.example.soeco.data.Models.mongo.TimeReport
 import com.example.soeco.databinding.FragmentProductDetailsBinding
+import com.example.soeco.ui.carpentry.CarpentryViewModel
 import com.example.soeco.utils.viewModelFactory
 
 class ProductDetailsFragment : Fragment() {
 
-    private val productDetailsViewModel by viewModels<ProductDetailsViewModel> { viewModelFactory }
-    private val args: ProductDetailsFragmentArgs by navArgs()
+    private val navigation: NavController by lazy { findNavController() }
+
+    private lateinit var carpentryViewModel: CarpentryViewModel
     private lateinit var binding: FragmentProductDetailsBinding
     private lateinit var adapter: TimeReportAdapter
 
@@ -34,9 +40,11 @@ class ProductDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.productCard.tvProductId.text = args.productId
-        binding.productCard.tvQuantity.text = args.quantity
-        binding.productCard.tvNotes.text = args.notes
+        carpentryViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[CarpentryViewModel::class.java]
+
+        binding.productCard.tvProductId.text = carpentryViewModel.currentProduct.value?.product_id
+        binding.productCard.tvQuantity.text = carpentryViewModel.currentProduct.value?.count
+        binding.productCard.tvNotes.text = carpentryViewModel.currentProduct.value?.note
 
         adapter = TimeReportAdapter(::handleDeleteClick)
 
@@ -47,22 +55,32 @@ class ProductDetailsFragment : Fragment() {
             false
         )
 
-        productDetailsViewModel.timeReportLiveData.observe(viewLifecycleOwner) { reports ->
+        carpentryViewModel.timeReportLiveData.observe(viewLifecycleOwner) { reports ->
             adapter.submitList(reports)
         }
 
         binding.btnReportTime.setOnClickListener {
-            productDetailsViewModel.insertTimeReport(args.productId)
+            navigation.navigate(R.id.action_productDetails_to_timeReportFragment)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        productDetailsViewModel.getTimeReports(args.productId)
+        carpentryViewModel.currentProduct.value?.product_id?.let { id ->
+            carpentryViewModel.getTimeReports(
+                id
+            )
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        carpentryViewModel.clearTimeReports()
     }
 
     private fun handleDeleteClick(view: View, timeReport: TimeReport) {
         Log.v(TAG(), "${timeReport._id} clicked")
+        carpentryViewModel.deleteTimeReport(timeReport._id)
     }
 
 }

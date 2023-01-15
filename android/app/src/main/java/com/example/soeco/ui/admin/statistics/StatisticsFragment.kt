@@ -233,7 +233,7 @@ class StatisticsFragment : Fragment() {
         // create LineDataSet objects
         val setEstimate = LineDataSet(line1, "Avikande timmar")
         setEstimate.axisDependency = YAxis.AxisDependency.LEFT
-        setEstimate.color = R.color.Green
+        setEstimate.color = R.color.Soecogreen
 
         // IDataSets to build CharData object
         // interface ILineDataSet
@@ -258,7 +258,7 @@ class StatisticsFragment : Fragment() {
         // create LineDataSet objects
         val setEstimate = LineDataSet(line1, "Uppskattade antal timmar")
         setEstimate.axisDependency = YAxis.AxisDependency.LEFT
-        setEstimate.color = R.color.Green
+        setEstimate.color = R.color.Soecogreen
         val setActual = LineDataSet(line2, "Rappoterade antal timmar")
         setActual.axisDependency = YAxis.AxisDependency.LEFT
 

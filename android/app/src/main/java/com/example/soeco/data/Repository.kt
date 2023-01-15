@@ -11,6 +11,7 @@ import com.example.soeco.data.Models.mongo.TimeReport
 import io.realm.RealmResults
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
+import org.bson.types.ObjectId
 
 interface Repository {
 
@@ -122,4 +123,6 @@ interface Repository {
     fun getTimeReports(id: String, onSuccess: (List<TimeReport>) -> Unit, onError: (Exception) -> Unit)
 
     fun getUsersTimeReports(id: String, onSuccess: (List<TimeReport>) -> Unit, onError: (Exception) -> Unit)
+
+    fun deleteTimeReport(id: ObjectId, onSuccess: () -> Unit, onError: (Exception) -> Unit)
 }

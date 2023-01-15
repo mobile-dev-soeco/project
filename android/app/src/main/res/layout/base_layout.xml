@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/Green">
+    android:background="@color/Soecogreen">
 
     <ImageView
         android:id="@+id/title"
@@ -14,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="70dp"
-        android:background="@color/Green"
+        android:background="@color/Soecogreen"
 
         android:scaleType="fitCenter"
         android:scaleX="0.8"
