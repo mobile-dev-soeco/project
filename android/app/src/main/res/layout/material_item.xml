@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="6dp"
-                    android:text="Tid"
+                    android:text="Datum"
                     android:textSize="16sp" />
 
                 <EditText
