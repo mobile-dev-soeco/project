@@ -1,6 +1,7 @@
 package com.example.soeco.ui.carpentry
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -11,12 +12,16 @@ import com.example.soeco.data.Models.mongo.TimeReport
 import com.example.soeco.data.Repository
 import io.realm.RealmResults
 import org.bson.types.ObjectId
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 
 class CarpentryViewModel(
     private val repository: Repository,
     private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
+
+    val MINUTES_PER_HOUR = 60
 
     private val _timeReportLiveData = MutableLiveData<List<TimeReport>>()
     val timeReportLiveData: LiveData<List<TimeReport>>
@@ -46,20 +51,23 @@ class CarpentryViewModel(
         )
     }
 
-    fun insertTimeReport(id: String) {
+    fun insertTimeReport(date: Date, hours: Int, minutes: Int) {
+
+        val productId = _currentProduct.value?.product_id.toString()
+
         val report = TimeReport(
             _id = ObjectId(),
-            ownerId = id,
+            ownerId = productId,
             userId = repository.getUserId(),
             userRole = repository.getUserRole(),
-            date = Date(),
-            hours = 1.5f
+            date = date,
+            hours = formatHours(hours, minutes)
         )
+
         repository.insertTimeReport(
             report,
             onSuccess = {
                 Log.v(TAG(), "Time report added")
-                getTimeReports(id)
             },
             onError = {
                 Log.e(TAG(), it.toString())
@@ -67,8 +75,26 @@ class CarpentryViewModel(
         )
     }
 
+    fun deleteTimeReport(id: ObjectId) {
+        repository.deleteTimeReport(
+            id,
+            onSuccess = {
+                _currentProduct.value?.product_id?.let { getTimeReports(it) }
+            },
+            onError = {
+
+            }
+        )
+    }
+
     fun clearTimeReports() {
         _timeReportLiveData.value = mutableListOf()
+    }
+
+    private fun formatHours(hours: Int, minutes: Int): Float {
+        var time: Double = hours.toDouble() + (minutes.toDouble()/MINUTES_PER_HOUR)
+        var timeBd = BigDecimal(time)
+        return timeBd.setScale(2, RoundingMode.HALF_UP).toFloat()
     }
 
 }

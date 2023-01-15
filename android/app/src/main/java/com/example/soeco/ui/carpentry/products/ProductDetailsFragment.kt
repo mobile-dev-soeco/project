@@ -80,6 +80,7 @@ class ProductDetailsFragment : Fragment() {
 
     private fun handleDeleteClick(view: View, timeReport: TimeReport) {
         Log.v(TAG(), "${timeReport._id} clicked")
+        carpentryViewModel.deleteTimeReport(timeReport._id)
     }
 
 }

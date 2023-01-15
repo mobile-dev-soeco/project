@@ -9,6 +9,7 @@ import com.example.soeco.data.Models.mongo.Deviation
 import com.example.soeco.data.Models.mongo.TimeReport
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
+import org.bson.types.ObjectId
 
 class RepositoryImpl(
     private val realmDataSource: RealmDataSource
@@ -191,5 +192,13 @@ class RepositoryImpl(
         onError: (Exception) -> Unit
     ) {
         realmDataSource.getUserTimeReports(id, onSuccess, onError)
+    }
+
+    override fun deleteTimeReport(
+        id: ObjectId,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        realmDataSource.deleteTimeReport(id, onSuccess, onError)
     }
 }

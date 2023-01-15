@@ -78,9 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="right"
-            app:constraint_referenced_ids="tvProductIdTitle,tvNotesTitle"
-            tools:layout_editor_absoluteX="78dp"
-            tools:layout_editor_absoluteY="20dp" />
+            app:constraint_referenced_ids="tvProductIdTitle,tvNotesTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
