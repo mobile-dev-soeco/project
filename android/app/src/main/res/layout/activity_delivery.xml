@@ -17,7 +17,7 @@
             android:id="@+id/delivery_toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/Green"
+            android:background="@color/Soecogreen"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:logo="@drawable/white_logo"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />

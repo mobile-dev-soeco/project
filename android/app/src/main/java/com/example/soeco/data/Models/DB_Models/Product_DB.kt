@@ -1,12 +1,9 @@
 package com.example.soeco.data.Models.DB_Models
 
-
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.Required
 import org.bson.types.ObjectId
-
-
 
 open class Product_DB : RealmObject {
     @PrimaryKey

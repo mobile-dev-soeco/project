@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionnaireCarpentry"
-        android:name="com.example.soeco.ui.carpentry.QuestionnaireCarpentry"
+        android:name="com.example.soeco.ui.carpentry.reports.QuestionnaireCarpentry"
         android:label="fragment_questionnaire_carpentry"
         tools:layout="@layout/fragment_questionnaire" >
         <argument
@@ -114,17 +114,13 @@
         android:name="com.example.soeco.ui.carpentry.products.ProductDetailsFragment"
         android:label="fragment_product_details"
         tools:layout="@layout/fragment_product_details" >
-        <argument
-            android:name="product_id"
-            app:argType="string" />
-        <argument
-            android:name="quantity"
-            app:argType="string" />
-        <argument
-            android:name="notes"
-            app:argType="string" />
-        <argument
-            android:name="order_id"
-            app:argType="string" />
+        <action
+            android:id="@+id/action_productDetails_to_timeReportFragment"
+            app:destination="@id/timeReportFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/timeReportFragment"
+        android:name="com.example.soeco.ui.carpentry.reports.TimeReportFragment"
+        android:label="fragment_time_report"
+        tools:layout="@layout/fragment_time_report" />
 </navigation>

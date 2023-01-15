@@ -10,7 +10,6 @@
     android:layout_marginRight="16dp"
     android:clickable="true"
     android:foreground="?selectableItemBackground"
-    card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="16dp"
     card_view:contentPadding="10dp"
     tools:ignore="TouchTargetSizeCheck">
@@ -28,7 +27,6 @@
             android:gravity="center_horizontal"
             android:padding="8dp"
             android:text="@string/order_number"
-            android:textColor="@color/black"
             android:textSize="16sp" />
 
     </LinearLayout>

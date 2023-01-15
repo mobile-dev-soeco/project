@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Green">
+    android:background="@color/Soecogreen">
 
     <include layout="@layout/small_title_activity_layout" />
 
@@ -58,7 +58,6 @@
                     android:layout_marginTop="10dp"
                     android:contentDescription="@null"
                     android:text="@string/send"
-                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etEmail"
@@ -67,7 +66,6 @@
                 <ProgressBar
                     android:id="@+id/pbButtonSpinner"
                     style="?android:attr/progressBarStyle"
-                    android:theme="@style/Theme.Soeco.SpinnerGreen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
@@ -92,7 +90,6 @@
             <ProgressBar
                 android:id="@+id/pbSpinner"
                 style="?android:attr/progressBarStyle"
-                android:theme="@style/Theme.Soeco.SpinnerGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@+id/tvResponseText"

@@ -4,9 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginTop="16dp"
-    android:layout_marginStart="16dp"
-    android:background="@color/white"
-    >
+    android:layout_marginStart="16dp">
     
     <TextView
         android:layout_width="match_parent"
@@ -15,8 +13,6 @@
         android:textSize="20dp"
         android:text="Header"
         android:id="@+id/nav_header"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
 </LinearLayout>

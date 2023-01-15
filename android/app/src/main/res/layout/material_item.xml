@@ -10,7 +10,6 @@
     android:layout_marginRight="16dp"
     android:clickable="true"
     android:foreground="?selectableItemBackground"
-    card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="16dp"
     tools:ignore="TouchTargetSizeCheck">
 
@@ -37,7 +36,6 @@
                     android:layout_weight="1"
                     android:padding="6dp"
                     android:text="Material"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -47,7 +45,6 @@
                     android:layout_weight="1"
                     android:padding="6dp"
                     android:text="@string/material"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -64,7 +61,6 @@
                     android:layout_weight="1"
                     android:padding="6dp"
                     android:text="Antal"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <EditText
@@ -75,8 +71,8 @@
                     android:layout_weight="1"
                     android:inputType="number"
                     android:hint="@string/zero"
-                    android:padding="6dp"
-                    android:textColor="@color/black" />
+                    android:padding="6dp"/>
+
             </LinearLayout>
 
 
@@ -91,7 +87,6 @@
                     android:layout_weight="1"
                     android:padding="6dp"
                     android:text="Tid"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <EditText
@@ -100,8 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/zero"
-                    android:padding="6dp"
-                    android:textColor="@color/Green" />
+                    android:padding="6dp"/>
 
             </LinearLayout>
 
@@ -111,8 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="@string/confirm"
-                android:textColor="@color/black" />
+                android:text="@string/confirm"/>
         </LinearLayout>
 
 

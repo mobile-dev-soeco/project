@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.carpentry.CarpentryActivity">
+    tools:context=".ui.carpentry.CarpentryActivity"
+    android:paddingTop="24dp">
 
     <include
         android:id="@+id/productCard"
