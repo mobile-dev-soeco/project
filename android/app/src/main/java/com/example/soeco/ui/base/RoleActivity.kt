@@ -2,10 +2,8 @@ package com.example.soeco.ui.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -27,8 +25,6 @@ open class RoleActivity(
     private var toolbar: Int
 
 ): AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-
 
     private val roleActivityViewModel by viewModels<RoleActivityViewModel> { viewModelFactory }
     private lateinit var draw: DrawerLayout
@@ -73,15 +69,13 @@ open class RoleActivity(
             R.id.adminHomeFragment,
             R.id.statisticsFragment
         ), draw)
-        setSupportActionBar(toolBar);
+        setSupportActionBar(toolBar)
         toolBar.setupWithNavController(navController, appBarConfiguration)
         setupActionBarWithNavController(navController, appBarConfiguration)
         // end new
         navView.setupWithNavController(navController)
         navView.setNavigationItemSelectedListener(this)
 
-//        toolBar?.setTitle(null)
-//        supportActionBar?.title = null
         roleActivityViewModel.isAuthorized.observe(this, ::handleAuthorizationChange)
     }
 

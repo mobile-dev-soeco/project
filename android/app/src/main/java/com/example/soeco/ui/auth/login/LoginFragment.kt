@@ -72,7 +72,7 @@ class LoginFragment : Fragment() {
     /** Login logic **/
 
     private fun isUserInputValid() =
-        (isEmailValid(binding.etEmail.text) && isPasswordValid(binding.etPassword.text))
+        (isEmailValid(binding.etEmail.text.toString()) && isPasswordValid(binding.etPassword.text.toString()))
 
     private fun isEmailValid(target: CharSequence): Boolean{
         return target.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches()
