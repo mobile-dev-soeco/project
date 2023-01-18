@@ -16,6 +16,10 @@ class LoginViewModel(
     val loginLiveData: LiveData<LoginResult>
         get() = _loginLiveData
 
+    private val _loginResultMessage = MutableLiveData<String>()
+    val loginResultMessage: LiveData<String>
+        get() = _loginResultMessage
+
     private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
@@ -26,12 +30,14 @@ class LoginViewModel(
             password,
             loginSuccess = {
                 Log.v("Authentication", "Logged in as $it")
+                _loginResultMessage.value = "Login successful"
                 _loginLiveData.value = LoginResult.LoginSuccess
                 _isLoading.value = false
             },
             loginError = {
                 Log.e("Authentication", "Login failed: ${it?.errorMessage}")
-                _loginLiveData.value = LoginResult.LoginError("Login Failed")
+                _loginResultMessage.value = it?.errorMessage ?: "Login Failed"
+                _loginLiveData.value = LoginResult.LoginError
                 _isLoading.value = false
             }
         )
@@ -39,9 +45,13 @@ class LoginViewModel(
     }
 
     sealed class LoginResult {
+        object Handled: LoginResult()
         object LoginSuccess: LoginResult()
-        class LoginError(val errorMsg: String?): LoginResult()
+        object LoginError: LoginResult()
     }
 
+    fun clearLoginResult(){
+        _loginLiveData.value = LoginResult.Handled
+    }
 
 }

@@ -97,11 +97,16 @@ class LoginFragment : Fragment() {
     private fun handleLoginResult(loginResult: LoginViewModel.LoginResult) {
         when(loginResult){
             is LoginViewModel.LoginResult.LoginSuccess -> {
-                Log.v("Login", "Login success")
+                Toast.makeText(context, loginViewModel.loginResultMessage.value, Toast.LENGTH_SHORT).show()
+                loginViewModel.clearLoginResult()
                 navigation.navigate(R.id.action_loginFragment_to_authFragment)
             }
             is LoginViewModel.LoginResult.LoginError -> {
-                Log.v("Login", "Login failed")
+                Toast.makeText(context, loginViewModel.loginResultMessage.value, Toast.LENGTH_SHORT).show()
+                loginViewModel.clearLoginResult()
+            }
+            is LoginViewModel.LoginResult.Handled -> {
+                // Do nothing, This prevents repeated error messages appearing
             }
         }
     }
