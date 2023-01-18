@@ -667,19 +667,19 @@ class RealmDataSource(context: Context) {
 
     @Suppress("UNCHECKED_CAST")
     fun deleteTimeReport(
-        id: ObjectId,
+        reportId: String,
         onSuccess: () -> Unit,
         onError: (Exception) -> Unit
     ) {
         val collection = getCollectionHandle("time_report") as MongoCollection<TimeReport>
 
-        val queryFilter = Document("_id", id)
+        val queryFilter = Document("reportId", reportId)
 
         collection.deleteOne(queryFilter).getAsync { task ->
             if (task.isSuccess) {
                 val count = task.get().deletedCount
                 if (count == 1L) {
-                    Log.v(TAG(), "Time report with id $id deleted")
+                    Log.v(TAG(), "Time report with id $reportId deleted")
                     onSuccess.invoke()
                 } else {
                     Log.v(TAG(), "No document deleted")

@@ -195,10 +195,10 @@ class RepositoryImpl(
     }
 
     override fun deleteTimeReport(
-        id: ObjectId,
+        reportId: String,
         onSuccess: () -> Unit,
         onError: (Exception) -> Unit
     ) {
-        realmDataSource.deleteTimeReport(id, onSuccess, onError)
+        realmDataSource.deleteTimeReport(reportId, onSuccess, onError)
     }
 }

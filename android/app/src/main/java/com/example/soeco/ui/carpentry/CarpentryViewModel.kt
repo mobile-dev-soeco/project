@@ -14,6 +14,7 @@ import io.realm.RealmResults
 import org.bson.types.ObjectId
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.Instant
 import java.util.*
 
 class CarpentryViewModel(
@@ -56,7 +57,7 @@ class CarpentryViewModel(
         val productId = _currentProduct.value?.product_id.toString()
 
         val report = TimeReport(
-            _id = ObjectId(),
+            reportId = UUID.randomUUID().toString(),
             ownerId = productId,
             userId = repository.getUserId(),
             userRole = repository.getUserRole(),
@@ -75,9 +76,9 @@ class CarpentryViewModel(
         )
     }
 
-    fun deleteTimeReport(id: ObjectId) {
+    fun deleteTimeReport(reportId: String) {
         repository.deleteTimeReport(
-            id,
+            reportId,
             onSuccess = {
                 _currentProduct.value?.product_id?.let { getTimeReports(it) }
             },
@@ -92,9 +93,8 @@ class CarpentryViewModel(
     }
 
     private fun formatHours(hours: Int, minutes: Int): Float {
-        var time: Double = hours.toDouble() + (minutes.toDouble()/MINUTES_PER_HOUR)
-        var timeBd = BigDecimal(time)
-        return timeBd.setScale(2, RoundingMode.HALF_UP).toFloat()
+        val time = hours.toDouble() + (minutes.toDouble()/MINUTES_PER_HOUR)
+        return BigDecimal(time).setScale(2, RoundingMode.CEILING).toFloat()
     }
 
 }

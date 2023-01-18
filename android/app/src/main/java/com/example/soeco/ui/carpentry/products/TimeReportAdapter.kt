@@ -67,7 +67,7 @@ class TimeReportAdapter(
 
     class DataDiffCallback: DiffUtil.ItemCallback<TimeReport>(){
         override fun areItemsTheSame(oldItem: TimeReport, newItem: TimeReport): Boolean {
-            return oldItem._id == newItem._id
+            return oldItem.reportId == newItem.reportId
         }
 
         override fun areContentsTheSame(oldItem: TimeReport, newItem: TimeReport): Boolean {

@@ -124,5 +124,5 @@ interface Repository {
 
     fun getUsersTimeReports(id: String, onSuccess: (List<TimeReport>) -> Unit, onError: (Exception) -> Unit)
 
-    fun deleteTimeReport(id: ObjectId, onSuccess: () -> Unit, onError: (Exception) -> Unit)
+    fun deleteTimeReport(reportId: String, onSuccess: () -> Unit, onError: (Exception) -> Unit)
 }
