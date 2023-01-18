@@ -59,6 +59,7 @@ class TimeReportFragment : Fragment() {
             val datePickerDialog = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
                 dateText.setText(String.format("%d/%d/%d", dayOfMonth, month + 1, year))
             }, year, month, day)
+            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
             datePickerDialog.show()
         }
 
