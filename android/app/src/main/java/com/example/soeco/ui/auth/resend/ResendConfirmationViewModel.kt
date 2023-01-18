@@ -7,15 +7,20 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.soeco.TAG
 import com.example.soeco.data.Repository
+import com.example.soeco.utils.AuthResult
 
 class ResendConfirmationViewModel(
     val repository: Repository,
     val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _resultMessageLiveData = MutableLiveData<String>()
-    val resultMessageLiveData: LiveData<String>
-        get() = _resultMessageLiveData
+    private val _resendResult = MutableLiveData<AuthResult>()
+    val resendResult: LiveData<AuthResult>
+        get() = _resendResult
+
+    private val _resultMessage = MutableLiveData<String>()
+    val resultMessage: LiveData<String>
+        get() = _resultMessage
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -25,16 +30,21 @@ class ResendConfirmationViewModel(
         repository.resendConfirmationEmail(
             email,
             sendSuccess = {
-                Log.v(TAG(), "confirmation email sent")
-                _resultMessageLiveData.value = "User confirmation email sent to $email"
+                _resultMessage.value = "Email sent to $email"
+                _resendResult.value = AuthResult.Success
                 _isLoading.value = false
             },
             sendError = {
                 Log.e(TAG(), it.message.toString())
-                _resultMessageLiveData.value = "An error occurred when sending the email"
+                _resultMessage.value = "Failed to send email"
+                _resendResult.value = AuthResult.Error
                 _isLoading.value = false
             }
         )
         _isLoading.value = true
+    }
+
+    fun clearResult() {
+        _resendResult.value = AuthResult.Handled
     }
 }

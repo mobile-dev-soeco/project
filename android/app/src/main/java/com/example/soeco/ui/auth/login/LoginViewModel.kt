@@ -6,21 +6,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.soeco.data.Repository
+import com.example.soeco.utils.AuthResult
 
 class LoginViewModel(
     private val repository: Repository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _loginLiveData = MutableLiveData<LoginResult>()
-    val loginLiveData: LiveData<LoginResult>
+    private val _loginLiveData = MutableLiveData<AuthResult>()
+    val loginLiveData: LiveData<AuthResult>
         get() = _loginLiveData
 
     private val _loginResultMessage = MutableLiveData<String>()
     val loginResultMessage: LiveData<String>
         get() = _loginResultMessage
 
-    private val _isLoading = MutableLiveData<Boolean>(false)
+    private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
@@ -31,27 +32,21 @@ class LoginViewModel(
             loginSuccess = {
                 Log.v("Authentication", "Logged in as $it")
                 _loginResultMessage.value = "Login successful"
-                _loginLiveData.value = LoginResult.LoginSuccess
+                _loginLiveData.value = AuthResult.Success
                 _isLoading.value = false
             },
             loginError = {
                 Log.e("Authentication", "Login failed: ${it?.errorMessage}")
                 _loginResultMessage.value = it?.errorMessage ?: "Login Failed"
-                _loginLiveData.value = LoginResult.LoginError
+                _loginLiveData.value = AuthResult.Error
                 _isLoading.value = false
             }
         )
         _isLoading.value = true
     }
 
-    sealed class LoginResult {
-        object Handled: LoginResult()
-        object LoginSuccess: LoginResult()
-        object LoginError: LoginResult()
-    }
-
-    fun clearLoginResult(){
-        _loginLiveData.value = LoginResult.Handled
+    fun clearResult(){
+        _loginLiveData.value = AuthResult.Handled
     }
 
 }

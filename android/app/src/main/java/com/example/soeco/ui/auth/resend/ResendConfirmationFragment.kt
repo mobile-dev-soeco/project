@@ -7,14 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.soeco.databinding.FragmentResendConfirmationBinding
+import com.example.soeco.utils.AuthResult
 import com.example.soeco.utils.viewModelFactory
 
 class ResendConfirmationFragment : Fragment() {
 
-    private val resendConfirmationViewModel by viewModels<ResendConfirmationViewModel> { viewModelFactory }
+    private val viewModel by viewModels<ResendConfirmationViewModel> { viewModelFactory }
 
     private lateinit var binding: FragmentResendConfirmationBinding
 
@@ -34,11 +35,11 @@ class ResendConfirmationFragment : Fragment() {
         binding.btnSendEmail.isEnabled = isEmailValid(binding.etEmailResend.text)
 
         // Observers
-        resendConfirmationViewModel.resultMessageLiveData.observe(viewLifecycleOwner, Observer { message ->
-            binding.tvResendMessage.text = message
-        })
+        viewModel.resendResult.observe(viewLifecycleOwner) { result ->
+            handleResult(result)
+        }
 
-        resendConfirmationViewModel.isLoading.observe(viewLifecycleOwner, Observer { loading ->
+        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             if (loading) {
                 binding.btnSendEmail.visibility = View.INVISIBLE
                 binding.pbSpinnerResend.visibility = View.VISIBLE
@@ -46,15 +47,30 @@ class ResendConfirmationFragment : Fragment() {
                 binding.btnSendEmail.visibility = View.VISIBLE
                 binding.pbSpinnerResend.visibility = View.INVISIBLE
             }
-        })
+        }
 
 
         // Event listeners
         binding.btnSendEmail.setOnClickListener {
-            resendConfirmationViewModel.sendEmail(binding.etEmailResend.text.toString())
+            viewModel.sendEmail(binding.etEmailResend.text.toString())
         }
 
         binding.etEmailResend.addTextChangedListener(inputWatcher)
+    }
+
+    private fun handleResult(result: AuthResult) {
+        val toast = Toast.makeText(context, viewModel.resultMessage.value, Toast.LENGTH_SHORT)
+        when(result){
+            is AuthResult.Success -> {
+                toast.show()
+                viewModel.clearResult()
+            }
+            is AuthResult.Error -> {
+                toast.show()
+                viewModel.clearResult()
+            }
+            else -> {}
+        }
     }
 
     private fun isEmailValid(target: CharSequence): Boolean{
