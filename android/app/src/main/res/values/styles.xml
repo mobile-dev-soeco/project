@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <style name="DrawerIconLight" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/hamburgerLight</item>
+    </style>
+    <style name="DrawerIconDark" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/hamburgerDark</item>
+    </style>
 </resources>

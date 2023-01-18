@@ -31,5 +31,6 @@
         <item name="colorOnSoecogreenContainer">#8ffa89</item>
         <item name="harmonizeSoecogreen">false</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+        <item name="drawerArrowStyle">@style/DrawerIconDark</item>
     </style>
 </resources>

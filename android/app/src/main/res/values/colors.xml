@@ -63,4 +63,6 @@
     <color name="md_theme_dark_scrim">#000000</color>
     <color name="Soecogreen">#41AA44</color>
     <color name="link_blue">#0091EA</color>
+    <color name="hamburgerLight">#DDDDDD</color>
+    <color name="hamburgerDark">#222222</color>
 </resources>
