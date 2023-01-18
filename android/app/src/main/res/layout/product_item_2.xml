@@ -8,10 +8,10 @@
     android:background="?attr/colorSecondaryContainer">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_gravity="top"
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="top"
         android:padding="15dp">
 
         <TextView
@@ -21,20 +21,17 @@
             android:paddingBottom="15dp"
             android:text="ID"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tvQuantityTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tvQuantityTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
             android:text="Antal"
+            android:paddingRight="15dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tvNotesTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductIdTitle" />
+            app:layout_constraintEnd_toStartOf="@+id/tvQuantity"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvNotesTitle"
@@ -45,14 +42,14 @@
             android:text="Notes"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvQuantityTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/tvProductIdTitle" />
 
         <TextView
             android:id="@+id/tvProductId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="d6373dbd7wwb22"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="876437"
+            app:layout_constraintEnd_toStartOf="@+id/tvQuantityTitle"
             app:layout_constraintStart_toStartOf="@id/listAligner"
             app:layout_constraintTop_toTopOf="@+id/tvProductIdTitle" />
 
@@ -61,8 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/listAligner"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductIdTitle"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="5" />
 
         <TextView
