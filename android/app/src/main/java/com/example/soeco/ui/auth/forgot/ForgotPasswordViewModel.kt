@@ -7,15 +7,15 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.soeco.TAG
 import com.example.soeco.data.Repository
-import com.example.soeco.utils.AuthResult
+import com.example.soeco.utils.ActionResult
 
 class ForgotPasswordViewModel(
     val repository: Repository,
     val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _resultLiveData = MutableLiveData<AuthResult>()
-    val resultLiveData: LiveData<AuthResult>
+    private val _resultLiveData = MutableLiveData<ActionResult>()
+    val resultLiveData: LiveData<ActionResult>
         get() = _resultLiveData
 
     private val _resultMessage = MutableLiveData<String>()
@@ -31,13 +31,13 @@ class ForgotPasswordViewModel(
             email,
             sendSuccess = {
                 _resultMessage.value = "Reset link sent to $email"
-                _resultLiveData.value = AuthResult.Success
+                _resultLiveData.value = ActionResult.Success
                 _isLoading.value = false
             },
             sendError = {
                 Log.e(TAG(), it?.errorMessage.toString())
                 _resultMessage.value = it?.errorMessage ?: "Password reset failed"
-                _resultLiveData.value = AuthResult.Error
+                _resultLiveData.value = ActionResult.Error
                 _isLoading.value = false
             }
         )
@@ -45,6 +45,6 @@ class ForgotPasswordViewModel(
     }
 
     fun clearResult() {
-        _resultLiveData.value = AuthResult.Handled
+        _resultLiveData.value = ActionResult.Handled
     }
 }

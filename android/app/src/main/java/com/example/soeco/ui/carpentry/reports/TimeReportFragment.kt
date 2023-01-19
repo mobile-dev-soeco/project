@@ -8,9 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.soeco.R
 import com.example.soeco.databinding.FragmentTimeReportBinding
 import com.example.soeco.ui.carpentry.CarpentryViewModel
+import com.example.soeco.utils.ActionResult
 import com.example.soeco.utils.viewModelFactory
 import java.time.*
 import java.time.format.DateTimeFormatter
@@ -20,11 +24,12 @@ class TimeReportFragment : Fragment() {
 
     private lateinit var binding: FragmentTimeReportBinding
     private lateinit var carpentryViewModel: CarpentryViewModel
+    private val navigation by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return FragmentTimeReportBinding.inflate(inflater, container, false)
             .also { this.binding = it }
             .also { carpentryViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[CarpentryViewModel::class.java] }
@@ -42,6 +47,10 @@ class TimeReportFragment : Fragment() {
         binding.btnSubmit.setOnClickListener {
             handleSubmit()
         }
+
+        carpentryViewModel.isLoading.observe(viewLifecycleOwner, ::handleLoading)
+
+        carpentryViewModel.insertReportResult.observe(viewLifecycleOwner, ::handleInsertResult)
 
         initDateListener(binding.calender)
     }
@@ -82,5 +91,27 @@ class TimeReportFragment : Fragment() {
             binding.npHours.value,
             binding.npMinutes.value
         )
+    }
+
+    private fun handleLoading(loading: Boolean){
+        if (loading) {
+            binding.pbSpinner.visibility = View.VISIBLE
+            binding.btnSubmit.visibility = View.INVISIBLE
+        } else {
+            binding.pbSpinner.visibility = View.INVISIBLE
+            binding.btnSubmit.visibility = View.VISIBLE
+        }
+    }
+
+    private fun handleInsertResult(result: ActionResult) {
+        when(result){
+            is ActionResult.Success -> {
+                navigation.navigate(R.id.action_timeReportFragment_to_productDetails)
+            }
+            is ActionResult.Error -> {
+                Toast.makeText(context, getString(R.string.report_insert_error_msg), Toast.LENGTH_SHORT).show()
+            }
+            else -> {}
+        }
     }
 }

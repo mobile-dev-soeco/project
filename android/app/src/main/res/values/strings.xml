@@ -96,4 +96,5 @@
     <string name="questionnaire_time_text">Tid</string>
     <string name="hours">Tid</string>
     <string name="date_input_hint">Datum</string>
+    <string name="report_insert_error_msg">Något gick fel. Försök igen</string>
 </resources>

@@ -5,15 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.soeco.data.Repository
-import com.example.soeco.utils.AuthResult
+import com.example.soeco.utils.ActionResult
 
 class ResetPaswordViewModel(
     val repository: Repository,
     val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _resetResult = MutableLiveData<AuthResult>()
-    val resetResult: LiveData<AuthResult>
+    private val _resetResult = MutableLiveData<ActionResult>()
+    val resetResult: LiveData<ActionResult>
         get() = _resetResult
 
     private val _resultMessage = MutableLiveData<String>()
@@ -31,12 +31,12 @@ class ResetPaswordViewModel(
             newPassword,
             resetSuccess = {
                 _resultMessage.value = "Password reset successfully"
-                _resetResult.value = AuthResult.Success
+                _resetResult.value = ActionResult.Success
                 _isLoading.value = false
             },
             resetError = {
                 _resultMessage.value = "Password reset failed. Try Again"
-                _resetResult.value = AuthResult.Error
+                _resetResult.value = ActionResult.Error
                 _isLoading.value = false
             }
         )
@@ -44,7 +44,7 @@ class ResetPaswordViewModel(
     }
 
     fun clearResult() {
-        _resetResult.value = AuthResult.Handled
+        _resetResult.value = ActionResult.Handled
     }
 
 }

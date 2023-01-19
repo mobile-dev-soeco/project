@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentForgotPasswordBinding
 import com.example.soeco.utils.viewModelFactory
-import com.example.soeco.utils.AuthResult
+import com.example.soeco.utils.ActionResult
 
 class ForgotPasswordFragment : Fragment() {
 
@@ -63,17 +63,17 @@ class ForgotPasswordFragment : Fragment() {
         binding.etEmail.addTextChangedListener(inputWatcher)
     }
 
-    private fun handleResult(result: AuthResult) {
+    private fun handleResult(result: ActionResult) {
         val toast = Toast.makeText(context, viewModel.resultMessage.value, Toast.LENGTH_SHORT)
         when(result){
-            is AuthResult.Success -> {
+            is ActionResult.Success -> {
                 toast.show()
                 Handler(Looper.getMainLooper()).postDelayed({
                     navigation.navigate(R.id.action_forgotPassword_to_loginFragment)
                 }, 1000)
                 viewModel.clearResult()
             }
-            is AuthResult.Error -> {
+            is ActionResult.Error -> {
                 toast.show()
                 viewModel.clearResult()
             }

@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentConfirmUserBinding
-import com.example.soeco.utils.AuthResult
+import com.example.soeco.utils.ActionResult
 import com.example.soeco.utils.viewModelFactory
 
 class ConfirmUserFragment : Fragment() {
@@ -57,17 +57,17 @@ class ConfirmUserFragment : Fragment() {
         }
     }
 
-    private fun handleResult(result: AuthResult) {
+    private fun handleResult(result: ActionResult) {
         val toast = Toast.makeText(context, viewModel.resultMessage.value, Toast.LENGTH_SHORT)
         when(result){
-            is AuthResult.Success -> {
+            is ActionResult.Success -> {
                 toast.show()
                 Handler(Looper.getMainLooper()).postDelayed({
                     navigation.navigate(R.id.action_confirmUserFragment_to_loginFragment)
                 }, 1000)
                 viewModel.clearResult()
             }
-            is AuthResult.Error -> {
+            is ActionResult.Error -> {
                 toast.show()
                 Handler(Looper.getMainLooper()).postDelayed({
                     navigation.navigate(R.id.action_confirmUserFragment_to_resendConfirmation)

@@ -14,7 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentLoginBinding
-import com.example.soeco.utils.AuthResult
+import com.example.soeco.utils.ActionResult
 import com.example.soeco.utils.viewModelFactory
 
 class LoginFragment : Fragment() {
@@ -94,14 +94,14 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun handleLoginResult(result: AuthResult) {
+    private fun handleLoginResult(result: ActionResult) {
         when(result){
-            is AuthResult.Success -> {
+            is ActionResult.Success -> {
                 Toast.makeText(context, viewModel.loginResultMessage.value, Toast.LENGTH_SHORT).show()
                 navigation.navigate(R.id.action_loginFragment_to_authFragment)
                 viewModel.clearResult()
             }
-            is AuthResult.Error -> {
+            is ActionResult.Error -> {
                 Toast.makeText(context, viewModel.loginResultMessage.value, Toast.LENGTH_SHORT).show()
                 viewModel.clearResult()
             }

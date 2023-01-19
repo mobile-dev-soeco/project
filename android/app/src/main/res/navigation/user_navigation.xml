@@ -122,5 +122,11 @@
         android:id="@+id/timeReportFragment"
         android:name="com.example.soeco.ui.carpentry.reports.TimeReportFragment"
         android:label="fragment_time_report"
-        tools:layout="@layout/fragment_time_report" />
+        tools:layout="@layout/fragment_time_report" >
+        <action
+            android:id="@+id/action_timeReportFragment_to_productDetails"
+            app:destination="@id/productDetails"
+            app:popUpTo="@id/productDetails"
+            app:launchSingleTop="true" />
+    </fragment>
 </navigation>
