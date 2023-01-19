@@ -89,10 +89,10 @@ class CarpentryViewModel(
         repository.deleteTimeReport(
             reportId,
             onSuccess = {
-                _currentProduct.value?.product_id?.let { getTimeReports(it) }
+//                _currentProduct.value?.product_id?.let { getTimeReports(it) }
             },
             onError = {
-
+                // TODO: Handle error
             }
         )
     }

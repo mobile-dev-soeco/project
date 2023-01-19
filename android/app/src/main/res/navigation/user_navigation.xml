@@ -116,7 +116,8 @@
         tools:layout="@layout/fragment_product_details" >
         <action
             android:id="@+id/action_productDetails_to_timeReportFragment"
-            app:destination="@id/timeReportFragment" />
+            app:destination="@id/timeReportFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/timeReportFragment"

@@ -78,9 +78,13 @@ class ProductDetailsFragment : Fragment() {
         carpentryViewModel.clearTimeReports()
     }
 
-    private fun handleDeleteClick(view: View, timeReport: TimeReport) {
+    private fun handleDeleteClick(position: Int, timeReport: TimeReport) {
         Log.v(TAG(), "${timeReport.reportId} clicked")
-        carpentryViewModel.deleteTimeReport(timeReport.reportId)
+        val item = adapter.currentList[position]
+        val currentList = adapter.currentList.toMutableList()
+        currentList.removeAt(position)
+        adapter.submitList(currentList)
+        carpentryViewModel.deleteTimeReport(item.reportId)
     }
 
 }

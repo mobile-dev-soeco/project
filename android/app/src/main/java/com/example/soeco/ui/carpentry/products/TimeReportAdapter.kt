@@ -16,8 +16,9 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class TimeReportAdapter(
-    private val onDeleteClickListener: (view: View, timeReport: TimeReport) -> Unit
-): ListAdapter<TimeReport, TimeReportAdapter.TimeReportViewHolder>(TimeReportAdapter.DataDiffCallback()) {
+    private val onDeleteClickListener: (position:Int, timeReport: TimeReport) -> Unit
+): ListAdapter<TimeReport, TimeReportAdapter.TimeReportViewHolder>(DataDiffCallback()) {
+
 
     inner class TimeReportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val dateView: TextView
@@ -46,8 +47,8 @@ class TimeReportAdapter(
     override fun onBindViewHolder(holder: TimeReportViewHolder, position: Int) {
         holder.apply {
             bind(getItem(position))
-            deleteBtn.setOnClickListener { view ->
-                onDeleteClickListener.invoke(view, getItem(position))
+            deleteBtn.setOnClickListener {
+                onDeleteClickListener.invoke(holder.adapterPosition, getItem(holder.adapterPosition))
             }
         }
     }

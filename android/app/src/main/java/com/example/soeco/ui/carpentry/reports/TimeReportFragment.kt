@@ -107,9 +107,11 @@ class TimeReportFragment : Fragment() {
         when(result){
             is ActionResult.Success -> {
                 navigation.navigate(R.id.action_timeReportFragment_to_productDetails)
+                carpentryViewModel.clearResult()
             }
             is ActionResult.Error -> {
                 Toast.makeText(context, getString(R.string.report_insert_error_msg), Toast.LENGTH_SHORT).show()
+                carpentryViewModel.clearResult()
             }
             else -> {}
         }

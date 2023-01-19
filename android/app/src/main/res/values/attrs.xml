@@ -31,4 +31,5 @@
     <attr name="colorOnSoecogreenContainer" format="color" />
     <attr name="harmonizeSoecogreen">false</attr>
     <attr name="colorPrimaryInverse" format="color" />
+    <attr name="colorDeleteIcon" format="color" />
 </resources>

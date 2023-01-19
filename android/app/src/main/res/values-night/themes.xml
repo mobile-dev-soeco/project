@@ -32,5 +32,6 @@
         <item name="harmonizeSoecogreen">false</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
         <item name="drawerArrowStyle">@style/DrawerIconDark</item>
+        <item name="colorDeleteIcon">@color/md_theme_light_error</item>
     </style>
 </resources>
