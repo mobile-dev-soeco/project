@@ -9,6 +9,7 @@ import com.example.soeco.data.Models.mongo.Deviation
 import com.example.soeco.data.Models.mongo.TimeReport
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
+import java.time.LocalDateTime
 
 class RepositoryImpl(
     private val realmDataSource: RealmDataSource
@@ -101,8 +102,8 @@ class RepositoryImpl(
     override fun get_Tradesmen_Report() = realmDataSource.tradesmenReport
     override fun get_Material_Reports() = realmDataSource.materialReports
     override fun get_Delivery_Reports() = realmDataSource.deliveryReport
-    override fun updateOrders() {
-        realmDataSource.updateOrders()
+    override fun updateOrders(date: LocalDateTime) {
+        realmDataSource.updateOrders(date)
     }
 
     override fun updateMaterials() {

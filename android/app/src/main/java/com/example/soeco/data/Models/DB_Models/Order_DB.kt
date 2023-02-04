@@ -17,7 +17,9 @@ open class Order_DB: RealmObject{
     var city:String?=""
     var phone :String?=""
     var name :String?=""
-
+    var deliveryNames :String?=""
+    var companyName :String?=""
+    var orderTurn :String?=""
 
     constructor(
         orderNumber: String = "",
@@ -27,7 +29,11 @@ open class Order_DB: RealmObject{
         zip: String = "",
         city:String = "",
         phone : String = "",
-        name: String = ""
+        name: String = "" ,
+        deliveryNames: String = "",
+        companyName:String = "",
+        orderTurn : String = "",
+
     ){
         this._id = orderNumber
         this.idoo = idoo
@@ -37,6 +43,9 @@ open class Order_DB: RealmObject{
         this.city = city
         this.phone = phone
         this.name = name
+        this.deliveryNames = deliveryNames
+        this.companyName = companyName
+        this.orderTurn = orderTurn
 
     }
     constructor() {}

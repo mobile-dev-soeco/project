@@ -50,11 +50,11 @@ class DeliveryOrderDetailFragment : Fragment() {
         val reportButton : Button = view.findViewById(R.id.button_delivery_reportDeviation)
         val order = OrderDetailsViewModel.getOrder(args.orderNumber)
         orderNumberTextView.text = args.orderNumber
-        customerName.text = "Andreas"
-        phoneText.text = order?.phone
+        customerName.text =order?.companyName
+        phoneText.text = order?.name
         addressText.text = order?.address
 
-        setCallButtonListener(callButton, phoneText)
+        setCallButtonListener(callButton, order?.phone)
         setMapButtonListener(mapButton,order)
 
         showProductsButton.setOnClickListener {
@@ -70,11 +70,10 @@ class DeliveryOrderDetailFragment : Fragment() {
         return view
     }
 
-    private fun setCallButtonListener(callButton: Button, phoneText: TextView) {
+    private fun setCallButtonListener(callButton: Button, phoneText: String?) {
         callButton.setOnClickListener{
-            val phoneNumber = phoneText.text
             val dialIntent = Intent(Intent.ACTION_DIAL)
-            dialIntent.data = Uri.parse("tel:$phoneNumber")
+            dialIntent.data = Uri.parse("tel:$phoneText")
             startActivity(dialIntent)
         }
     }

@@ -95,4 +95,5 @@
     <string name="statistics">Statistik</string>
     <string name="questionnaire_time_text">Tid</string>
     <string name="hours">Tid</string>
+    <string name="tidsrapportering">Tidsrapportering</string>
 </resources>

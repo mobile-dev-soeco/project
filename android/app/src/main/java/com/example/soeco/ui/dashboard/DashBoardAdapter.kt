@@ -21,33 +21,60 @@ internal class DashBoardAdapter(data: OrderedRealmCollection<Order_DB?>?, userRo
     val navigation = navigation
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashBoardViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.order_dash_item, parent, false)
+        val view = when (userRole?.lowercase()) {
+            "leverans" -> {
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.order_dash_item_delivery, parent, false
+                )
+            }
+            else -> {
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.order_dash_item, parent, false
+                )
+            }
+        }
         return DashBoardViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: DashBoardViewHolder, position: Int) {
         val obj = getItem(position)
-        val textView : TextView = holder.view.findViewById(R.id.textView_ordernumber)
-        val orderNumber = obj!!._id
-        textView.text = orderNumber
-        holder.data = obj
-        val cardView :CardView = holder.view.findViewById(R.id.card_Order)
-        cardView.setOnClickListener {
-            // depending on the user role, navigate to different fragments
-            when(userRole?.lowercase()){
-                "tapetserare" -> {
-                    navigateCarpenterOrderDetail(navigation, orderNumber)
-                }
-                "snickare" -> {
-                    navigateCarpenterOrderDetail(navigation, orderNumber)
-                }
-                "leverans" -> {
+        when (userRole?.lowercase()) {
+            "leverans" -> {
+                val textOrderNumber: TextView = holder.view.findViewById(R.id.textView_ordernumber)
+                val customerName: TextView = holder.view.findViewById(R.id.textView_customerName)
+                val deliveryNames: TextView = holder.view.findViewById(R.id.textView_DeliveryName)
+                val turnOrder: TextView = holder.view.findViewById(R.id.textView_TurnOrder)
+
+                val orderNumber = obj!!._id
+                textOrderNumber.text = orderNumber
+                customerName.text = obj!!.companyName
+                deliveryNames.text = obj!!.deliveryNames
+                turnOrder.text = obj!!.orderTurn
+                holder.data = obj
+
+                val cardView: CardView = holder.view.findViewById(R.id.card_Order)
+                cardView.setOnClickListener {
                     navigateDeliveryOrderDetail(navigation, orderNumber)
-                    }
+
                 }
             }
+            else -> {
+                val textView: TextView = holder.view.findViewById(R.id.textView_ordernumber)
+                val orderNumber = obj!!._id
+                textView.text = orderNumber
+                holder.data = obj
+                val cardView: CardView = holder.view.findViewById(R.id.card_Order)
+                cardView.setOnClickListener {
+                    // depending on the user role, navigate to different fragments
+                    navigateCarpenterOrderDetail(navigation, orderNumber)
+                }
+            }
+
         }
+    }
+
+
+
 
     private fun navigateDeliveryOrderDetail(navigation: NavController, ordernumber: String){
         val action = DashBoardFragmentDirections.actionDashBoardFragmentToDeliveryOrderDetailFragment(ordernumber)
