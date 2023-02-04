@@ -41,7 +41,6 @@
                     android:layout_marginVertical="10dp"
                     android:gravity="center_horizontal"
                     android:text="@string/order_number_"
-                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -52,7 +51,6 @@
                     android:gravity="center_horizontal"
                     android:padding="6dp"
                     android:text="@string/order_name"
-                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -170,7 +168,6 @@
                     android:gravity="center_vertical"
                     android:padding="6dp"
                     android:text="@string/tidsrapportering"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <Button
@@ -179,7 +176,6 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:text="@string/report_button"
-                    android:textColor="@color/black"
                     android:visibility="visible"
                     card_view:cornerRadius="20dp" />
 
@@ -224,7 +220,6 @@
                     android:gravity="center_vertical"
                     android:padding="6dp"
                     android:text="@string/order_products"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <Button
@@ -233,7 +228,6 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:text="@string/view_button"
-                    android:textColor="@color/black"
                     android:visibility="visible"
                     card_view:cornerRadius="20dp" />
 
