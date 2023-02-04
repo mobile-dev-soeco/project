@@ -7,7 +7,9 @@ class Order_API (
                  var address:String,
                  var zip:String,
                  var city:String,
-                 var contact :String
+                 var contact :String,
+                 var delivery_planning_employees:String,
+                 var delivery_planning_turn:String,
 
 
 

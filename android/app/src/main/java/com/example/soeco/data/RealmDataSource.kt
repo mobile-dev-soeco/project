@@ -30,6 +30,9 @@ import org.json.JSONObject
 import retrofit2.Call
 import java.io.IOException
 import java.io.UnsupportedEncodingException
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -331,16 +334,12 @@ class RealmDataSource(context: Context) {
         return localRealm.where(Order_DB::class.java).containsKey("_id", id).findFirst()
     }
 
-    fun updateOrders() {
+    fun updateOrders(date: LocalDateTime) {
         localRealm.executeTransactionAsync {
             try {
                 val api = RetrofitClient.getInstance().api
-                val calendar = Calendar.getInstance()
-                val year = calendar.get(Calendar.YEAR).toString()
-                val month = (calendar.get(Calendar.MONTH)+1).toString()
-                val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
-                val dateString= "$year-$month-$day"
-
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                val dateString = date.format(formatter)
                 val fullUrl = when (userRole.lowercase()){
                     "leverans" -> "orders/delivery/$dateString/"
                     "snickare" -> "orders/blacksmith/"
@@ -405,7 +404,7 @@ class RealmDataSource(context: Context) {
 
         return Order_DB(
             fromApi.oo_nr, fromApi.idoo, 0, fromApi.address, fromApi.zip,
-            fromApi.city, phone, name
+            fromApi.city, phone, name,fromApi.delivery_planning_employees,fromApi.costumers_name,fromApi.delivery_planning_turn
         )
     }
 

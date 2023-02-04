@@ -1,7 +1,6 @@
 package com.example.soeco.data
 
 import com.example.soeco.data.Models.DB_Models.*
-import io.realm.RealmList
 import com.example.soeco.data.Models.CustomData
 import com.example.soeco.data.Models.DB_Models.Material_DB
 import com.example.soeco.data.Models.DB_Models.Order_DB
@@ -11,6 +10,7 @@ import com.example.soeco.data.Models.mongo.TimeReport
 import io.realm.RealmResults
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
+import java.time.LocalDateTime
 import org.bson.types.ObjectId
 
 interface Repository {
@@ -73,7 +73,7 @@ interface Repository {
 
     fun getOrders(): RealmResults<Order_DB>
 
-    fun updateOrders(): Unit
+    fun updateOrders(date: LocalDateTime): Unit
 
     fun updateMaterials(): Unit
 
