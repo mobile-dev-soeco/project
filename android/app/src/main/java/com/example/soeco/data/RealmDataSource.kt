@@ -24,6 +24,7 @@ import io.realm.mongodb.mongo.MongoDatabase
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
+import org.bson.types.ObjectId
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -41,8 +42,8 @@ class RealmDataSource(context: Context) {
     private val APP_ID = "soecoapp-ciaaa"
 
     private lateinit var localRealm: Realm
-    private lateinit var currentRealmUser: User
-    private lateinit var userRole: String
+    lateinit var currentRealmUser: User
+    lateinit var userRole: String
     lateinit var materials: RealmResults<Material_DB>
     lateinit var orders: RealmResults<Order_DB>
     lateinit var products: RealmResults<Product_DB>
@@ -317,10 +318,6 @@ class RealmDataSource(context: Context) {
                 logoutSuccess.invoke()
             }
         }
-    }
-
-    fun getUserRole(): String {
-        return userRole
     }
 
     fun restoreLoggedInUser(): io.realm.mongodb.User? {
@@ -634,6 +631,61 @@ class RealmDataSource(context: Context) {
                 onSuccess.invoke()
             } else {
                 onError.invoke(it.error)
+            }
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun getUserTimeReports(
+        id: String,
+        onSuccess: (List<TimeReport>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val collection = getCollectionHandle("time_report") as MongoCollection<TimeReport>
+
+        val queryFilter = Document(mapOf(
+            "ownerId" to id,
+            "userId" to currentRealmUser.id
+        ))
+
+        val reports = mutableListOf<TimeReport>()
+
+        collection.find(queryFilter).iterator()
+            .getAsync {
+                if (it.isSuccess) {
+                    val result = it.get()
+                    while (result.hasNext()) {
+                        reports.add(result.next())
+                    }
+                    onSuccess.invoke(reports.toList())
+                } else {
+                    onError.invoke(it.error)
+                }
+            }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun deleteTimeReport(
+        reportId: String,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val collection = getCollectionHandle("time_report") as MongoCollection<TimeReport>
+
+        val queryFilter = Document("reportId", reportId)
+
+        collection.deleteOne(queryFilter).getAsync { task ->
+            if (task.isSuccess) {
+                val count = task.get().deletedCount
+                if (count == 1L) {
+                    Log.v(TAG(), "Time report with id $reportId deleted")
+                    onSuccess.invoke()
+                } else {
+                    Log.v(TAG(), "No document deleted")
+                }
+            } else {
+                Log.e(TAG(), task.error.toString())
+                onError.invoke(task.error)
             }
         }
     }

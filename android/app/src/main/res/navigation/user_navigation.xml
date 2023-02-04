@@ -23,12 +23,16 @@
     </fragment>
     <fragment
         android:id="@+id/productsList"
-        android:name="com.example.soeco.ui.carpentry.ProductsList"
+        android:name="com.example.soeco.ui.carpentry.products.ProductsList"
         android:label="fragment_products_list"
         tools:layout="@layout/fragment_products_list" >
         <argument
             android:name="orderNumber"
             app:argType="string" />
+        <action
+            android:id="@+id/action_productsList_to_productDetails"
+            app:destination="@id/productDetails"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/deliveryProductsList"
@@ -44,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/carpentryMaterials"
-        android:name="com.example.soeco.ui.carpentry.CarpentryMaterials"
+        android:name="com.example.soeco.ui.carpentry.materials.CarpentryMaterials"
         android:label="fragment_carpentry_materials"
         tools:layout="@layout/fragment_carpentry_materials" >
         <argument
@@ -53,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionnaireCarpentry"
-        android:name="com.example.soeco.ui.carpentry.QuestionnaireCarpentry"
+        android:name="com.example.soeco.ui.carpentry.reports.QuestionnaireCarpentry"
         android:label="fragment_questionnaire_carpentry"
         tools:layout="@layout/fragment_questionnaire" >
         <argument
@@ -105,4 +109,25 @@
         android:name="com.example.soeco.ui.appinfo.InstructionFragment"
         android:label="fragment_instruction"
         tools:layout="@layout/fragment_instruction" />
+    <fragment
+        android:id="@+id/productDetails"
+        android:name="com.example.soeco.ui.carpentry.products.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" >
+        <action
+            android:id="@+id/action_productDetails_to_timeReportFragment"
+            app:destination="@id/timeReportFragment"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/timeReportFragment"
+        android:name="com.example.soeco.ui.carpentry.reports.TimeReportFragment"
+        android:label="fragment_time_report"
+        tools:layout="@layout/fragment_time_report" >
+        <action
+            android:id="@+id/action_timeReportFragment_to_productDetails"
+            app:destination="@id/productDetails"
+            app:popUpTo="@id/productDetails"
+            app:launchSingleTop="true" />
+    </fragment>
 </navigation>

@@ -24,7 +24,6 @@
             android:layout_marginRight="16dp"
             android:clickable="true"
             android:foreground="?selectableItemBackground"
-            card_view:cardBackgroundColor="@color/white"
             card_view:cardCornerRadius="16dp"
             card_view:cardElevation="8dp"
             card_view:contentPadding="10dp"
@@ -71,7 +70,6 @@
             android:layout_marginRight="16dp"
             android:clickable="true"
             android:foreground="?selectableItemBackground"
-            card_view:cardBackgroundColor="@color/white"
             card_view:cardCornerRadius="16dp"
             card_view:cardElevation="8dp"
             card_view:contentPadding="10dp"
@@ -98,7 +96,6 @@
                         android:gravity="center_vertical"
                         android:padding="6dp"
                         android:text="@string/order_customerContact"
-                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <Button
@@ -107,7 +104,6 @@
                         android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/call_button"
-                        android:textColor="@color/black"
                         android:visibility="visible"
                         card_view:cornerRadius="20dp" />
                 </LinearLayout>
@@ -126,7 +122,6 @@
                         android:gravity="center_vertical"
                         android:padding="6dp"
                         android:text="@string/order_customerAddress"
-                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <Button
@@ -135,7 +130,6 @@
                         android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/map_button"
-                        android:textColor="@color/black"
                         android:visibility="visible"
                         card_view:cornerRadius="20dp" />
                 </LinearLayout>
@@ -155,7 +149,6 @@
             android:layout_marginRight="16dp"
             android:clickable="true"
             android:foreground="?selectableItemBackground"
-            card_view:cardBackgroundColor="@color/white"
             card_view:cardCornerRadius="16dp"
             card_view:cardElevation="8dp"
             card_view:contentPadding="10dp"
@@ -205,7 +198,6 @@
                     android:gravity="center_vertical"
                     android:padding="6dp"
                     android:text="@string/order_report"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <Button
@@ -214,7 +206,6 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:text="@string/report_button"
-                    android:textColor="@color/black"
                     android:visibility="visible"
                     card_view:cornerRadius="20dp" />
 

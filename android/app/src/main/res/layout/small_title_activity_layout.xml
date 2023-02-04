@@ -4,8 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".MainActivity"
-android:background="@color/Green">
+android:background="@color/md_theme_light_primary">
 
 
 <ImageView
@@ -16,7 +15,6 @@ android:background="@color/Green">
     android:layout_centerHorizontal="true"
     android:layout_marginTop="2dp"
     android:layout_marginBottom="2dp"
-    android:background="@color/Green"
     android:scaleType="fitCenter"
     android:scaleX="0.9"
     android:scaleY="0.9"

@@ -17,11 +17,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentResetPaswordBinding
+import com.example.soeco.utils.ActionResult
 import com.example.soeco.utils.viewModelFactory
 
 class ResetPasswordFragment : Fragment() {
 
-    private val resetPasswordViewModel by viewModels<ResetPaswordViewModel> { viewModelFactory }
+    private val viewModel by viewModels<ResetPaswordViewModel> { viewModelFactory }
     private val navigation: NavController by lazy { findNavController() }
 
     private lateinit var binding: FragmentResetPaswordBinding
@@ -42,29 +43,11 @@ class ResetPasswordFragment : Fragment() {
 
         binding.btnSubmit.isEnabled = isPasswordValid(binding.etPassword.text)
 
-        // Observers
-        val navObserver = Observer<String> { destination ->
-            when(destination){
-                "login" -> {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        navigation.navigate(R.id.action_resetPasword_to_loginFragment)
-                    }, 1500)
-                }
-                "forgotPassword" -> {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        navigation.navigate(R.id.action_resetPasword_to_forgotPassword)
-                    }, 1500)
-                }
-            }
-        }
-
-        resetPasswordViewModel.shouldNavigateTo.observe(viewLifecycleOwner, navObserver)
-
-        resetPasswordViewModel.resultTextLiveData.observe(viewLifecycleOwner, Observer { message ->
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        viewModel.resetResult.observe(viewLifecycleOwner, Observer { result ->
+            handleResult(result)
         })
 
-        resetPasswordViewModel.isLoading.observe(viewLifecycleOwner, Observer { loading ->
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { loading ->
             if (loading){
                 binding.btnSubmit.visibility = View.INVISIBLE
                 binding.pbSpinner.visibility = View.VISIBLE
@@ -76,7 +59,7 @@ class ResetPasswordFragment : Fragment() {
 
         // Event Listeners
         binding.btnSubmit.setOnClickListener {
-            resetPasswordViewModel.resetPassword(
+            viewModel.resetPassword(
                 token.toString(),
                 tokenId.toString(),
                 binding.etPassword.text.toString()
@@ -94,6 +77,27 @@ class ResetPasswordFragment : Fragment() {
         token = intentData?.getQueryParameter("token")
         tokenId = intentData?.getQueryParameter("tokenId")
         Log.v("Intent data", "token: $token, tokenId: $tokenId")
+    }
+
+    private fun handleResult(result: ActionResult) {
+        val toast = Toast.makeText(context, viewModel.resultMessage.value, Toast.LENGTH_SHORT)
+        when(result){
+            is ActionResult.Success -> {
+                toast.show()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    navigation.navigate(R.id.action_resetPasword_to_loginFragment)
+                }, 1000)
+                viewModel.clearResult()
+            }
+            is ActionResult.Error -> {
+                toast.show()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    navigation.navigate(R.id.action_resetPasword_to_forgotPassword)
+                }, 1000)
+                viewModel.clearResult()
+            }
+            else -> {}
+        }
     }
 
     private fun isPasswordValid(target: CharSequence): Boolean{

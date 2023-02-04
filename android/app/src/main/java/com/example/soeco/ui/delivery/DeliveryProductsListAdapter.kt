@@ -31,12 +31,15 @@ internal class DeliveryProductsListAdapter(data: OrderedRealmCollection<Product_
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         val obj = getItem(position)
-        val textProductCount : TextView = holder.view.findViewById(R.id.product_count)
-        val textProductName : TextView = holder.view.findViewById(R.id.product_name)
+        val textNote : TextView = holder.view.findViewById(R.id.tvNotes)
+        val textID : TextView = holder.view.findViewById(R.id.tvProductId)
+        val textQuantity : TextView = holder.view.findViewById(R.id.tvQuantity)
         val checkBox : CheckBox = holder.view.findViewById(R.id.checkBox)
 
-        textProductCount.text = obj!!.count.toString()
-        textProductName.text = obj!!.name
+        textID.text = obj!!.product_id
+        textNote.text = obj!!.note
+        textQuantity.text = obj!!.count
+
         holder.data = obj
     }
 

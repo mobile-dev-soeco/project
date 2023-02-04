@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
     android:paddingBottom="100dp"
     tools:context=".ui.appinfo.CompanyInfoFragment">
 
@@ -22,7 +21,6 @@
             android:layout_marginBottom="15dp"
             android:gravity="center"
             android:text="@string/companyInfo_title"
-            android:textColor="@color/Green"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -33,7 +31,6 @@
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:text="@string/companyInfo_name"
-            android:textColor="@color/Green"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -43,7 +40,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/companyInfo_mobileNumber"
-            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -52,7 +48,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/companyInfo_email"
-            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -61,7 +56,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/companyInfo_address"
-            android:textColor="@color/black"
             android:textSize="16sp" />
 
     </LinearLayout>

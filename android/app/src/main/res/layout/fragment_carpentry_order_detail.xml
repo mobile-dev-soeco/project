@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ui.carpentry.CarpentryOrderDetailFragment">
 
 
@@ -20,7 +19,6 @@
             android:layout_marginVertical="30dp"
             android:gravity="center_horizontal"
             android:text="@string/order_number_"
-            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -34,7 +32,6 @@
             android:layout_marginRight="16dp"
             android:clickable="true"
             android:foreground="?selectableItemBackground"
-            card_view:cardBackgroundColor="@color/white"
             card_view:cardCornerRadius="16dp"
             card_view:cardElevation="8dp"
             card_view:contentPadding="10dp"
@@ -58,7 +55,6 @@
                         android:gravity="center_vertical"
                         android:padding="6dp"
                         android:text="@string/order_name_text"
-                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <TextView
@@ -70,7 +66,6 @@
                         android:padding="6dp"
                         android:text="@string/order_name"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/black"
                         android:textSize="16sp"
                         tools:ignore="RtlCompat" />
 
@@ -90,7 +85,6 @@
                         android:gravity="center_vertical"
                         android:padding="6dp"
                         android:text="@string/order_products"
-                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <Button
@@ -99,7 +93,6 @@
                         android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/view_button"
-                        android:textColor="@color/black"
                         android:visibility="visible"
                         card_view:cornerRadius="20dp" />
                 </LinearLayout>
@@ -117,7 +110,6 @@
                         android:gravity="center_vertical"
                         android:padding="6dp"
                         android:text="@string/order_materials"
-                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <Button
@@ -126,7 +118,6 @@
                         android:layout_height="50dp"
                         android:layout_weight="8"
                         android:text="@string/view_button"
-                        android:textColor="@color/black"
                         android:visibility="visible"
                         card_view:cornerRadius="20dp" />
                 </LinearLayout>
@@ -157,7 +148,6 @@
             android:layout_marginRight="16dp"
             android:clickable="true"
             android:foreground="?selectableItemBackground"
-            card_view:cardBackgroundColor="@color/white"
             card_view:cardCornerRadius="16dp"
             card_view:cardElevation="8dp"
             card_view:contentPadding="10dp"
@@ -176,7 +166,6 @@
                     android:gravity="center_vertical"
                     android:padding="6dp"
                     android:text="@string/order_report"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <Button
@@ -185,7 +174,6 @@
                     android:layout_height="50dp"
                     android:layout_weight="8"
                     android:text="@string/report_button"
-                    android:textColor="@color/black"
                     android:visibility="visible"
                     card_view:cornerRadius="20dp" />
 

@@ -11,6 +11,7 @@ import io.realm.RealmResults
 import io.realm.mongodb.AppException
 import io.realm.mongodb.User
 import java.time.LocalDateTime
+import org.bson.types.ObjectId
 
 interface Repository {
 
@@ -66,6 +67,8 @@ interface Repository {
 
     fun restoreLoggedInUser(): User?
 
+    fun getUserId(): String
+
     fun getOrder(id: String): Order_DB?
 
     fun getOrders(): RealmResults<Order_DB>
@@ -77,8 +80,6 @@ interface Repository {
     fun clearLocaleDb():Unit
 
     fun getMaterials(): RealmResults<Material_DB>
-
-
 
     fun getProductsDb(): RealmResults<Product_DB>
 
@@ -117,7 +118,11 @@ interface Repository {
 
     fun getDeviations(id: String, onSuccess: (List<Deviation>) -> Unit, onError: (Exception) -> Unit)
 
-    fun insertTimeReport(report: TimeReport, onSuccess: (List<TimeReport>) -> Unit, onError: (Exception) -> Unit)
+    fun insertTimeReport(report: TimeReport, onSuccess: () -> Unit, onError: (Exception) -> Unit)
 
     fun getTimeReports(id: String, onSuccess: (List<TimeReport>) -> Unit, onError: (Exception) -> Unit)
+
+    fun getUsersTimeReports(id: String, onSuccess: (List<TimeReport>) -> Unit, onError: (Exception) -> Unit)
+
+    fun deleteTimeReport(reportId: String, onSuccess: () -> Unit, onError: (Exception) -> Unit)
 }

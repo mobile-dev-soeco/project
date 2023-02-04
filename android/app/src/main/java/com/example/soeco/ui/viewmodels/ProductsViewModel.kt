@@ -15,10 +15,6 @@ class ProductsViewModel(
     fun getExpectedTime(orderNumber:String): String {
         return  repository.getExpectedTime(orderNumber)
     }
-    fun getProducts(): RealmResults<Product_DB> {
-        return  repository.getProductsDb()
-
-    }
 
     fun addProductReport(tradesmenReportDb: Tradesmen_Report_DB) {
             repository.addTradesmenReport(tradesmenReportDb)

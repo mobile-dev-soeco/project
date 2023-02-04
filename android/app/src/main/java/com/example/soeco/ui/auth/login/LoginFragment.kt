@@ -3,7 +3,6 @@ package com.example.soeco.ui.auth.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +14,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentLoginBinding
+import com.example.soeco.utils.ActionResult
 import com.example.soeco.utils.viewModelFactory
 
 class LoginFragment : Fragment() {
 
-    private val loginViewModel by viewModels<LoginViewModel> { viewModelFactory }
+    private val viewModel by viewModels<LoginViewModel> { viewModelFactory }
     private val navigation: NavController by lazy { findNavController() }
 
     private lateinit var binding: FragmentLoginBinding
@@ -46,8 +46,8 @@ class LoginFragment : Fragment() {
         }
 
         // Set up observers
-        loginViewModel.loginLiveData.observe(viewLifecycleOwner, Observer(::handleLoginResult))
-        loginViewModel.isLoading.observe(viewLifecycleOwner, loadingObserver)
+        viewModel.loginLiveData.observe(viewLifecycleOwner, Observer(::handleLoginResult))
+        viewModel.isLoading.observe(viewLifecycleOwner, loadingObserver)
 
         // Login button can not be clicked until user input is valid
         binding.btnLogin.isEnabled = isUserInputValid()
@@ -58,7 +58,7 @@ class LoginFragment : Fragment() {
 
         // Button click listeners
         binding.btnLogin.setOnClickListener {
-            loginViewModel.login(
+            viewModel.login(
                 binding.etEmail.text.toString(),
                 binding.etPassword.text.toString()
             )
@@ -72,7 +72,7 @@ class LoginFragment : Fragment() {
     /** Login logic **/
 
     private fun isUserInputValid() =
-        (isEmailValid(binding.etEmail.text) && isPasswordValid(binding.etPassword.text))
+        (isEmailValid(binding.etEmail.text.toString()) && isPasswordValid(binding.etPassword.text.toString()))
 
     private fun isEmailValid(target: CharSequence): Boolean{
         return target.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches()
@@ -94,15 +94,18 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun handleLoginResult(loginResult: LoginViewModel.LoginResult) {
-        when(loginResult){
-            is LoginViewModel.LoginResult.LoginSuccess -> {
-                Log.v("Login", "Login success")
+    private fun handleLoginResult(result: ActionResult) {
+        when(result){
+            is ActionResult.Success -> {
+                Toast.makeText(context, viewModel.loginResultMessage.value, Toast.LENGTH_SHORT).show()
                 navigation.navigate(R.id.action_loginFragment_to_authFragment)
+                viewModel.clearResult()
             }
-            is LoginViewModel.LoginResult.LoginError -> {
-                Log.v("Login", "Login failed")
+            is ActionResult.Error -> {
+                Toast.makeText(context, viewModel.loginResultMessage.value, Toast.LENGTH_SHORT).show()
+                viewModel.clearResult()
             }
+            else -> {}
         }
     }
 }

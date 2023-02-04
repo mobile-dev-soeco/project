@@ -1,4 +1,4 @@
-package com.example.soeco.ui.carpentry
+package com.example.soeco.ui.carpentry.materials
 
 import android.app.DatePickerDialog
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soeco.R
 import com.example.soeco.data.Models.DB_Models.Material_DB
 import com.example.soeco.data.Models.DB_Models.Material_Report_DB
+import com.example.soeco.ui.carpentry.CarpentryActivity
 import com.example.soeco.ui.viewmodels.MaterialsViewModel
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter

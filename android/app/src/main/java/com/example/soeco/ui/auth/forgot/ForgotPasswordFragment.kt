@@ -11,16 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.soeco.R
 import com.example.soeco.databinding.FragmentForgotPasswordBinding
 import com.example.soeco.utils.viewModelFactory
+import com.example.soeco.utils.ActionResult
 
 class ForgotPasswordFragment : Fragment() {
 
-    private val forgotPasswordViewModel by viewModels<ForgotPasswordViewModel> { viewModelFactory }
+    private val viewModel by viewModels<ForgotPasswordViewModel> { viewModelFactory }
     private val navigation: NavController by lazy { findNavController() }
 
     private lateinit var binding: FragmentForgotPasswordBinding
@@ -28,7 +28,7 @@ class ForgotPasswordFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return FragmentForgotPasswordBinding.inflate(inflater, container, false)
             .also { this.binding = it }
             .root
@@ -40,35 +40,45 @@ class ForgotPasswordFragment : Fragment() {
         binding.btnResetPassword.isEnabled = isEmailValid(binding.etEmail.text)
 
         // Observers
-        forgotPasswordViewModel.resultTextLiveData.observe(viewLifecycleOwner, Observer { message ->
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        })
+        viewModel.resultLiveData.observe(viewLifecycleOwner) { result ->
+            handleResult(result)
+        }
 
-        forgotPasswordViewModel.isLoading.observe(viewLifecycleOwner, Observer { loading ->
-            if(loading){
+        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
+            if (loading) {
                 binding.btnResetPassword.visibility = View.INVISIBLE
                 binding.pbSpinner.visibility = View.VISIBLE
             } else {
                 binding.btnResetPassword.visibility = View.VISIBLE
                 binding.pbSpinner.visibility = View.INVISIBLE
             }
-        })
-
-        forgotPasswordViewModel.shouldNavigate.observe(viewLifecycleOwner, Observer { isTrue ->
-            if (isTrue) {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    navigation.navigate(R.id.action_forgotPassword_to_loginFragment)
-                }, 1000)
-            }
-        })
+        }
 
         // Event Listeners
         binding.btnResetPassword.setOnClickListener {
-            forgotPasswordViewModel.sendPasswordResetEmail(binding.etEmail.text.toString())
+            viewModel.sendPasswordResetEmail(binding.etEmail.text.toString())
             binding.etEmail.setText("")
         }
 
         binding.etEmail.addTextChangedListener(inputWatcher)
+    }
+
+    private fun handleResult(result: ActionResult) {
+        val toast = Toast.makeText(context, viewModel.resultMessage.value, Toast.LENGTH_SHORT)
+        when(result){
+            is ActionResult.Success -> {
+                toast.show()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    navigation.navigate(R.id.action_forgotPassword_to_loginFragment)
+                }, 1000)
+                viewModel.clearResult()
+            }
+            is ActionResult.Error -> {
+                toast.show()
+                viewModel.clearResult()
+            }
+            else -> {}
+        }
     }
 
     private fun isEmailValid(target: CharSequence): Boolean{
@@ -86,5 +96,4 @@ class ForgotPasswordFragment : Fragment() {
             binding.btnResetPassword.isEnabled = isEmailValid(binding.etEmail.text)
         }
     }
-
 }
