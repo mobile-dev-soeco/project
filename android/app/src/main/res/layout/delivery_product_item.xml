@@ -13,18 +13,30 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/tvProductIdTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
-            android:text="ID"
+            android:paddingEnd="15dp"
+            android:text="Product_Nr"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvNameTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:text="Name"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tvQuantityTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tvProductIdTitle" />
 
         <TextView
             android:id="@+id/tvQuantityTitle"
@@ -35,7 +47,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tvNotesTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductIdTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNameTitle" />
 
         <TextView
             android:id="@+id/tvNotesTitle"
@@ -49,8 +61,22 @@
             app:layout_constraintTop_toBottomOf="@+id/tvQuantityTitle" />
 
         <TextView
+            android:id="@+id/tvCheckTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:paddingTop="15dp"
+
+            android:paddingBottom="15dp"
+            android:text="Done"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNotes" />
+
+        <TextView
             android:id="@+id/tvProductId"
             android:layout_width="0dp"
+            android:paddingStart="15dp"
             android:layout_height="wrap_content"
             android:text="d6373dbd7wwb22"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,16 +84,31 @@
             app:layout_constraintTop_toTopOf="@+id/tvProductIdTitle" />
 
         <TextView
-            android:id="@+id/tvQuantity"
+            android:id="@+id/tvName"
+            android:paddingStart="15dp"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/listAligner"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductIdTitle"
+            app:layout_constraintTop_toTopOf="@+id/tvNameTitle"
+            tools:text="name" />
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:paddingStart="15dp"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/listAligner"
+            app:layout_constraintTop_toTopOf="@+id/tvQuantityTitle"
             tools:text="5" />
 
         <TextView
             android:id="@+id/tvNotes"
+            android:paddingStart="15dp"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,9 +120,8 @@
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="128dp"
-            android:layout_marginTop="4dp"
-            android:padding="6dp"
+            android:layout_margin="0dp"
+            android:paddingStart="15dp"
             app:layout_constraintStart_toStartOf="@id/listAligner"
             app:layout_constraintTop_toBottomOf="@+id/tvNotes" />
 

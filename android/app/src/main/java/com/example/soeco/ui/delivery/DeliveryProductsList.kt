@@ -48,59 +48,10 @@ class DeliveryProductsList : Fragment() {
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = itemView.findViewById(R.id.recyclerView_products)
         val adapter = DeliveryProductsListAdapter(deliveryProductsViewModel.getProducts())
-        val button : Button = itemView.findViewById(R.id.button_delivery_reportTime)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = adapter
-        button.setOnClickListener{
-            confirm(itemView,recyclerView, adapter)
-        }
-        setTimePicker(itemView)
-    }
 
 
-
-    private fun confirm(view: View, recyclerView: RecyclerView, adapter: DeliveryProductsListAdapter){
-        val timeText: EditText = view.findViewById(R.id.editTextText_orderHours)
-        val time = timeText.text.toString()
-        val listOfChildren = recyclerView.children.toList()
-        val listOfSelected = RealmList<Product_DB>()
-        val listOfNotSelected = RealmList<Product_DB>()
-        val expectedTime = deliveryProductsViewModel.getExpectedTime(args.orderNumber)
-
-        for (i in listOfChildren.indices) {
-            val checkBox : CheckBox= listOfChildren[i].findViewById(R.id.checkBox)
-            if (checkBox.isChecked)
-                adapter.getItem(i)?.let { listOfSelected.add(it) }
-            else adapter.getItem(i)?.let { listOfNotSelected.add(it) }
-
-        }
-        deliveryProductsViewModel.addDeliveryReport(Delivery_Report_DB(time,listOfSelected,listOfNotSelected,expectedTime, args.orderNumber) )
-        navigation.popBackStack()
-
-
-
-
-    }
-    private fun setTimePicker(view :View){
-        val timeText: EditText = view.findViewById(R.id.editTextText_orderHours)
-        timeText.keyListener = null
-
-        val timePickerDialogListener: TimePickerDialog.OnTimeSetListener =
-            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                val newTime = "$hourOfDay tim :  $minute min"
-                timeText.setText(newTime)
-            }
-
-
-        timeText.setOnClickListener {
-            val timePicker: TimePickerDialog =
-                TimePickerDialog(view.context, timePickerDialogListener, 0, 0, true)
-            timePicker.show()
-        }
-        timeText.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) timeText.performClick()
-
-        }
     }
 }
 

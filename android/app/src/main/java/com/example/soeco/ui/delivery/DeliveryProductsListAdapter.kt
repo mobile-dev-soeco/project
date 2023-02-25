@@ -34,10 +34,11 @@ internal class DeliveryProductsListAdapter(data: OrderedRealmCollection<Product_
         val textNote : TextView = holder.view.findViewById(R.id.tvNotes)
         val textID : TextView = holder.view.findViewById(R.id.tvProductId)
         val textQuantity : TextView = holder.view.findViewById(R.id.tvQuantity)
+        val textName : TextView = holder.view.findViewById(R.id.tvName)
         val checkBox : CheckBox = holder.view.findViewById(R.id.checkBox)
-
-        textID.text = obj!!.product_id
+        textID.text = obj!!.product_nr
         textNote.text = obj!!.note
+        textName.text = obj!!.name
         textQuantity.text = obj!!.count
 
         holder.data = obj

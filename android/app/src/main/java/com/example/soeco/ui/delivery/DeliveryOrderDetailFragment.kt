@@ -47,7 +47,7 @@ class DeliveryOrderDetailFragment : Fragment() {
         val mapButton : Button = view.findViewById(R.id.button_delivery_orderCustomerAddress)
         val addressText: TextView = view.findViewById(R.id.textView_delivery_orderCustomerAddress)
 
-        val reportButton : Button = view.findViewById(R.id.button_delivery_reportDeviation)
+        val reportDeviationButton : Button = view.findViewById(R.id.button_delivery_reportDeviation)
         val order = OrderDetailsViewModel.getOrder(args.orderNumber)
         orderNumberTextView.text = args.orderNumber
         customerName.text =order?.companyName
@@ -62,7 +62,7 @@ class DeliveryOrderDetailFragment : Fragment() {
             navigation.navigate(action)
         }
 
-        reportButton.setOnClickListener {
+        reportDeviationButton.setOnClickListener {
             val action = DeliveryOrderDetailFragmentDirections.actionDeliveryOrderDetailFragmentToQuestionnaireCarpentry(args.orderNumber)
             navigation.navigate(action)
         }
