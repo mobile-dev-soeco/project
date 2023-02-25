@@ -10,6 +10,7 @@ open class Product_DB : RealmObject {
     var _id: ObjectId = ObjectId()
     @Required
     var product_id: String = ""
+    var product_nr: String = ""
     var name: String =""
     var orderNumber: String = ""
     var count: String = ""
@@ -17,6 +18,7 @@ open class Product_DB : RealmObject {
 
     constructor(
         product_id: String = "",
+        product_nr: String = "",
         name: String ="",
         orderNumber: String = "",
         count: String = "",
@@ -24,6 +26,7 @@ open class Product_DB : RealmObject {
 
     ) {
         this.product_id = product_id
+        this.product_nr = product_nr
         this.name = name
         this.orderNumber = orderNumber
         this.count = count

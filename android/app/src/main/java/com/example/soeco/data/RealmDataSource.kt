@@ -410,8 +410,7 @@ class RealmDataSource(context: Context) {
 
 
     private fun  convertProduct (fromApi: JSONObject, orderNumber: String): Product_DB {
-
-        return(Product_DB(fromApi.getString("idproducts"),
+        return(Product_DB(fromApi.getString("idproducts"),fromApi.getString("products_nr"),
             fromApi.getString("name"), orderNumber, fromApi.getString("count"),fromApi.getString("note")))
     }
 
